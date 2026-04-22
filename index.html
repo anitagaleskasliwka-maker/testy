@@ -31,8 +31,8 @@
 
     h1 {
       margin: 0 0 10px;
-      font-size: 48px;
-      line-height: 1.05;
+      font-size: 42px;
+      line-height: 1.08;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
@@ -459,15 +459,15 @@
 <body>
   <div class="page">
     <section class="card">
-      <h1>PRAWO W ZAWODACH MEDYCZNYCH</h1>
+      <h1>PRAWO W ZAWODACH MEDYCZNYCH – 75 PYTAŃ</h1>
       <div class="lead">
-        Nowa wersja testu z rzeczywistym wyborem działów. Możesz uruchomić cały test albo zaznaczyć tylko wybrane zagadnienia tematyczne.
+        Wersja z rzeczywistym wyborem działów. Każdy dział zawiera 15 pytań, czyli łącznie 75 pytań.
       </div>
 
       <div class="badges">
         <div class="badge blue">5 działów tematycznych</div>
-        <div class="badge green" id="questionCountBadge">25 pytań w puli</div>
-        <div class="badge orange">NOWA WERSJA Z WYBOREM DZIAŁÓW</div>
+        <div class="badge green" id="questionCountBadge">75 pytań w puli</div>
+        <div class="badge orange">NOWA WERSJA 15 PYTAŃ NA DZIAŁ</div>
       </div>
 
       <div class="mode-grid">
@@ -484,7 +484,7 @@
       <div class="topic-selector">
         <h3>Wybór działów tematycznych</h3>
         <div class="topic-help">
-          Zaznacz, z których działów chcesz wygenerować test. Jeśli nie wybierzesz nic, test się nie uruchomi.
+          Zaznacz, z których działów chcesz wygenerować test. Każdy dział zawiera dokładnie 15 pytań.
         </div>
 
         <div class="small-controls">
@@ -493,7 +493,7 @@
         </div>
 
         <div class="topic-choices" id="topicChoices"></div>
-        <div class="selection-summary" id="selectionSummary">Wybrano 5 działów, 25 pytań.</div>
+        <div class="selection-summary" id="selectionSummary">Wybrano 5 działów, 75 pytań.</div>
       </div>
 
       <div class="controls">
@@ -504,7 +504,7 @@
       </div>
 
       <div class="progress-row">
-        <div id="progressText">Postęp: 0 z 25</div>
+        <div id="progressText">Postęp: 0 z 0</div>
         <div id="pointsText">Punkty: 0</div>
       </div>
       <div class="progress-track">
@@ -531,7 +531,7 @@
       </div>
 
       <div class="footer-note">
-        To jest poprawiona wersja z prawdziwym wyborem działów. Jeśli przeglądarka pokaże starszą wersję, otwórz adres z dopiskiem <strong>?v=wybordzialow1</strong>.
+        To jest wersja z 15 pytaniami na każdy dział. Jeśli zobaczysz starszą wersję, otwórz stronę z dopiskiem <strong>?v=75pytan</strong>.
       </div>
     </section>
 
@@ -550,213 +550,6 @@
   </div>
 
   <script>
-    const fullQuestionBank = [
-      {
-        topic: "Prawa pacjenta",
-        topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
-        question: "Pacjent ma prawo do informacji o stanie zdrowia:",
-        options: ["udzielanej w sposób zrozumiały", "udzielanej wyłącznie rodzinie", "udzielanej tylko na piśmie"],
-        correct: 0,
-        explanation: "Informacja dla pacjenta powinna być przekazana w sposób przystępny i zrozumiały."
-      },
-      {
-        topic: "Prawa pacjenta",
-        topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
-        question: "Prawo do poszanowania godności pacjenta oznacza między innymi:",
-        options: ["obowiązek ignorowania jego zdania", "szacunek dla jego intymności i autonomii", "zakaz zadawania pytań o leczenie"],
-        correct: 1,
-        explanation: "Poszanowanie godności obejmuje także intymność, podmiotowe traktowanie i uwzględnianie autonomii pacjenta."
-      },
-      {
-        topic: "Prawa pacjenta",
-        topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
-        question: "Pacjent ma prawo do świadczeń zdrowotnych:",
-        options: ["zgodnych z aktualną wiedzą medyczną", "dowolnie przez siebie wybranych bez ograniczeń", "wyłącznie eksperymentalnych"],
-        correct: 0,
-        explanation: "Prawo pacjenta dotyczy świadczeń zgodnych z aktualną wiedzą medyczną."
-      },
-      {
-        topic: "Prawa pacjenta",
-        topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
-        question: "Prawo pacjenta do informacji obejmuje także:",
-        options: ["informację o proponowanych metodach leczenia i następstwach ich zastosowania lub zaniechania", "wyłącznie nazwę choroby", "tylko informacje po zakończeniu leczenia"],
-        correct: 0,
-        explanation: "Zakres informacji jest szerszy niż sama nazwa choroby i obejmuje również metody leczenia oraz ich skutki."
-      },
-      {
-        topic: "Prawa pacjenta",
-        topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
-        question: "Pacjent jako podmiot prawa medycznego powinien być traktowany:",
-        options: ["wyłącznie jako odbiorca poleceń", "przedmiotowo, dla sprawności leczenia", "podmiotowo, z poszanowaniem jego praw"],
-        correct: 2,
-        explanation: "Współczesne prawo medyczne opiera się na podmiotowym traktowaniu pacjenta."
-      },
-
-      {
-        topic: "Zgoda na świadczenia zdrowotne",
-        topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
-        question: "Świadoma zgoda pacjenta oznacza:",
-        options: ["zgodę wyrażoną po uzyskaniu odpowiednich informacji", "dowolny podpis pacjenta bez wyjaśnień", "zgodę zawsze dorozumianą"],
-        correct: 0,
-        explanation: "Zgoda jest świadoma tylko wtedy, gdy poprzedza ją odpowiednia informacja."
-      },
-      {
-        topic: "Zgoda na świadczenia zdrowotne",
-        topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
-        question: "Co do zasady świadczenie zdrowotne wymaga:",
-        options: ["wyłącznie zgody kierownika placówki", "zgody pacjenta", "zgody każdej osoby bliskiej"],
-        correct: 1,
-        explanation: "Zasadą jest uzyskanie zgody pacjenta na udzielenie świadczenia zdrowotnego."
-      },
-      {
-        topic: "Zgoda na świadczenia zdrowotne",
-        topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
-        question: "Zgoda ważna z punktu widzenia prawa powinna być:",
-        options: ["świadoma i dobrowolna", "udzielona pod naciskiem", "przypadkowa i nieprzemyślana"],
-        correct: 0,
-        explanation: "Wymóg dobrowolności i świadomości należy do podstaw ważnej zgody."
-      },
-      {
-        topic: "Zgoda na świadczenia zdrowotne",
-        topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
-        question: "Pacjent może odmówić leczenia:",
-        options: ["co do zasady tak, w granicach prawa", "nigdy", "wyłącznie po zgodzie lekarza"],
-        correct: 0,
-        explanation: "Autonomia pacjenta obejmuje również możliwość odmowy leczenia."
-      },
-      {
-        topic: "Zgoda na świadczenia zdrowotne",
-        topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
-        question: "Brak odpowiedniej informacji przed uzyskaniem zgody może oznaczać, że zgoda:",
-        options: ["ma charakter świadomy", "może być wadliwa", "automatycznie zastępuje dokumentację"],
-        correct: 1,
-        explanation: "Bez właściwej informacji trudno mówić o zgodzie świadomej."
-      },
-
-      {
-        topic: "Tajemnica i dokumentacja medyczna",
-        topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
-        question: "Tajemnica lekarska:",
-        options: ["nie obowiązuje", "obowiązuje z wyjątkami przewidzianymi prawem", "obowiązuje tylko w szpitalu"],
-        correct: 1,
-        explanation: "Tajemnica lekarska jest zasadą, ale przepisy przewidują określone wyjątki."
-      },
-      {
-        topic: "Tajemnica i dokumentacja medyczna",
-        topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
-        question: "Pacjent ma prawo dostępu do swojej dokumentacji medycznej:",
-        options: ["tak, na zasadach określonych w przepisach", "nie, nigdy", "wyłącznie po zgodzie sądu"],
-        correct: 0,
-        explanation: "Pacjent ma ustawowe prawo dostępu do własnej dokumentacji medycznej."
-      },
-      {
-        topic: "Tajemnica i dokumentacja medyczna",
-        topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
-        question: "Udostępnienie informacji o stanie zdrowia osobie bliskiej:",
-        options: ["może zależeć od zgody pacjenta lub podstawy prawnej", "jest zawsze obowiązkowe", "jest zawsze zakazane"],
-        correct: 0,
-        explanation: "Zakres ujawnienia informacji zależy od woli pacjenta i przepisów prawa."
-      },
-      {
-        topic: "Tajemnica i dokumentacja medyczna",
-        topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
-        question: "Dokumentacja medyczna:",
-        options: ["może być dowolnie rozpowszechniana", "podlega ochronie prawnej", "nie ma znaczenia dowodowego"],
-        correct: 1,
-        explanation: "Dokumentacja medyczna jest chroniona i ma istotne znaczenie prawne oraz dowodowe."
-      },
-      {
-        topic: "Tajemnica i dokumentacja medyczna",
-        topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
-        question: "Prawo do tajemnicy informacji związanych z pacjentem:",
-        options: ["przysługuje pacjentowi", "nie istnieje w polskim prawie", "dotyczy tylko danych administracyjnych"],
-        correct: 0,
-        explanation: "Pacjent ma prawo do ochrony informacji dotyczących jego osoby i stanu zdrowia."
-      },
-
-      {
-        topic: "Małoletni pacjent",
-        topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
-        question: "Małoletni pacjent:",
-        options: ["nigdy nie ma znaczenia przy podejmowaniu decyzji", "zawsze sam decyduje o wszystkim", "w określonych sytuacjach współuczestniczy w decyzjach"],
-        correct: 2,
-        explanation: "Udział małoletniego zależy od jego wieku, stopnia dojrzałości i rodzaju sprawy."
-      },
-      {
-        topic: "Małoletni pacjent",
-        topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
-        question: "W sprawach medycznych dotyczących małoletniego znaczenie może mieć:",
-        options: ["wyłącznie zdanie lekarza", "wiek i rozwój małoletniego", "jedynie interes placówki"],
-        correct: 1,
-        explanation: "Wiek i stopień rozwoju pacjenta małoletniego wpływają na zakres jego udziału."
-      },
-      {
-        topic: "Małoletni pacjent",
-        topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
-        question: "Udział małoletniego w decyzjach medycznych należy rozumieć jako:",
-        options: ["całkowite pominięcie jego stanowiska", "uwzględnienie go zawsze w identycznym zakresie", "udział zależny od sytuacji prawnej i faktycznej"],
-        correct: 2,
-        explanation: "Zakres udziału nie jest jednolity i zależy od konkretnego przypadku."
-      },
-      {
-        topic: "Małoletni pacjent",
-        topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
-        question: "W odniesieniu do małoletniego pacjenta prawo medyczne:",
-        options: ["całkowicie ignoruje jego dobro", "równoważy ochronę dziecka i jego udział w decyzjach", "zakłada wyłącznie decyzję administracyjną"],
-        correct: 1,
-        explanation: "Prawo stara się równoważyć ochronę małoletniego z poszanowaniem jego rozwijającej się autonomii."
-      },
-      {
-        topic: "Małoletni pacjent",
-        topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
-        question: "Stanowisko małoletniego pacjenta:",
-        options: ["zawsze jest prawnie obojętne", "może mieć znaczenie przy udzielaniu świadczeń zdrowotnych", "dotyczy wyłącznie spraw szkolnych"],
-        correct: 1,
-        explanation: "Stanowisko małoletniego może mieć znaczenie w zależności od typu świadczenia i jego sytuacji prawnej."
-      },
-
-      {
-        topic: "Organizacja świadczeń zdrowotnych",
-        topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
-        question: "Lekarz powinien komunikować się z pacjentem:",
-        options: ["w sposób zrozumiały", "wyłącznie hermetycznym językiem specjalistycznym", "bez obowiązku wyjaśniania"],
-        correct: 0,
-        explanation: "Komunikacja medyczna powinna być dostosowana do odbiorcy i dla niego zrozumiała."
-      },
-      {
-        topic: "Organizacja świadczeń zdrowotnych",
-        topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
-        question: "Udzielanie świadczeń zdrowotnych powinno być zgodne:",
-        options: ["wyłącznie z przyzwyczajeniem personelu", "z aktualną wiedzą medyczną i prawem", "z oczekiwaniami dowolnych osób trzecich"],
-        correct: 1,
-        explanation: "Prawidłowe udzielanie świadczeń wymaga zgodności z prawem i aktualną wiedzą medyczną."
-      },
-      {
-        topic: "Organizacja świadczeń zdrowotnych",
-        topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
-        question: "Prawidłowa organizacja świadczeń zdrowotnych powinna uwzględniać:",
-        options: ["prawa pacjenta", "wyłącznie wygodę placówki", "wyłącznie interes ekonomiczny"],
-        correct: 0,
-        explanation: "Organizacja świadczeń nie może abstrahować od praw pacjenta."
-      },
-      {
-        topic: "Organizacja świadczeń zdrowotnych",
-        topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
-        question: "Autonomia pacjenta w praktyce oznacza:",
-        options: ["uwzględnianie jego decyzji w granicach prawa", "całkowite podporządkowanie personelu każdemu żądaniu", "brak obowiązku informacyjnego"],
-        correct: 0,
-        explanation: "Autonomia nie jest absolutna, ale wymaga respektowania decyzji pacjenta w granicach prawa."
-      },
-      {
-        topic: "Organizacja świadczeń zdrowotnych",
-        topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
-        question: "Relacja personelu medycznego z pacjentem powinna opierać się na:",
-        options: ["wyłącznie hierarchii i dystansie", "szacunku, informacji i legalności działania", "domniemaniu, że pacjent nie ma praw"],
-        correct: 1,
-        explanation: "Prawidłowa relacja medyczna opiera się na legalności, komunikacji i szacunku dla pacjenta."
-      }
-    ];
-
     const topicDescriptions = {
       "Prawa pacjenta": "Podstawowe uprawnienia pacjenta związane z informacją, godnością i statusem podmiotowym.",
       "Zgoda na świadczenia zdrowotne": "Świadoma zgoda, odmowa leczenia i relacja między informacją a autonomią.",
@@ -765,7 +558,110 @@
       "Organizacja świadczeń zdrowotnych": "Zasady udzielania świadczeń i komunikacji zgodnie z prawem oraz wiedzą medyczną."
     };
 
-    const allTopics = Object.keys(topicDescriptions);
+    function q(topic, question, options, correct, explanation) {
+      return {
+        topic,
+        topicDescription: topicDescriptions[topic],
+        question,
+        options,
+        correct,
+        explanation
+      };
+    }
+
+    const questionBankByTopic = {
+      "Prawa pacjenta": [
+        q("Prawa pacjenta","Pacjent ma prawo do informacji o stanie zdrowia:",["udzielanej w sposób zrozumiały","udzielanej wyłącznie rodzinie","udzielanej tylko na piśmie"],0,"Informacja powinna być przekazana w sposób przystępny i zrozumiały."),
+        q("Prawa pacjenta","Prawo do poszanowania godności pacjenta oznacza między innymi:",["obowiązek ignorowania jego zdania","szacunek dla jego intymności i autonomii","zakaz zadawania pytań o leczenie"],1,"Poszanowanie godności obejmuje intymność i podmiotowe traktowanie pacjenta."),
+        q("Prawa pacjenta","Pacjent ma prawo do świadczeń zdrowotnych:",["zgodnych z aktualną wiedzą medyczną","dowolnie przez siebie wybranych bez ograniczeń","wyłącznie eksperymentalnych"],0,"Prawo pacjenta dotyczy świadczeń zgodnych z aktualną wiedzą medyczną."),
+        q("Prawa pacjenta","Prawo pacjenta do informacji obejmuje także:",["informację o proponowanych metodach leczenia i następstwach ich zastosowania lub zaniechania","wyłącznie nazwę choroby","tylko informacje po zakończeniu leczenia"],0,"Zakres informacji obejmuje również metody leczenia i ich skutki."),
+        q("Prawa pacjenta","Pacjent jako podmiot prawa medycznego powinien być traktowany:",["wyłącznie jako odbiorca poleceń","przedmiotowo, dla sprawności leczenia","podmiotowo, z poszanowaniem jego praw"],2,"Prawo medyczne opiera się na podmiotowym traktowaniu pacjenta."),
+        q("Prawa pacjenta","Prawo do intymności pacjenta oznacza, że:",["czynności medyczne mogą być wykonywane przy dowolnej liczbie osób","należy ograniczać obecność osób niekoniecznych przy udzielaniu świadczenia","pacjent nie może pytać o obecność osób trzecich"],1,"Poszanowanie intymności wymaga ograniczenia obecności osób zbędnych."),
+        q("Prawa pacjenta","Pacjent ma prawo do wyrażenia zgody lub sprzeciwu wobec:",["udzielania informacji wskazanym osobom","prowadzenia dokumentacji medycznej","istnienia personelu medycznego"],0,"Pacjent może decydować o kręgu osób uprawnionych do informacji."),
+        q("Prawa pacjenta","Prawo pacjenta do informacji dotyczy także:",["rokowania","wyłącznie kosztów leczenia","wyłącznie godzin pracy placówki"],0,"Informacja medyczna obejmuje również rokowanie."),
+        q("Prawa pacjenta","Pacjent ma prawo do dostępu do dokumentacji, ponieważ:",["jest ona wyłącznie własnością lekarza","dotyczy jego osoby i przebiegu leczenia","może służyć tylko celom administracyjnym placówki"],1,"Dokumentacja dotyczy przebiegu leczenia pacjenta."),
+        q("Prawa pacjenta","Prawo do poszanowania życia prywatnego pacjenta jest związane z:",["obowiązkiem ujawniania danych każdej osobie bliskiej","ochroną sfery osobistej i poufności","brakiem prawa do pytań o leczenie"],1,"Prywatność obejmuje ochronę danych i sfery osobistej pacjenta."),
+        q("Prawa pacjenta","Pacjent może oczekiwać od personelu medycznego:",["komunikacji zrozumiałej i rzetelnej","wyłącznie języka specjalistycznego","braku wyjaśnień przy prostych zabiegach"],0,"Rzetelna i zrozumiała komunikacja należy do standardów praw pacjenta."),
+        q("Prawa pacjenta","Prawo pacjenta do informacji nie oznacza:",["możliwości zadawania pytań","obowiązku zrozumiałego tłumaczenia sytuacji","uprawnienia do otrzymania wyłącznie jednej krótkiej odpowiedzi bez rozwinięcia"],2,"Prawo do informacji wymaga realnego i zrozumiałego przekazu."),
+        q("Prawa pacjenta","Pacjent ma prawo do poszanowania godności także podczas:",["czynności pielęgnacyjnych i diagnostycznych","wyłącznie zabiegów operacyjnych","wyłącznie wizyty lekarskiej"],0,"Godność i intymność powinny być szanowane przy wszelkich czynnościach."),
+        q("Prawa pacjenta","Prawo do informacji służy przede wszystkim:",["umożliwieniu świadomego udziału pacjenta w decyzjach","wyeliminowaniu kontaktu z personelem","ograniczeniu autonomii pacjenta"],0,"Informacja jest warunkiem świadomego udziału pacjenta w procesie leczenia."),
+        q("Prawa pacjenta","Pacjent ma prawo znać:",["rozpoznanie i proponowane metody postępowania","wyłącznie nazwisko lekarza","wyłącznie adres placówki"],0,"Informacja medyczna obejmuje rozpoznanie i proponowane działania.")
+      ],
+
+      "Zgoda na świadczenia zdrowotne": [
+        q("Zgoda na świadczenia zdrowotne","Świadoma zgoda pacjenta oznacza:",["zgodę wyrażoną po uzyskaniu odpowiednich informacji","dowolny podpis pacjenta bez wyjaśnień","zgodę zawsze dorozumianą"],0,"Zgoda jest świadoma tylko wtedy, gdy poprzedza ją odpowiednia informacja."),
+        q("Zgoda na świadczenia zdrowotne","Co do zasady świadczenie zdrowotne wymaga:",["wyłącznie zgody kierownika placówki","zgody pacjenta","zgody każdej osoby bliskiej"],1,"Zasadą jest uzyskanie zgody pacjenta."),
+        q("Zgoda na świadczenia zdrowotne","Zgoda ważna z punktu widzenia prawa powinna być:",["świadoma i dobrowolna","udzielona pod naciskiem","przypadkowa i nieprzemyślana"],0,"Dobrowolność i świadomość to podstawowe cechy prawidłowej zgody."),
+        q("Zgoda na świadczenia zdrowotne","Pacjent może odmówić leczenia:",["co do zasady tak, w granicach prawa","nigdy","wyłącznie po zgodzie lekarza"],0,"Autonomia pacjenta obejmuje możliwość odmowy leczenia."),
+        q("Zgoda na świadczenia zdrowotne","Brak odpowiedniej informacji przed uzyskaniem zgody może oznaczać, że zgoda:",["ma charakter świadomy","może być wadliwa","automatycznie zastępuje dokumentację"],1,"Bez właściwej informacji trudno mówić o zgodzie świadomej."),
+        q("Zgoda na świadczenia zdrowotne","Warunkiem świadomej zgody jest:",["odpowiedni poziom informacji","wyłącznie obecność świadka","jedynie podpis na formularzu"],0,"Sama forma nie wystarcza bez przekazania informacji."),
+        q("Zgoda na świadczenia zdrowotne","Dobrowolność zgody oznacza brak:",["presji i przymusu","jakiejkolwiek rozmowy","dokumentacji"],0,"Zgoda udzielona pod naciskiem nie jest w pełni dobrowolna."),
+        q("Zgoda na świadczenia zdrowotne","Zgoda pacjenta służy ochronie:",["jego autonomii","wyłącznie interesu placówki","wyłącznie statystyki leczenia"],0,"Instytucja zgody chroni autonomię i samostanowienie pacjenta."),
+        q("Zgoda na świadczenia zdrowotne","Pacjent, który nie rozumie przekazanych informacji:",["zawsze skutecznie wyraża zgodę","może nie wyrażać zgody świadomej","automatycznie zgadza się dorozumianie"],1,"Zrozumienie informacji jest warunkiem świadomej zgody."),
+        q("Zgoda na świadczenia zdrowotne","Prawo do odmowy świadczenia zdrowotnego wiąże się z:",["autonomią pacjenta","brakiem znaczenia zgody","wyłącznie decyzją administracyjną"],0,"Możliwość odmowy jest konsekwencją autonomii pacjenta."),
+        q("Zgoda na świadczenia zdrowotne","Zgoda pacjenta nie powinna być:",["udzielona po informacji","udzielona w sposób dobrowolny","udzielona pod wpływem nacisku"],2,"Presja osłabia dobrowolność zgody."),
+        q("Zgoda na świadczenia zdrowotne","W procesie uzyskiwania zgody istotne jest:",["wyjaśnienie celu świadczenia","pominięcie ryzyka","ograniczenie informacji do minimum bez znaczenia"],0,"Pacjent powinien znać cel i charakter świadczenia."),
+        q("Zgoda na świadczenia zdrowotne","Zgoda pacjenta ma znaczenie przed:",["udzieleniem świadczenia","zawsze dopiero po świadczeniu","wyłącznie wypisem"],0,"Zgoda co do zasady poprzedza udzielenie świadczenia."),
+        q("Zgoda na świadczenia zdrowotne","Pacjent podejmuje decyzję o zgodzie po uzyskaniu:",["informacji o rozpoznaniu i metodach leczenia","wyłącznie informacji o godzinie wizyty","jedynie danych o parkingu"],0,"Zakres informacji medycznej musi umożliwić decyzję."),
+        q("Zgoda na świadczenia zdrowotne","Świadoma zgoda nie polega na:",["aktywnym zrozumieniu przekazu","mechanicznym podpisaniu formularza bez rozmowy","dobrowolnym podjęciu decyzji"],1,"Podpis bez rzeczywistej informacji nie daje pełnej zgody świadomej.")
+      ],
+
+      "Tajemnica i dokumentacja medyczna": [
+        q("Tajemnica i dokumentacja medyczna","Tajemnica lekarska:",["nie obowiązuje","obowiązuje z wyjątkami przewidzianymi prawem","obowiązuje tylko w szpitalu"],1,"Tajemnica lekarska jest zasadą, ale istnieją wyjątki ustawowe."),
+        q("Tajemnica i dokumentacja medyczna","Pacjent ma prawo dostępu do swojej dokumentacji medycznej:",["tak, na zasadach określonych w przepisach","nie, nigdy","wyłącznie po zgodzie sądu"],0,"Pacjent ma ustawowe prawo dostępu do dokumentacji."),
+        q("Tajemnica i dokumentacja medyczna","Udostępnienie informacji o stanie zdrowia osobie bliskiej:",["może zależeć od zgody pacjenta lub podstawy prawnej","jest zawsze obowiązkowe","jest zawsze zakazane"],0,"Zakres ujawnienia informacji zależy od woli pacjenta i prawa."),
+        q("Tajemnica i dokumentacja medyczna","Dokumentacja medyczna:",["może być dowolnie rozpowszechniana","podlega ochronie prawnej","nie ma znaczenia dowodowego"],1,"Dokumentacja ma znaczenie prawne i jest chroniona."),
+        q("Tajemnica i dokumentacja medyczna","Prawo do tajemnicy informacji związanych z pacjentem:",["przysługuje pacjentowi","nie istnieje w polskim prawie","dotyczy tylko danych administracyjnych"],0,"Pacjent ma prawo do ochrony informacji o sobie i swoim zdrowiu."),
+        q("Tajemnica i dokumentacja medyczna","Tajemnica zawodowa chroni przede wszystkim:",["informacje o stanie zdrowia i leczeniu","wyłącznie nazwę placówki","jedynie grafik pracy"],0,"Zakres tajemnicy obejmuje informacje związane z pacjentem."),
+        q("Tajemnica i dokumentacja medyczna","Dokumentacja medyczna może być ważna jako:",["środek dowodowy","wyłącznie materiał marketingowy","zbędny załącznik"],0,"Dokumentacja ma znaczenie także dowodowe."),
+        q("Tajemnica i dokumentacja medyczna","Pacjent może żądać dostępu do dokumentacji, ponieważ:",["dotyczy ona jego osoby","dokumentacja należy wyłącznie do administracji","nie ma związku z jego prawami"],0,"Dokumentacja dotyczy przebiegu leczenia pacjenta."),
+        q("Tajemnica i dokumentacja medyczna","Ujawnienie informacji objętych tajemnicą:",["może wymagać podstawy prawnej","jest zawsze dopuszczalne","nie ma znaczenia"],0,"Dla ujawnienia informacji potrzebna jest odpowiednia podstawa."),
+        q("Tajemnica i dokumentacja medyczna","Ochrona dokumentacji medycznej służy:",["ochronie prywatności pacjenta","wyłącznie wygodzie personelu","unikaniu kontaktu z pacjentem"],0,"Dokumentacja zawiera dane wrażliwe i wymaga ochrony."),
+        q("Tajemnica i dokumentacja medyczna","Pacjent ma prawo do poufności informacji dotyczących:",["jego zdrowia i leczenia","wyłącznie adresu placówki","wyłącznie numeru sali"],0,"Poufność obejmuje informacje medyczne dotyczące pacjenta."),
+        q("Tajemnica i dokumentacja medyczna","Tajemnica medyczna obowiązuje także po:",["zakończeniu leczenia","każdej zmianie grafiku","wyłącznie wypisie"],0,"Obowiązek zachowania tajemnicy nie kończy się automatycznie wraz z leczeniem."),
+        q("Tajemnica i dokumentacja medyczna","Prawo dostępu do dokumentacji nie oznacza:",["dowolnego publicznego rozpowszechniania przez placówkę","możliwości zapoznania się z informacjami o leczeniu","znaczenia prawnego dokumentacji"],0,"Dostęp pacjenta nie daje placówce prawa do swobodnego rozpowszechniania danych."),
+        q("Tajemnica i dokumentacja medyczna","Dane o stanie zdrowia pacjenta są:",["szczególnie chronione","zawsze publiczne","bez znaczenia prawnego"],0,"Informacje o zdrowiu należą do danych szczególnie chronionych."),
+        q("Tajemnica i dokumentacja medyczna","Dokumentacja medyczna powinna być prowadzona:",["rzetelnie i z poszanowaniem przepisów","dowolnie i niesystematycznie","wyłącznie ustnie"],0,"Prowadzenie dokumentacji podlega wymogom prawnym i organizacyjnym.")
+      ],
+
+      "Małoletni pacjent": [
+        q("Małoletni pacjent","Małoletni pacjent:",["nigdy nie ma znaczenia przy podejmowaniu decyzji","zawsze sam decyduje o wszystkim","w określonych sytuacjach współuczestniczy w decyzjach"],2,"Udział małoletniego zależy od jego wieku i sytuacji."),
+        q("Małoletni pacjent","W sprawach medycznych dotyczących małoletniego znaczenie może mieć:",["wyłącznie zdanie lekarza","wiek i rozwój małoletniego","jedynie interes placówki"],1,"Wiek i rozwój wpływają na zakres udziału dziecka."),
+        q("Małoletni pacjent","Udział małoletniego w decyzjach medycznych należy rozumieć jako:",["całkowite pominięcie jego stanowiska","uwzględnienie go zawsze w identycznym zakresie","udział zależny od sytuacji prawnej i faktycznej"],2,"Zakres udziału nie jest jednakowy w każdym przypadku."),
+        q("Małoletni pacjent","W odniesieniu do małoletniego pacjenta prawo medyczne:",["całkowicie ignoruje jego dobro","równoważy ochronę dziecka i jego udział w decyzjach","zakłada wyłącznie decyzję administracyjną"],1,"Prawo stara się równoważyć ochronę i rozwijającą się autonomię."),
+        q("Małoletni pacjent","Stanowisko małoletniego pacjenta:",["zawsze jest prawnie obojętne","może mieć znaczenie przy udzielaniu świadczeń zdrowotnych","dotyczy wyłącznie spraw szkolnych"],1,"Stanowisko małoletniego może mieć znaczenie zależnie od sprawy."),
+        q("Małoletni pacjent","Dobro małoletniego pacjenta:",["jest istotnym kryterium decyzji","nie ma znaczenia","zawsze ustępuje wygodzie placówki"],0,"Dobro małoletniego jest podstawowym kryterium w sprawach medycznych."),
+        q("Małoletni pacjent","Wiek małoletniego pacjenta wpływa na:",["zakres jego udziału w decyzjach","brak jakiegokolwiek prawa do informacji","obowiązek całkowitego milczenia personelu"],0,"Wiek i dojrzałość mają znaczenie dla jego udziału."),
+        q("Małoletni pacjent","Małoletni pacjent nie powinien być:",["automatycznie pomijany w rozmowie o leczeniu","traktowany adekwatnie do swojej dojrzałości","informowany w sposób dostosowany"],0,"Pomijanie małoletniego może być niezgodne z jego dobrem i podmiotowością."),
+        q("Małoletni pacjent","Prawo medyczne w odniesieniu do małoletniego pacjenta uwzględnia:",["jego rozwijającą się autonomię","wyłącznie interes formalny dokumentów","brak potrzeby jakiejkolwiek komunikacji"],0,"Autonomia małoletniego rozwija się stopniowo i jest prawnie relewantna."),
+        q("Małoletni pacjent","Małoletni pacjent może potrzebować informacji:",["dostosowanej do wieku i możliwości rozumienia","wyłącznie w języku skrajnie specjalistycznym","wyłącznie po zakończeniu leczenia"],0,"Informacja powinna być dostosowana do odbiorcy."),
+        q("Małoletni pacjent","Ochrona małoletniego pacjenta oznacza także:",["szacunek dla jego sytuacji i potrzeb","całkowity brak rozmowy z nim","obowiązkowe pomijanie go przy badaniu"],0,"Ochrona dziecka nie wyklucza komunikacji i poszanowania jego potrzeb."),
+        q("Małoletni pacjent","Zakres udziału małoletniego pacjenta zależy między innymi od:",["rodzaju decyzji medycznej","koloru dokumentacji","ilości personelu na dyżurze"],0,"Istotny jest charakter i ciężar decyzji medycznej."),
+        q("Małoletni pacjent","Stanowisko małoletniego w sprawach zdrowotnych:",["może być elementem procesu decyzyjnego","jest zawsze pozbawione znaczenia","nie może być wysłuchane"],0,"Prawo nie zakłada automatycznego ignorowania dziecka."),
+        q("Małoletni pacjent","Małoletni pacjent powinien być traktowany:",["z uwzględnieniem wieku i dojrzałości","identycznie jak każdy dorosły bez wyjątków","wyłącznie jako przedmiot opieki"],0,"Podejście do dziecka wymaga uwzględnienia jego etapu rozwoju."),
+        q("Małoletni pacjent","Relacja z małoletnim pacjentem powinna opierać się na:",["ochronie i komunikacji dostosowanej do wieku","wyłącznie formalnych poleceniach","pomijaniu jego reakcji"],0,"Dziecko wymaga zarówno ochrony, jak i adekwatnej komunikacji.")
+      ],
+
+      "Organizacja świadczeń zdrowotnych": [
+        q("Organizacja świadczeń zdrowotnych","Lekarz powinien komunikować się z pacjentem:",["w sposób zrozumiały","wyłącznie hermetycznym językiem specjalistycznym","bez obowiązku wyjaśniania"],0,"Komunikacja medyczna powinna być zrozumiała."),
+        q("Organizacja świadczeń zdrowotnych","Udzielanie świadczeń zdrowotnych powinno być zgodne:",["wyłącznie z przyzwyczajeniem personelu","z aktualną wiedzą medyczną i prawem","z oczekiwaniami dowolnych osób trzecich"],1,"Świadczenia powinny być zgodne z prawem i aktualną wiedzą medyczną."),
+        q("Organizacja świadczeń zdrowotnych","Prawidłowa organizacja świadczeń zdrowotnych powinna uwzględniać:",["prawa pacjenta","wyłącznie wygodę placówki","wyłącznie interes ekonomiczny"],0,"Organizacja świadczeń nie może abstrahować od praw pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Autonomia pacjenta w praktyce oznacza:",["uwzględnianie jego decyzji w granicach prawa","całkowite podporządkowanie personelu każdemu żądaniu","brak obowiązku informacyjnego"],0,"Autonomia nie jest absolutna, ale wymaga poszanowania decyzji pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Relacja personelu medycznego z pacjentem powinna opierać się na:",["wyłącznie hierarchii i dystansie","szacunku, informacji i legalności działania","domniemaniu, że pacjent nie ma praw"],1,"Relacja medyczna powinna opierać się na szacunku i legalności."),
+        q("Organizacja świadczeń zdrowotnych","Świadczenia zdrowotne powinny być organizowane tak, aby:",["umożliwiać poszanowanie praw pacjenta","ograniczać informacje do minimum","pomijać znaczenie zgody"],0,"Organizacja powinna wspierać realizację praw pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Właściwa organizacja pracy w ochronie zdrowia powinna sprzyjać:",["bezpieczeństwu i komunikacji","chaotycznemu przekazywaniu danych","dowolności działań bez podstawy prawnej"],0,"Bezpieczeństwo i dobra organizacja są podstawowymi wartościami."),
+        q("Organizacja świadczeń zdrowotnych","Legalność działania personelu medycznego oznacza zgodność:",["z przepisami prawa i standardami medycznymi","wyłącznie z życzeniem pacjenta","wyłącznie z praktyką przyjętą lokalnie"],0,"Legalność wymaga podstawy prawnej i zgodności z wiedzą medyczną."),
+        q("Organizacja świadczeń zdrowotnych","W praktyce medycznej komunikacja z pacjentem jest ważna, ponieważ:",["wpływa na zrozumienie leczenia i podejmowanie decyzji","nie ma wpływu na prawa pacjenta","służy wyłącznie formalnościom"],0,"Dobra komunikacja wspiera świadome decyzje pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Prawidłowe udzielanie świadczeń zakłada:",["respektowanie praw pacjenta","brak potrzeby dokumentowania działań","dowolność niezależnie od standardów"],0,"Prawidłowe udzielanie świadczeń wymaga respektowania praw pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Organizacja świadczeń zdrowotnych nie powinna prowadzić do:",["naruszania intymności pacjenta","zrozumiałej komunikacji","rzetelnego działania"],0,"Organizacja nie może usprawiedliwiać naruszeń praw pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Pacjent w systemie ochrony zdrowia powinien być postrzegany jako:",["podmiot praw","przeszkoda organizacyjna","wyłącznie odbiorca poleceń"],0,"Pacjent jest podmiotem praw, a nie wyłącznie adresatem poleceń."),
+        q("Organizacja świadczeń zdrowotnych","Świadczenia zgodne z aktualną wiedzą medyczną to świadczenia:",["oparte na aktualnych standardach i wiedzy","dowolnie ustalane bez podstawy merytorycznej","wyłącznie eksperymentalne"],0,"Aktualna wiedza medyczna wyznacza standard należytego postępowania."),
+        q("Organizacja świadczeń zdrowotnych","Dobra organizacja świadczeń zdrowotnych powinna ułatwiać:",["dostęp do informacji i realizację praw pacjenta","ukrywanie decyzji przed pacjentem","rezygnację z komunikacji"],0,"Organizacja powinna wspierać prawa pacjenta."),
+        q("Organizacja świadczeń zdrowotnych","Respektowanie autonomii pacjenta w organizacji leczenia oznacza:",["umożliwienie mu realnego udziału w decyzjach","zastąpienie go całkowicie przez personel","brak rozmowy o leczeniu"],0,"Pacjent powinien realnie uczestniczyć w decyzjach dotyczących leczenia.")
+      ]
+    };
+
+    const allTopics = Object.keys(questionBankByTopic);
 
     let selectedTopics = [...allTopics];
     let questions = [];
@@ -783,7 +679,7 @@
         label.className = "topic-choice" + (selectedTopics.includes(topic) ? " active" : "");
 
         label.innerHTML = `
-          <input type="checkbox" ${selectedTopics.includes(topic) ? "checked" : ""} data-topic="${escapeHtml(topic)}">
+          <input type="checkbox" ${selectedTopics.includes(topic) ? "checked" : ""}>
           <div>
             <div class="topic-choice-title">${topic}</div>
             <div class="topic-choice-desc">${topicDescriptions[topic]}</div>
@@ -809,12 +705,12 @@
 
     function updateTopicSelectorState() {
       const labels = document.querySelectorAll(".topic-choice");
-      labels.forEach(label => {
-        const input = label.querySelector("input");
-        label.classList.toggle("active", input.checked);
+      labels.forEach((label, index) => {
+        const topic = allTopics[index];
+        label.classList.toggle("active", selectedTopics.includes(topic));
       });
 
-      const count = fullQuestionBank.filter(q => selectedTopics.includes(q.topic)).length;
+      const count = selectedTopics.reduce((sum, topic) => sum + questionBankByTopic[topic].length, 0);
       document.getElementById("selectionSummary").textContent =
         selectedTopics.length
           ? `Wybrano ${selectedTopics.length} działów, ${count} pytań.`
@@ -844,7 +740,7 @@
     }
 
     function prepareQuestionsFromSelection() {
-      return fullQuestionBank.filter(q => selectedTopics.includes(q.topic));
+      return selectedTopics.flatMap(topic => questionBankByTopic[topic]);
     }
 
     function groupByTopic(items) {
@@ -1113,7 +1009,7 @@
     }
 
     function saveProgress() {
-      localStorage.setItem("medlaw_quiz_state_topics_select_v1", JSON.stringify({
+      localStorage.setItem("medlaw_quiz_state_topics_select_v75", JSON.stringify({
         selectedTopics,
         questions,
         mode,
@@ -1123,7 +1019,7 @@
     }
 
     function loadProgress() {
-      const raw = localStorage.getItem("medlaw_quiz_state_topics_select_v1");
+      const raw = localStorage.getItem("medlaw_quiz_state_topics_select_v75");
       if (!raw) {
         alert("Brak zapisanego testu.");
         return;
@@ -1150,22 +1046,13 @@
     }
 
     function clearSaved() {
-      localStorage.removeItem("medlaw_quiz_state_topics_select_v1");
+      localStorage.removeItem("medlaw_quiz_state_topics_select_v75");
       answers = {};
       submitted = {};
       questions = [];
       document.getElementById("finalInfo").textContent = "Usunięto zapis testu.";
       document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
       renderQuestions();
-    }
-
-    function escapeHtml(text) {
-      return text
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
     }
 
     buildTopicSelector();
