@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Test – prawo medyczne</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .question { margin-bottom: 20px; }
+        button { padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
 
+<h1>Test – prawo medyczne</h1>
+
+<form id="quiz">
+
+<div class="question">
+    <p>1. Pacjent ma prawo do:</p>
+    <label><input type="radio" name="q1" value="a"> informacji</label><br>
+    <label><input type="radio" name="q1" value="b"> milczenia lekarza</label><br>
+    <label><input type="radio" name="q1" value="c"> odmowy leczenia bez konsekwencji</label>
+</div>
+
+<div class="question">
+    <p>2. Świadoma zgoda oznacza:</p>
+    <label><input type="radio" name="q2" value="a"> podpis bez informacji</label><br>
+    <label><input type="radio" name="q2" value="b"> zgodę po uzyskaniu informacji</label><br>
+    <label><input type="radio" name="q2" value="c"> zgodę ustną zawsze wystarczającą</label>
+</div>
+
+<div class="question">
+    <p>3. Tajemnica lekarska:</p>
+    <label><input type="radio" name="q3" value="a"> nie obowiązuje</label><br>
+    <label><input type="radio" name="q3" value="b"> obowiązuje zawsze</label><br>
+    <label><input type="radio" name="q3" value="c"> obowiązuje z wyjątkami</label>
+</div>
+
+<button type="button" onclick="checkAnswers()">Sprawdź wynik</button>
+
+</form>
+
+<p id="result"></p>
+
+<script>
+function checkAnswers() {
+    let score = 0;
+
+    if (document.querySelector('input[name="q1"]:checked')?.value === "a") score++;
+    if (document.querySelector('input[name="q2"]:checked')?.value === "b") score++;
+    if (document.querySelector('input[name="q3"]:checked')?.value === "c") score++;
+
+    document.getElementById("result").innerHTML = "Twój wynik: " + score + "/3";
+}
+</script>
+
+</body>
+</html>
