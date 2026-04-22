@@ -122,6 +122,89 @@
       line-height: 1.45;
     }
 
+    .topic-selector {
+      margin-bottom: 22px;
+    }
+
+    .topic-selector h3 {
+      margin-bottom: 6px;
+    }
+
+    .topic-help {
+      color: #6b7280;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .topic-choices {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .topic-choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: #fff;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .topic-choice:hover {
+      border-color: #93c5fd;
+      background: #f8fbff;
+    }
+
+    .topic-choice.active {
+      border-color: #4f6ef7;
+      background: #eef4ff;
+    }
+
+    .topic-choice input {
+      margin-top: 3px;
+      transform: scale(1.15);
+    }
+
+    .topic-choice-title {
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .topic-choice-desc {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .small-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .small-btn {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #111827;
+      border-radius: 12px;
+      padding: 9px 13px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .selection-summary {
+      color: #374151;
+      font-size: 15px;
+      margin-top: 6px;
+    }
+
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -147,7 +230,7 @@
       color: #fff;
     }
 
-    button:hover {
+    button:hover, .small-btn:hover {
       transform: translateY(-1px);
     }
 
@@ -362,10 +445,11 @@
     @media (max-width: 1100px) {
       .stats { grid-template-columns: repeat(2, 1fr); }
       .topic-result-grid { grid-template-columns: repeat(2, 1fr); }
+      .topic-choices { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 800px) {
-      h1 { font-size: 36px; }
+      h1 { font-size: 34px; }
       .mode-grid { grid-template-columns: 1fr; }
       .stats { grid-template-columns: 1fr; }
       .topic-result-grid { grid-template-columns: 1fr; }
@@ -375,15 +459,15 @@
 <body>
   <div class="page">
     <section class="card">
-      <h1>NOWY TEST 5 DZIAŁÓW – Prawo medyczne</h1>
+      <h1>PRAWO W ZAWODACH MEDYCZNYCH</h1>
       <div class="lead">
-        Rozbudowany test jednokrotnego wyboru obejmujący 5 zagadnień tematycznych: prawa pacjenta, zgoda, tajemnica i dokumentacja, małoletni pacjent oraz organizacja świadczeń zdrowotnych.
+        Nowa wersja testu z rzeczywistym wyborem działów. Możesz uruchomić cały test albo zaznaczyć tylko wybrane zagadnienia tematyczne.
       </div>
 
       <div class="badges">
         <div class="badge blue">5 działów tematycznych</div>
-        <div class="badge green">25 pytań</div>
-        <div class="badge orange">NOWA WERSJA TESTU</div>
+        <div class="badge green" id="questionCountBadge">25 pytań w puli</div>
+        <div class="badge orange">NOWA WERSJA Z WYBOREM DZIAŁÓW</div>
       </div>
 
       <div class="mode-grid">
@@ -397,8 +481,23 @@
         </div>
       </div>
 
+      <div class="topic-selector">
+        <h3>Wybór działów tematycznych</h3>
+        <div class="topic-help">
+          Zaznacz, z których działów chcesz wygenerować test. Jeśli nie wybierzesz nic, test się nie uruchomi.
+        </div>
+
+        <div class="small-controls">
+          <button type="button" class="small-btn" onclick="selectAllTopics()">Zaznacz wszystkie działy</button>
+          <button type="button" class="small-btn" onclick="clearTopicSelection()">Wyczyść wybór</button>
+        </div>
+
+        <div class="topic-choices" id="topicChoices"></div>
+        <div class="selection-summary" id="selectionSummary">Wybrano 5 działów, 25 pytań.</div>
+      </div>
+
       <div class="controls">
-        <button class="primary" onclick="startQuiz()">Rozpocznij nowy test</button>
+        <button class="primary" onclick="startQuiz()">Rozpocznij test z wybranych działów</button>
         <button onclick="shuffleQuestions()">Losuj pytania od nowa</button>
         <button onclick="loadProgress()">Wznów zapisany test</button>
         <button onclick="clearSaved()">Usuń zapis</button>
@@ -432,7 +531,7 @@
       </div>
 
       <div class="footer-note">
-        Ten plik zawiera wyraźnie oznaczoną nową wersję testu. Jeśli przeglądarka pokaże starszą wersję, odśwież stronę twardo lub otwórz adres z dopiskiem <strong>?v=nowy5</strong>.
+        To jest poprawiona wersja z prawdziwym wyborem działów. Jeśli przeglądarka pokaże starszą wersję, otwórz adres z dopiskiem <strong>?v=wybordzialow1</strong>.
       </div>
     </section>
 
@@ -443,7 +542,7 @@
 
     <section class="card">
       <h2>Podsumowanie wyniku</h2>
-      <div id="summaryBlock" class="muted">Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na 5 działów.</div>
+      <div id="summaryBlock" class="muted">Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.</div>
       <div id="topicResults" class="topic-result-grid"></div>
     </section>
 
@@ -451,16 +550,12 @@
   </div>
 
   <script>
-    const baseQuestions = [
+    const fullQuestionBank = [
       {
         topic: "Prawa pacjenta",
         topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
         question: "Pacjent ma prawo do informacji o stanie zdrowia:",
-        options: [
-          "udzielanej w sposób zrozumiały",
-          "udzielanej wyłącznie rodzinie",
-          "udzielanej tylko na piśmie"
-        ],
+        options: ["udzielanej w sposób zrozumiały", "udzielanej wyłącznie rodzinie", "udzielanej tylko na piśmie"],
         correct: 0,
         explanation: "Informacja dla pacjenta powinna być przekazana w sposób przystępny i zrozumiały."
       },
@@ -468,11 +563,7 @@
         topic: "Prawa pacjenta",
         topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
         question: "Prawo do poszanowania godności pacjenta oznacza między innymi:",
-        options: [
-          "obowiązek ignorowania jego zdania",
-          "szacunek dla jego intymności i autonomii",
-          "zakaz zadawania pytań o leczenie"
-        ],
+        options: ["obowiązek ignorowania jego zdania", "szacunek dla jego intymności i autonomii", "zakaz zadawania pytań o leczenie"],
         correct: 1,
         explanation: "Poszanowanie godności obejmuje także intymność, podmiotowe traktowanie i uwzględnianie autonomii pacjenta."
       },
@@ -480,11 +571,7 @@
         topic: "Prawa pacjenta",
         topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
         question: "Pacjent ma prawo do świadczeń zdrowotnych:",
-        options: [
-          "zgodnych z aktualną wiedzą medyczną",
-          "dowolnie przez siebie wybranych bez ograniczeń",
-          "wyłącznie eksperymentalnych"
-        ],
+        options: ["zgodnych z aktualną wiedzą medyczną", "dowolnie przez siebie wybranych bez ograniczeń", "wyłącznie eksperymentalnych"],
         correct: 0,
         explanation: "Prawo pacjenta dotyczy świadczeń zgodnych z aktualną wiedzą medyczną."
       },
@@ -492,11 +579,7 @@
         topic: "Prawa pacjenta",
         topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
         question: "Prawo pacjenta do informacji obejmuje także:",
-        options: [
-          "informację o proponowanych metodach leczenia i następstwach ich zastosowania lub zaniechania",
-          "wyłącznie nazwę choroby",
-          "tylko informacje po zakończeniu leczenia"
-        ],
+        options: ["informację o proponowanych metodach leczenia i następstwach ich zastosowania lub zaniechania", "wyłącznie nazwę choroby", "tylko informacje po zakończeniu leczenia"],
         correct: 0,
         explanation: "Zakres informacji jest szerszy niż sama nazwa choroby i obejmuje również metody leczenia oraz ich skutki."
       },
@@ -504,11 +587,7 @@
         topic: "Prawa pacjenta",
         topicDescription: "Podstawowe uprawnienia pacjenta związane z godnością, informacją i poszanowaniem jego pozycji w relacji z personelem medycznym.",
         question: "Pacjent jako podmiot prawa medycznego powinien być traktowany:",
-        options: [
-          "wyłącznie jako odbiorca poleceń",
-          "przedmiotowo, dla sprawności leczenia",
-          "podmiotowo, z poszanowaniem jego praw"
-        ],
+        options: ["wyłącznie jako odbiorca poleceń", "przedmiotowo, dla sprawności leczenia", "podmiotowo, z poszanowaniem jego praw"],
         correct: 2,
         explanation: "Współczesne prawo medyczne opiera się na podmiotowym traktowaniu pacjenta."
       },
@@ -517,11 +596,7 @@
         topic: "Zgoda na świadczenia zdrowotne",
         topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
         question: "Świadoma zgoda pacjenta oznacza:",
-        options: [
-          "zgodę wyrażoną po uzyskaniu odpowiednich informacji",
-          "dowolny podpis pacjenta bez wyjaśnień",
-          "zgodę zawsze dorozumianą"
-        ],
+        options: ["zgodę wyrażoną po uzyskaniu odpowiednich informacji", "dowolny podpis pacjenta bez wyjaśnień", "zgodę zawsze dorozumianą"],
         correct: 0,
         explanation: "Zgoda jest świadoma tylko wtedy, gdy poprzedza ją odpowiednia informacja."
       },
@@ -529,11 +604,7 @@
         topic: "Zgoda na świadczenia zdrowotne",
         topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
         question: "Co do zasady świadczenie zdrowotne wymaga:",
-        options: [
-          "wyłącznie zgody kierownika placówki",
-          "zgody pacjenta",
-          "zgody każdej osoby bliskiej"
-        ],
+        options: ["wyłącznie zgody kierownika placówki", "zgody pacjenta", "zgody każdej osoby bliskiej"],
         correct: 1,
         explanation: "Zasadą jest uzyskanie zgody pacjenta na udzielenie świadczenia zdrowotnego."
       },
@@ -541,11 +612,7 @@
         topic: "Zgoda na świadczenia zdrowotne",
         topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
         question: "Zgoda ważna z punktu widzenia prawa powinna być:",
-        options: [
-          "świadoma i dobrowolna",
-          "udzielona pod naciskiem",
-          "przypadkowa i nieprzemyślana"
-        ],
+        options: ["świadoma i dobrowolna", "udzielona pod naciskiem", "przypadkowa i nieprzemyślana"],
         correct: 0,
         explanation: "Wymóg dobrowolności i świadomości należy do podstaw ważnej zgody."
       },
@@ -553,11 +620,7 @@
         topic: "Zgoda na świadczenia zdrowotne",
         topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
         question: "Pacjent może odmówić leczenia:",
-        options: [
-          "co do zasady tak, w granicach prawa",
-          "nigdy",
-          "wyłącznie po zgodzie lekarza"
-        ],
+        options: ["co do zasady tak, w granicach prawa", "nigdy", "wyłącznie po zgodzie lekarza"],
         correct: 0,
         explanation: "Autonomia pacjenta obejmuje również możliwość odmowy leczenia."
       },
@@ -565,11 +628,7 @@
         topic: "Zgoda na świadczenia zdrowotne",
         topicDescription: "Zagadnienia dotyczące świadomej zgody, jej warunków, charakteru oraz relacji między informacją a autonomią pacjenta.",
         question: "Brak odpowiedniej informacji przed uzyskaniem zgody może oznaczać, że zgoda:",
-        options: [
-          "ma charakter świadomy",
-          "może być wadliwa",
-          "automatycznie zastępuje dokumentację"
-        ],
+        options: ["ma charakter świadomy", "może być wadliwa", "automatycznie zastępuje dokumentację"],
         correct: 1,
         explanation: "Bez właściwej informacji trudno mówić o zgodzie świadomej."
       },
@@ -578,11 +637,7 @@
         topic: "Tajemnica i dokumentacja medyczna",
         topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
         question: "Tajemnica lekarska:",
-        options: [
-          "nie obowiązuje",
-          "obowiązuje z wyjątkami przewidzianymi prawem",
-          "obowiązuje tylko w szpitalu"
-        ],
+        options: ["nie obowiązuje", "obowiązuje z wyjątkami przewidzianymi prawem", "obowiązuje tylko w szpitalu"],
         correct: 1,
         explanation: "Tajemnica lekarska jest zasadą, ale przepisy przewidują określone wyjątki."
       },
@@ -590,11 +645,7 @@
         topic: "Tajemnica i dokumentacja medyczna",
         topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
         question: "Pacjent ma prawo dostępu do swojej dokumentacji medycznej:",
-        options: [
-          "tak, na zasadach określonych w przepisach",
-          "nie, nigdy",
-          "wyłącznie po zgodzie sądu"
-        ],
+        options: ["tak, na zasadach określonych w przepisach", "nie, nigdy", "wyłącznie po zgodzie sądu"],
         correct: 0,
         explanation: "Pacjent ma ustawowe prawo dostępu do własnej dokumentacji medycznej."
       },
@@ -602,11 +653,7 @@
         topic: "Tajemnica i dokumentacja medyczna",
         topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
         question: "Udostępnienie informacji o stanie zdrowia osobie bliskiej:",
-        options: [
-          "może zależeć od zgody pacjenta lub podstawy prawnej",
-          "jest zawsze obowiązkowe",
-          "jest zawsze zakazane"
-        ],
+        options: ["może zależeć od zgody pacjenta lub podstawy prawnej", "jest zawsze obowiązkowe", "jest zawsze zakazane"],
         correct: 0,
         explanation: "Zakres ujawnienia informacji zależy od woli pacjenta i przepisów prawa."
       },
@@ -614,11 +661,7 @@
         topic: "Tajemnica i dokumentacja medyczna",
         topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
         question: "Dokumentacja medyczna:",
-        options: [
-          "może być dowolnie rozpowszechniana",
-          "podlega ochronie prawnej",
-          "nie ma znaczenia dowodowego"
-        ],
+        options: ["może być dowolnie rozpowszechniana", "podlega ochronie prawnej", "nie ma znaczenia dowodowego"],
         correct: 1,
         explanation: "Dokumentacja medyczna jest chroniona i ma istotne znaczenie prawne oraz dowodowe."
       },
@@ -626,11 +669,7 @@
         topic: "Tajemnica i dokumentacja medyczna",
         topicDescription: "Zasady ochrony informacji o pacjencie oraz reguły dostępu do dokumentacji medycznej.",
         question: "Prawo do tajemnicy informacji związanych z pacjentem:",
-        options: [
-          "przysługuje pacjentowi",
-          "nie istnieje w polskim prawie",
-          "dotyczy tylko danych administracyjnych"
-        ],
+        options: ["przysługuje pacjentowi", "nie istnieje w polskim prawie", "dotyczy tylko danych administracyjnych"],
         correct: 0,
         explanation: "Pacjent ma prawo do ochrony informacji dotyczących jego osoby i stanu zdrowia."
       },
@@ -639,11 +678,7 @@
         topic: "Małoletni pacjent",
         topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
         question: "Małoletni pacjent:",
-        options: [
-          "nigdy nie ma znaczenia przy podejmowaniu decyzji",
-          "zawsze sam decyduje o wszystkim",
-          "w określonych sytuacjach współuczestniczy w decyzjach"
-        ],
+        options: ["nigdy nie ma znaczenia przy podejmowaniu decyzji", "zawsze sam decyduje o wszystkim", "w określonych sytuacjach współuczestniczy w decyzjach"],
         correct: 2,
         explanation: "Udział małoletniego zależy od jego wieku, stopnia dojrzałości i rodzaju sprawy."
       },
@@ -651,11 +686,7 @@
         topic: "Małoletni pacjent",
         topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
         question: "W sprawach medycznych dotyczących małoletniego znaczenie może mieć:",
-        options: [
-          "wyłącznie zdanie lekarza",
-          "wiek i rozwój małoletniego",
-          "jedynie interes placówki"
-        ],
+        options: ["wyłącznie zdanie lekarza", "wiek i rozwój małoletniego", "jedynie interes placówki"],
         correct: 1,
         explanation: "Wiek i stopień rozwoju pacjenta małoletniego wpływają na zakres jego udziału."
       },
@@ -663,11 +694,7 @@
         topic: "Małoletni pacjent",
         topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
         question: "Udział małoletniego w decyzjach medycznych należy rozumieć jako:",
-        options: [
-          "całkowite pominięcie jego stanowiska",
-          "uwzględnienie go zawsze w identycznym zakresie",
-          "udział zależny od sytuacji prawnej i faktycznej"
-        ],
+        options: ["całkowite pominięcie jego stanowiska", "uwzględnienie go zawsze w identycznym zakresie", "udział zależny od sytuacji prawnej i faktycznej"],
         correct: 2,
         explanation: "Zakres udziału nie jest jednolity i zależy od konkretnego przypadku."
       },
@@ -675,11 +702,7 @@
         topic: "Małoletni pacjent",
         topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
         question: "W odniesieniu do małoletniego pacjenta prawo medyczne:",
-        options: [
-          "całkowicie ignoruje jego dobro",
-          "równoważy ochronę dziecka i jego udział w decyzjach",
-          "zakłada wyłącznie decyzję administracyjną"
-        ],
+        options: ["całkowicie ignoruje jego dobro", "równoważy ochronę dziecka i jego udział w decyzjach", "zakłada wyłącznie decyzję administracyjną"],
         correct: 1,
         explanation: "Prawo stara się równoważyć ochronę małoletniego z poszanowaniem jego rozwijającej się autonomii."
       },
@@ -687,11 +710,7 @@
         topic: "Małoletni pacjent",
         topicDescription: "Zakres udziału małoletniego w decyzjach medycznych oraz znaczenie jego wieku i stopnia dojrzałości.",
         question: "Stanowisko małoletniego pacjenta:",
-        options: [
-          "zawsze jest prawnie obojętne",
-          "może mieć znaczenie przy udzielaniu świadczeń zdrowotnych",
-          "dotyczy wyłącznie spraw szkolnych"
-        ],
+        options: ["zawsze jest prawnie obojętne", "może mieć znaczenie przy udzielaniu świadczeń zdrowotnych", "dotyczy wyłącznie spraw szkolnych"],
         correct: 1,
         explanation: "Stanowisko małoletniego może mieć znaczenie w zależności od typu świadczenia i jego sytuacji prawnej."
       },
@@ -700,11 +719,7 @@
         topic: "Organizacja świadczeń zdrowotnych",
         topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
         question: "Lekarz powinien komunikować się z pacjentem:",
-        options: [
-          "w sposób zrozumiały",
-          "wyłącznie hermetycznym językiem specjalistycznym",
-          "bez obowiązku wyjaśniania"
-        ],
+        options: ["w sposób zrozumiały", "wyłącznie hermetycznym językiem specjalistycznym", "bez obowiązku wyjaśniania"],
         correct: 0,
         explanation: "Komunikacja medyczna powinna być dostosowana do odbiorcy i dla niego zrozumiała."
       },
@@ -712,11 +727,7 @@
         topic: "Organizacja świadczeń zdrowotnych",
         topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
         question: "Udzielanie świadczeń zdrowotnych powinno być zgodne:",
-        options: [
-          "wyłącznie z przyzwyczajeniem personelu",
-          "z aktualną wiedzą medyczną i prawem",
-          "z oczekiwaniami dowolnych osób trzecich"
-        ],
+        options: ["wyłącznie z przyzwyczajeniem personelu", "z aktualną wiedzą medyczną i prawem", "z oczekiwaniami dowolnych osób trzecich"],
         correct: 1,
         explanation: "Prawidłowe udzielanie świadczeń wymaga zgodności z prawem i aktualną wiedzą medyczną."
       },
@@ -724,11 +735,7 @@
         topic: "Organizacja świadczeń zdrowotnych",
         topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
         question: "Prawidłowa organizacja świadczeń zdrowotnych powinna uwzględniać:",
-        options: [
-          "prawa pacjenta",
-          "wyłącznie wygodę placówki",
-          "wyłącznie interes ekonomiczny"
-        ],
+        options: ["prawa pacjenta", "wyłącznie wygodę placówki", "wyłącznie interes ekonomiczny"],
         correct: 0,
         explanation: "Organizacja świadczeń nie może abstrahować od praw pacjenta."
       },
@@ -736,11 +743,7 @@
         topic: "Organizacja świadczeń zdrowotnych",
         topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
         question: "Autonomia pacjenta w praktyce oznacza:",
-        options: [
-          "uwzględnianie jego decyzji w granicach prawa",
-          "całkowite podporządkowanie personelu każdemu żądaniu",
-          "brak obowiązku informacyjnego"
-        ],
+        options: ["uwzględnianie jego decyzji w granicach prawa", "całkowite podporządkowanie personelu każdemu żądaniu", "brak obowiązku informacyjnego"],
         correct: 0,
         explanation: "Autonomia nie jest absolutna, ale wymaga respektowania decyzji pacjenta w granicach prawa."
       },
@@ -748,21 +751,88 @@
         topic: "Organizacja świadczeń zdrowotnych",
         topicDescription: "Podstawowe reguły udzielania świadczeń zdrowotnych, komunikacji z pacjentem i zgodności działania z prawem oraz wiedzą medyczną.",
         question: "Relacja personelu medycznego z pacjentem powinna opierać się na:",
-        options: [
-          "wyłącznie hierarchii i dystansie",
-          "szacunku, informacji i legalności działania",
-          "domniemaniu, że pacjent nie ma praw"
-        ],
+        options: ["wyłącznie hierarchii i dystansie", "szacunku, informacji i legalności działania", "domniemaniu, że pacjent nie ma praw"],
         correct: 1,
         explanation: "Prawidłowa relacja medyczna opiera się na legalności, komunikacji i szacunku dla pacjenta."
       }
     ];
 
-    let questions = [...baseQuestions];
+    const topicDescriptions = {
+      "Prawa pacjenta": "Podstawowe uprawnienia pacjenta związane z informacją, godnością i statusem podmiotowym.",
+      "Zgoda na świadczenia zdrowotne": "Świadoma zgoda, odmowa leczenia i relacja między informacją a autonomią.",
+      "Tajemnica i dokumentacja medyczna": "Poufność danych pacjenta oraz zasady dostępu do dokumentacji medycznej.",
+      "Małoletni pacjent": "Udział małoletniego w decyzjach medycznych i znaczenie jego rozwoju oraz wieku.",
+      "Organizacja świadczeń zdrowotnych": "Zasady udzielania świadczeń i komunikacji zgodnie z prawem oraz wiedzą medyczną."
+    };
+
+    const allTopics = Object.keys(topicDescriptions);
+
+    let selectedTopics = [...allTopics];
+    let questions = [];
     let mode = "study";
     let answers = {};
     let submitted = {};
     let correctCount = 0;
+
+    function buildTopicSelector() {
+      const wrap = document.getElementById("topicChoices");
+      wrap.innerHTML = "";
+
+      allTopics.forEach(topic => {
+        const label = document.createElement("label");
+        label.className = "topic-choice" + (selectedTopics.includes(topic) ? " active" : "");
+
+        label.innerHTML = `
+          <input type="checkbox" ${selectedTopics.includes(topic) ? "checked" : ""} data-topic="${escapeHtml(topic)}">
+          <div>
+            <div class="topic-choice-title">${topic}</div>
+            <div class="topic-choice-desc">${topicDescriptions[topic]}</div>
+          </div>
+        `;
+
+        const checkbox = label.querySelector("input");
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            if (!selectedTopics.includes(topic)) selectedTopics.push(topic);
+          } else {
+            selectedTopics = selectedTopics.filter(t => t !== topic);
+          }
+          updateTopicSelectorState();
+          saveProgress();
+        });
+
+        wrap.appendChild(label);
+      });
+
+      updateTopicSelectorState();
+    }
+
+    function updateTopicSelectorState() {
+      const labels = document.querySelectorAll(".topic-choice");
+      labels.forEach(label => {
+        const input = label.querySelector("input");
+        label.classList.toggle("active", input.checked);
+      });
+
+      const count = fullQuestionBank.filter(q => selectedTopics.includes(q.topic)).length;
+      document.getElementById("selectionSummary").textContent =
+        selectedTopics.length
+          ? `Wybrano ${selectedTopics.length} działów, ${count} pytań.`
+          : "Nie wybrano żadnego działu.";
+      document.getElementById("questionCountBadge").textContent = `${count} pytań w wybranej puli`;
+    }
+
+    function selectAllTopics() {
+      selectedTopics = [...allTopics];
+      buildTopicSelector();
+      saveProgress();
+    }
+
+    function clearTopicSelection() {
+      selectedTopics = [];
+      buildTopicSelector();
+      saveProgress();
+    }
 
     function setMode(newMode) {
       mode = newMode;
@@ -771,6 +841,10 @@
       document.getElementById("modeStat").textContent = newMode === "study" ? "nauka" : "egzamin";
       saveProgress();
       renderQuestions();
+    }
+
+    function prepareQuestionsFromSelection() {
+      return fullQuestionBank.filter(q => selectedTopics.includes(q.topic));
     }
 
     function groupByTopic(items) {
@@ -790,20 +864,30 @@
     function renderQuestions() {
       const container = document.getElementById("questionsContainer");
       container.innerHTML = "";
-      const grouped = groupByTopic(questions);
 
+      if (!questions.length) {
+        container.innerHTML = `
+          <section class="card">
+            <h2>Brak aktywnego testu</h2>
+            <div class="lead">Wybierz co najmniej jeden dział i kliknij „Rozpocznij test z wybranych działów”.</div>
+          </section>
+        `;
+        updateStats();
+        return;
+      }
+
+      const grouped = groupByTopic(questions);
       let globalCounter = 1;
 
       Object.keys(grouped).forEach(topicName => {
         const topicData = grouped[topicName];
-
         const topicSection = document.createElement("section");
         topicSection.className = "topic-card";
 
         const topicHeader = document.createElement("div");
         topicHeader.className = "topic-header";
         topicHeader.innerHTML = `
-          <div class="topic-kicker">Zagadnienie tematyczne</div>
+          <div class="topic-kicker">Wybrany dział</div>
           <h2>${topicName}</h2>
           <div class="topic-description">${topicData.description}</div>
         `;
@@ -852,7 +936,6 @@
           card.appendChild(optionsWrap);
 
           const feedback = document.createElement("div");
-          feedback.id = `feedback-${qIndex}`;
           feedback.className = "feedback";
 
           if (submitted[qIndex] && mode === "study") {
@@ -900,7 +983,6 @@
 
     function calculateTopicResults() {
       const topicStats = {};
-
       questions.forEach((q, i) => {
         if (!topicStats[q.topic]) {
           topicStats[q.topic] = { total: 0, done: 0, correct: 0 };
@@ -913,14 +995,13 @@
           }
         }
       });
-
       return topicStats;
     }
 
     function renderTopicResults() {
       const wrap = document.getElementById("topicResults");
-      const topicStats = calculateTopicResults();
       wrap.innerHTML = "";
+      const topicStats = calculateTopicResults();
 
       Object.entries(topicStats).forEach(([topic, stats]) => {
         const box = document.createElement("div");
@@ -936,24 +1017,25 @@
     }
 
     function updateStats() {
+      const total = questions.length;
       const done = Object.keys(submitted).length;
       correctCount = 0;
 
       Object.keys(submitted).forEach(key => {
         const idx = Number(key);
-        if (answers[idx] === questions[idx].correct) correctCount++;
+        if (questions[idx] && answers[idx] === questions[idx].correct) correctCount++;
       });
 
       document.getElementById("doneStat").textContent = done;
       document.getElementById("correctStat").textContent = correctCount;
       document.getElementById("percentStat").textContent = done ? Math.round((correctCount / done) * 100) + "%" : "0%";
-      document.getElementById("progressText").textContent = `Postęp: ${done} z ${questions.length}`;
+      document.getElementById("progressText").textContent = `Postęp: ${done} z ${total}`;
       document.getElementById("pointsText").textContent = `Punkty: ${correctCount}`;
-      document.getElementById("progressBar").style.width = `${(done / questions.length) * 100}%`;
+      document.getElementById("progressBar").style.width = total ? `${(done / total) * 100}%` : "0%";
 
       renderTopicResults();
 
-      if (done === questions.length) {
+      if (total && done === total) {
         showSummary();
       }
     }
@@ -964,30 +1046,27 @@
 
       questions.forEach((q, i) => {
         if (answers[i] !== q.correct) {
-          errors.push(
-            `<li><strong>${q.topic} – pytanie ${i + 1}:</strong> poprawna odpowiedź: ${q.options[q.correct]}.</li>`
-          );
+          errors.push(`<li><strong>${q.topic} – pytanie ${i + 1}:</strong> poprawna odpowiedź: ${q.options[q.correct]}.</li>`);
         }
       });
 
       document.getElementById("finalInfo").innerHTML =
-        `Ukończono nowy test 5 działów. Wynik ogólny: <strong>${correctCount}/${questions.length}</strong>.`;
+        `Ukończono test z wybranych działów. Wynik ogólny: <strong>${correctCount}/${questions.length}</strong>.`;
 
-      let topicSummaryHtml = `<h3>Wyniki według działów</h3><ul class="summary-list">`;
+      let topicSummaryHtml = `<h3>Wyniki według wybranych działów</h3><ul class="summary-list">`;
       Object.entries(topicStats).forEach(([topic, stats]) => {
         topicSummaryHtml += `<li><strong>${topic}:</strong> ${stats.correct}/${stats.total}</li>`;
       });
       topicSummaryHtml += `</ul>`;
 
-      document.getElementById("summaryBlock").innerHTML =
-        `
-          <p><strong>Wynik końcowy:</strong> ${correctCount}/${questions.length}</p>
-          ${topicSummaryHtml}
-          ${errors.length
-            ? `<p><strong>Liczba błędów:</strong> ${errors.length}</p><ul class="summary-list">${errors.join("")}</ul>`
-            : `<p><strong>Wynik idealny.</strong> Wszystkie odpowiedzi są poprawne.</p>`
-          }
-        `;
+      document.getElementById("summaryBlock").innerHTML = `
+        <p><strong>Wynik końcowy:</strong> ${correctCount}/${questions.length}</p>
+        ${topicSummaryHtml}
+        ${errors.length
+          ? `<p><strong>Liczba błędów:</strong> ${errors.length}</p><ul class="summary-list">${errors.join("")}</ul>`
+          : `<p><strong>Wynik idealny.</strong> Wszystkie odpowiedzi są poprawne.</p>`
+        }
+      `;
     }
 
     function shuffleArray(arr) {
@@ -999,28 +1078,43 @@
       return copy;
     }
 
-    function shuffleQuestions() {
-      questions = shuffleArray(questions);
+    function startQuiz() {
+      const selectedPool = prepareQuestionsFromSelection();
+
+      if (!selectedPool.length) {
+        alert("Wybierz co najmniej jeden dział tematyczny.");
+        return;
+      }
+
+      questions = [...selectedPool];
       answers = {};
       submitted = {};
-      document.getElementById("finalInfo").textContent = "Rozpoczęto nową próbę z losową kolejnością pytań.";
-      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na 5 działów.";
+      document.getElementById("finalInfo").textContent = "Rozpoczęto test z wybranych działów.";
+      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
       saveProgress();
       renderQuestions();
     }
 
-    function startQuiz() {
-      questions = [...baseQuestions];
+    function shuffleQuestions() {
+      const selectedPool = prepareQuestionsFromSelection();
+
+      if (!selectedPool.length) {
+        alert("Wybierz co najmniej jeden dział tematyczny.");
+        return;
+      }
+
+      questions = shuffleArray(selectedPool);
       answers = {};
       submitted = {};
-      document.getElementById("finalInfo").textContent = "Rozpoczęto nowy test 5 działów.";
-      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na 5 działów.";
+      document.getElementById("finalInfo").textContent = "Rozpoczęto nową próbę z losową kolejnością pytań w wybranych działach.";
+      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
       saveProgress();
       renderQuestions();
     }
 
     function saveProgress() {
-      localStorage.setItem("medlaw_quiz_state_v2_5topics", JSON.stringify({
+      localStorage.setItem("medlaw_quiz_state_topics_select_v1", JSON.stringify({
+        selectedTopics,
         questions,
         mode,
         answers,
@@ -1029,30 +1123,54 @@
     }
 
     function loadProgress() {
-      const raw = localStorage.getItem("medlaw_quiz_state_v2_5topics");
+      const raw = localStorage.getItem("medlaw_quiz_state_topics_select_v1");
       if (!raw) {
-        alert("Brak zapisanego nowego testu.");
+        alert("Brak zapisanego testu.");
         return;
       }
+
       const data = JSON.parse(raw);
-      questions = data.questions || [...baseQuestions];
+      selectedTopics = Array.isArray(data.selectedTopics) ? data.selectedTopics : [...allTopics];
+      questions = Array.isArray(data.questions) ? data.questions : [];
       mode = data.mode || "study";
       answers = data.answers || {};
       submitted = data.submitted || {};
-      document.getElementById("finalInfo").textContent = "Wczytano zapisany nowy test.";
-      setMode(mode);
+
+      buildTopicSelector();
+      document.getElementById("finalInfo").textContent = "Wczytano zapisany test z wyborem działów.";
+      document.getElementById("summaryBlock").textContent = "Wczytano zapisany test. Po zakończeniu pojawi się tu pełne podsumowanie.";
+      document.getElementById("modeStat").textContent = mode === "study" ? "nauka" : "egzamin";
+      document.getElementById("studyModeBox").classList.toggle("active", mode === "study");
+      document.getElementById("examModeBox").classList.toggle("active", mode === "exam");
       renderQuestions();
-      if (Object.keys(submitted).length === questions.length) {
+
+      if (questions.length && Object.keys(submitted).length === questions.length) {
         showSummary();
       }
     }
 
     function clearSaved() {
-      localStorage.removeItem("medlaw_quiz_state_v2_5topics");
-      alert("Usunięto zapis nowego testu.");
+      localStorage.removeItem("medlaw_quiz_state_topics_select_v1");
+      answers = {};
+      submitted = {};
+      questions = [];
+      document.getElementById("finalInfo").textContent = "Usunięto zapis testu.";
+      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
+      renderQuestions();
     }
 
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    buildTopicSelector();
     setMode("study");
+    questions = [];
     renderQuestions();
   </script>
 </body>
