@@ -1,58 +1,709 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Test – prawo medyczne</title>
-    <style>
-        body { font-family: Arial; margin: 40px; }
-        .question { margin-bottom: 20px; }
-        button { padding: 10px 20px; font-size: 16px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test z prawa medycznego</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: #f3f5f9;
+      color: #14213d;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 40px auto;
+      padding: 0 20px 40px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 56px;
+      line-height: 1.05;
+      margin: 0 0 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 18px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .badge.blue {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    .badge.green {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .mode-box {
+      border: 2px solid #d1d5db;
+      border-radius: 22px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      background: #fff;
+    }
+
+    .mode-box.active {
+      border-color: #4f6ef7;
+      box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.08);
+    }
+
+    .mode-title {
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .mode-desc {
+      text-align: center;
+      color: #6b7280;
+      font-size: 16px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    button {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #111827;
+      border-radius: 18px;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button.primary {
+      background: #3164f4;
+      border-color: #3164f4;
+      color: white;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background: #dbeafe;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #60a5fa, #2563eb);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .stat {
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      padding: 18px 20px;
+      background: #fff;
+    }
+
+    .stat-label {
+      color: #6b7280;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0 0 10px;
+    }
+
+    .section-lead {
+      color: #6b7280;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .question-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      padding: 22px;
+      background: #fff;
+      margin-bottom: 18px;
+    }
+
+    .question-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #93c5fd;
+      background: #f8fbff;
+    }
+
+    .option.correct {
+      border-color: #10b981;
+      background: #ecfdf5;
+    }
+
+    .option.incorrect {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .option input {
+      margin-top: 4px;
+      transform: scale(1.2);
+    }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 15px;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.good {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .feedback.bad {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .summary-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #374151;
+      line-height: 1.7;
+    }
+
+    .muted {
+      color: #6b7280;
+    }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 40px; }
+      .mode-grid, .stats { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
 
-<h1>Test – prawo medyczne</h1>
+    <section class="card">
+      <h1>Test z prawa medycznego</h1>
+      <div class="lead">
+        Responsywny quiz jednokrotnego wyboru z trybem nauki i egzaminu, wyjaśnieniami odpowiedzi, zapisem wyników i podsumowaniem błędów.
+      </div>
 
-<form id="quiz">
+      <div class="badges">
+        <div class="badge blue">15 pytań</div>
+        <div class="badge green">wynik zapisuje się lokalnie</div>
+      </div>
 
-<div class="question">
-    <p>1. Pacjent ma prawo do:</p>
-    <label><input type="radio" name="q1" value="a"> informacji</label><br>
-    <label><input type="radio" name="q1" value="b"> milczenia lekarza</label><br>
-    <label><input type="radio" name="q1" value="c"> odmowy leczenia bez konsekwencji</label>
-</div>
+      <div class="mode-grid">
+        <div class="mode-box active" id="studyModeBox" onclick="setMode('study')">
+          <div class="mode-title">Tryb nauki</div>
+          <div class="mode-desc">Po każdej odpowiedzi pokazuje poprawną opcję i wyjaśnienie.</div>
+        </div>
+        <div class="mode-box" id="examModeBox" onclick="setMode('exam')">
+          <div class="mode-title">Tryb egzaminu</div>
+          <div class="mode-desc">Bez podpowiedzi w trakcie. Wynik i błędy pojawiają się na końcu.</div>
+        </div>
+      </div>
 
-<div class="question">
-    <p>2. Świadoma zgoda oznacza:</p>
-    <label><input type="radio" name="q2" value="a"> podpis bez informacji</label><br>
-    <label><input type="radio" name="q2" value="b"> zgodę po uzyskaniu informacji</label><br>
-    <label><input type="radio" name="q2" value="c"> zgodę ustną zawsze wystarczającą</label>
-</div>
+      <div class="controls">
+        <button class="primary" onclick="startQuiz()">Rozpocznij test</button>
+        <button onclick="shuffleQuestions()">Losuj od nowa</button>
+        <button onclick="loadProgress()">Wznów zapisany test</button>
+        <button onclick="clearSaved()">Usuń zapis</button>
+      </div>
 
-<div class="question">
-    <p>3. Tajemnica lekarska:</p>
-    <label><input type="radio" name="q3" value="a"> nie obowiązuje</label><br>
-    <label><input type="radio" name="q3" value="b"> obowiązuje zawsze</label><br>
-    <label><input type="radio" name="q3" value="c"> obowiązuje z wyjątkami</label>
-</div>
+      <div class="progress-row">
+        <div id="progressText">Postęp: 0 z 15</div>
+        <div id="pointsText">Punkty: 0</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
 
-<button type="button" onclick="checkAnswers()">Sprawdź wynik</button>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Tryb</div>
+          <div class="stat-value" id="modeStat">nauka</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Ukończone</div>
+          <div class="stat-value" id="doneStat">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Poprawne</div>
+          <div class="stat-value" id="correctStat">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Skuteczność</div>
+          <div class="stat-value" id="percentStat">0%</div>
+        </div>
+      </div>
+    </section>
 
-</form>
+    <section class="card">
+      <h2 class="section-title">Test został zakończony</h2>
+      <div class="section-lead">Możesz przejrzeć wynik poniżej albo uruchomić nową próbę z losową kolejnością pytań.</div>
+      <div id="finalInfo" class="muted">Test jeszcze nie został ukończony.</div>
+    </section>
 
-<p id="result"></p>
+    <section class="card">
+      <h2 class="section-title">Podsumowanie wyniku</h2>
+      <div id="summaryBlock" class="muted">Po zakończeniu testu pojawi się tutaj wynik i lista błędów.</div>
+    </section>
 
-<script>
-function checkAnswers() {
-    let score = 0;
+    <section id="questionsContainer"></section>
+  </div>
 
-    if (document.querySelector('input[name="q1"]:checked')?.value === "a") score++;
-    if (document.querySelector('input[name="q2"]:checked')?.value === "b") score++;
-    if (document.querySelector('input[name="q3"]:checked')?.value === "c") score++;
+  <script>
+    const baseQuestions = [
+      {
+        question: "Pacjent ma prawo do:",
+        options: [
+          "informacji",
+          "milczenia lekarza",
+          "odmowy leczenia bez konsekwencji"
+        ],
+        correct: 0,
+        explanation: "Prawo pacjenta do informacji jest jednym z podstawowych praw pacjenta."
+      },
+      {
+        question: "Świadoma zgoda oznacza:",
+        options: [
+          "podpis bez informacji",
+          "zgodę po uzyskaniu informacji",
+          "zgodę ustną zawsze wystarczającą"
+        ],
+        correct: 1,
+        explanation: "Zgoda jest świadoma tylko wtedy, gdy pacjent otrzymał odpowiednie informacje."
+      },
+      {
+        question: "Tajemnica lekarska:",
+        options: [
+          "nie obowiązuje",
+          "obowiązuje zawsze",
+          "obowiązuje z wyjątkami"
+        ],
+        correct: 2,
+        explanation: "Tajemnica lekarska obowiązuje, ale przepisy przewidują określone wyjątki."
+      },
+      {
+        question: "Dokumentacja medyczna:",
+        options: [
+          "nie ma znaczenia prawnego",
+          "podlega ochronie",
+          "może być dowolnie udostępniana"
+        ],
+        correct: 1,
+        explanation: "Dokumentacja medyczna podlega ochronie i zasadom udostępniania."
+      },
+      {
+        question: "Pacjent ma prawo do poszanowania:",
+        options: [
+          "godności i intymności",
+          "wyłącznie danych osobowych",
+          "wyłącznie ciszy w gabinecie"
+        ],
+        correct: 0,
+        explanation: "Prawo do poszanowania godności i intymności wynika wprost z praw pacjenta."
+      },
+      {
+        question: "Na badanie lub zabieg zgoda pacjenta:",
+        options: [
+          "nigdy nie jest potrzebna",
+          "co do zasady jest potrzebna",
+          "zależy tylko od decyzji lekarza"
+        ],
+        correct: 1,
+        explanation: "Co do zasady świadczenie zdrowotne wymaga zgody pacjenta."
+      },
+      {
+        question: "Pacjent może mieć dostęp do dokumentacji:",
+        options: [
+          "nie",
+          "tak, na zasadach ustawowych",
+          "tylko za zgodą sądu"
+        ],
+        correct: 1,
+        explanation: "Pacjent ma ustawowe prawo dostępu do swojej dokumentacji medycznej."
+      },
+      {
+        question: "Małoletni pacjent:",
+        options: [
+          "nigdy nie ma nic do powiedzenia",
+          "zawsze sam decyduje",
+          "w określonych przypadkach współuczestniczy w decyzjach"
+        ],
+        correct: 2,
+        explanation: "Zakres udziału małoletniego zależy od wieku i rodzaju decyzji."
+      },
+      {
+        question: "Prawo do tajemnicy informacji związanych z pacjentem:",
+        options: [
+          "przysługuje pacjentowi",
+          "nie istnieje",
+          "dotyczy tylko szpitali"
+        ],
+        correct: 0,
+        explanation: "Pacjent ma prawo do zachowania w tajemnicy informacji z nim związanych."
+      },
+      {
+        question: "Pacjent może odmówić leczenia:",
+        options: [
+          "co do zasady tak",
+          "nigdy",
+          "tylko ustnie"
+        ],
+        correct: 0,
+        explanation: "Zasada autonomii pacjenta obejmuje również możliwość odmowy."
+      },
+      {
+        question: "Lekarz powinien udzielać informacji:",
+        options: [
+          "w sposób zrozumiały",
+          "wyłącznie specjalistycznym językiem",
+          "tylko rodzinie pacjenta"
+        ],
+        correct: 0,
+        explanation: "Informacja dla pacjenta powinna być przekazana w sposób zrozumiały."
+      },
+      {
+        question: "Zgoda pacjenta powinna być:",
+        options: [
+          "świadoma i dobrowolna",
+          "przypadkowa",
+          "udzielona pod presją"
+        ],
+        correct: 0,
+        explanation: "Zgoda ważna prawnie powinna być świadoma i dobrowolna."
+      },
+      {
+        question: "Pacjent ma prawo do:",
+        options: [
+          "świadczeń zdrowotnych zgodnych z aktualną wiedzą medyczną",
+          "dowolnego żądania każdego świadczenia",
+          "pomijania dokumentacji"
+        ],
+        correct: 0,
+        explanation: "Pacjent ma prawo do świadczeń zgodnych z aktualną wiedzą medyczną."
+      },
+      {
+        question: "Udostępnienie informacji o stanie zdrowia osobie bliskiej:",
+        options: [
+          "zawsze jest zakazane",
+          "może zależeć od zgody pacjenta lub przepisów",
+          "jest zawsze obowiązkowe"
+        ],
+        correct: 1,
+        explanation: "Zakres udostępnienia zależy od zgody pacjenta i podstaw prawnych."
+      },
+      {
+        question: "Poszanowanie autonomii pacjenta oznacza:",
+        options: [
+          "uwzględnianie jego decyzji w granicach prawa",
+          "całkowite podporządkowanie lekarza",
+          "brak obowiązków informacyjnych"
+        ],
+        correct: 0,
+        explanation: "Autonomia pacjenta oznacza respektowanie jego decyzji zgodnie z prawem."
+      }
+    ];
 
-    document.getElementById("result").innerHTML = "Twój wynik: " + score + "/3";
-}
-</script>
+    let questions = [...baseQuestions];
+    let mode = "study";
+    let answers = {};
+    let submitted = {};
+    let correctCount = 0;
 
+    function setMode(newMode) {
+      mode = newMode;
+      document.getElementById("studyModeBox").classList.toggle("active", newMode === "study");
+      document.getElementById("examModeBox").classList.toggle("active", newMode === "exam");
+      document.getElementById("modeStat").textContent = newMode === "study" ? "nauka" : "egzamin";
+      saveProgress();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+
+      questions.forEach((q, qIndex) => {
+        const card = document.createElement("section");
+        card.className = "question-card";
+
+        const title = document.createElement("div");
+        title.className = "question-title";
+        title.textContent = `${qIndex + 1}. ${q.question}`;
+        card.appendChild(title);
+
+        const options = document.createElement("div");
+        options.className = "options";
+
+        q.options.forEach((opt, optIndex) => {
+          const label = document.createElement("label");
+          label.className = "option";
+
+          if (submitted[qIndex]) {
+            if (optIndex === q.correct) label.classList.add("correct");
+            if (answers[qIndex] === optIndex && optIndex !== q.correct) label.classList.add("incorrect");
+          }
+
+          label.innerHTML = `
+            <input type="radio" name="q${qIndex}" ${answers[qIndex] === optIndex ? "checked" : ""} ${submitted[qIndex] ? "disabled" : ""}>
+            <span>${opt}</span>
+          `;
+
+          label.querySelector("input").addEventListener("change", () => {
+            answers[qIndex] = optIndex;
+            if (mode === "study") {
+              submitSingle(qIndex);
+            } else {
+              saveProgress();
+              updateStats();
+            }
+          });
+
+          options.appendChild(label);
+        });
+
+        card.appendChild(options);
+
+        const feedback = document.createElement("div");
+        feedback.id = `feedback-${qIndex}`;
+        feedback.className = "feedback";
+
+        if (submitted[qIndex] && mode === "study") {
+          const ok = answers[qIndex] === q.correct;
+          feedback.classList.add("show", ok ? "good" : "bad");
+          feedback.innerHTML = ok
+            ? `Poprawna odpowiedź. ${q.explanation}`
+            : `Niepoprawna odpowiedź. Poprawna: <strong>${q.options[q.correct]}</strong>. ${q.explanation}`;
+        }
+
+        card.appendChild(feedback);
+        container.appendChild(card);
+      });
+
+      if (mode === "exam") {
+        const wrapper = document.createElement("section");
+        wrapper.className = "card";
+        wrapper.innerHTML = `<button class="primary" onclick="finishExam()">Zakończ egzamin i pokaż wynik</button>`;
+        container.appendChild(wrapper);
+      }
+
+      updateStats();
+    }
+
+    function submitSingle(qIndex) {
+      submitted[qIndex] = true;
+      saveProgress();
+      renderQuestions();
+    }
+
+    function finishExam() {
+      Object.keys(answers).forEach(key => {
+        submitted[key] = true;
+      });
+      saveProgress();
+      renderQuestions();
+      showSummary();
+    }
+
+    function updateStats() {
+      const done = Object.keys(submitted).length;
+      correctCount = 0;
+
+      Object.keys(submitted).forEach(key => {
+        const idx = Number(key);
+        if (answers[idx] === questions[idx].correct) correctCount++;
+      });
+
+      document.getElementById("doneStat").textContent = done;
+      document.getElementById("correctStat").textContent = correctCount;
+      document.getElementById("percentStat").textContent = done ? Math.round((correctCount / done) * 100) + "%" : "0%";
+      document.getElementById("progressText").textContent = `Postęp: ${done} z ${questions.length}`;
+      document.getElementById("pointsText").textContent = `Punkty: ${correctCount}`;
+      document.getElementById("progressBar").style.width = `${(done / questions.length) * 100}%`;
+
+      if (done === questions.length) {
+        showSummary();
+      }
+    }
+
+    function showSummary() {
+      const errors = [];
+      questions.forEach((q, i) => {
+        if (answers[i] !== q.correct) {
+          errors.push(`<li><strong>Pytanie ${i + 1}:</strong> poprawna odpowiedź: ${q.options[q.correct]}.</li>`);
+        }
+      });
+
+      document.getElementById("finalInfo").innerHTML =
+        `Ukończono test. Wynik: <strong>${correctCount}/${questions.length}</strong>.`;
+
+      document.getElementById("summaryBlock").innerHTML =
+        errors.length
+          ? `<p><strong>Liczba błędów:</strong> ${errors.length}</p><ul class="summary-list">${errors.join("")}</ul>`
+          : `<p><strong>Wynik idealny.</strong> Wszystkie odpowiedzi są poprawne.</p>`;
+    }
+
+    function shuffleQuestions() {
+      questions = [...questions].sort(() => Math.random() - 0.5);
+      answers = {};
+      submitted = {};
+      document.getElementById("finalInfo").textContent = "Rozpoczęto nową próbę z losową kolejnością pytań.";
+      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik i lista błędów.";
+      saveProgress();
+      renderQuestions();
+    }
+
+    function startQuiz() {
+      answers = {};
+      submitted = {};
+      document.getElementById("finalInfo").textContent = "Test został rozpoczęty.";
+      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik i lista błędów.";
+      saveProgress();
+      renderQuestions();
+    }
+
+    function saveProgress() {
+      localStorage.setItem("medlaw_quiz_state", JSON.stringify({
+        questions,
+        mode,
+        answers,
+        submitted
+      }));
+    }
+
+    function loadProgress() {
+      const raw = localStorage.getItem("medlaw_quiz_state");
+      if (!raw) {
+        alert("Brak zapisanego testu.");
+        return;
+      }
+      const data = JSON.parse(raw);
+      questions = data.questions || [...baseQuestions];
+      mode = data.mode || "study";
+      answers = data.answers || {};
+      submitted = data.submitted || {};
+      setMode(mode);
+      renderQuestions();
+      if (Object.keys(submitted).length === questions.length) {
+        showSummary();
+      }
+    }
+
+    function clearSaved() {
+      localStorage.removeItem("medlaw_quiz_state");
+      alert("Zapis usunięty.");
+    }
+
+    setMode("study");
+    renderQuestions();
+  </script>
 </body>
 </html>
