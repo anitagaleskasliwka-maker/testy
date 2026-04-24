@@ -1,1064 +1,1664 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PRAWO W ZAWODACH MEDYCZNYCH-POZIOM PODSTAWOWY</title>
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, Arial, sans-serif;
-      background: #f3f5f9;
-      color: #14213d;
-    }
-
-    .page {
-      max-width: 1320px;
-      margin: 32px auto;
-      padding: 0 18px 40px;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 24px;
-      padding: 26px;
-      margin-bottom: 24px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      font-size: 42px;
-      line-height: 1.08;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    h2 {
-      margin: 0 0 8px;
-      font-size: 30px;
-      font-weight: 800;
-    }
-
-    h3 {
-      margin: 0 0 12px;
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .lead {
-      margin-bottom: 16px;
-      color: #6b7280;
-      font-size: 18px;
-      line-height: 1.5;
-    }
-
-    .badges {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 15px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .badge.blue {
-      background: #dbeafe;
-      color: #2563eb;
-    }
-
-    .badge.green {
-      background: #d1fae5;
-      color: #059669;
-    }
-
-    .badge.orange {
-      background: #ffedd5;
-      color: #c2410c;
-    }
-
-    .mode-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .mode-box {
-      border: 2px solid #d1d5db;
-      border-radius: 20px;
-      padding: 18px;
-      cursor: pointer;
-      transition: .2s ease;
-      background: #fff;
-    }
-
-    .mode-box.active {
-      border-color: #4f6ef7;
-      box-shadow: 0 0 0 3px rgba(79,110,247,.08);
-    }
-
-    .mode-title {
-      text-align: center;
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .mode-desc {
-      text-align: center;
-      color: #6b7280;
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    .topic-selector {
-      margin-bottom: 22px;
-    }
-
-    .topic-selector h3 {
-      margin-bottom: 6px;
-    }
-
-    .topic-help {
-      color: #6b7280;
-      margin-bottom: 14px;
-      font-size: 15px;
-    }
-
-    .topic-choices {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .topic-choice {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 16px;
-      padding: 14px 16px;
-      background: #fff;
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .topic-choice:hover {
-      border-color: #93c5fd;
-      background: #f8fbff;
-    }
-
-    .topic-choice.active {
-      border-color: #4f6ef7;
-      background: #eef4ff;
-    }
-
-    .topic-choice input {
-      margin-top: 3px;
-      transform: scale(1.15);
-    }
-
-    .topic-choice-title {
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .topic-choice-desc {
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .small-controls {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-
-    .small-btn {
-      border: 1px solid #d1d5db;
-      background: #fff;
-      color: #111827;
-      border-radius: 12px;
-      padding: 9px 13px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .selection-summary {
-      color: #374151;
-      font-size: 15px;
-      margin-top: 6px;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    button {
-      border: 1px solid #d1d5db;
-      background: #fff;
-      color: #111827;
-      border-radius: 16px;
-      padding: 13px 18px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    button.primary {
-      background: #3164f4;
-      border-color: #3164f4;
-      color: #fff;
-    }
-
-    button:hover, .small-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .progress-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: #6b7280;
-      font-size: 15px;
-      margin-bottom: 10px;
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 14px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: #dbeafe;
-      margin-bottom: 22px;
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #60a5fa, #2563eb);
-      transition: width .3s ease;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .stat {
-      border: 1px solid #e5e7eb;
-      background: #fff;
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-    .stat-label {
-      color: #6b7280;
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    .stat-value {
-      font-size: 34px;
-      font-weight: 800;
-    }
-
-    .topic-result-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .topic-box {
-      border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 16px;
-      background: #fff;
-    }
-
-    .topic-box-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      line-height: 1.35;
-    }
-
-    .topic-box-score {
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .topic-box-small {
-      color: #6b7280;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    .topic-card {
-      border: 1px solid #dbe4f0;
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 22px;
-      margin-bottom: 24px;
-    }
-
-    .topic-header {
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #eef2f7;
-    }
-
-    .topic-kicker {
-      color: #4f6ef7;
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .topic-description {
-      color: #6b7280;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .question-card {
-      border: 1px solid #e5e7eb;
-      border-radius: 20px;
-      padding: 18px;
-      background: #fff;
-      margin-bottom: 14px;
-    }
-
-    .question-title {
-      font-size: 21px;
-      font-weight: 800;
-      line-height: 1.4;
-      margin-bottom: 14px;
-    }
-
-    .options {
-      display: grid;
-      gap: 10px;
-    }
-
-    .option {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 14px;
-      padding: 13px 14px;
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .option:hover {
-      border-color: #93c5fd;
-      background: #f8fbff;
-    }
-
-    .option.correct {
-      border-color: #10b981;
-      background: #ecfdf5;
-    }
-
-    .option.incorrect {
-      border-color: #ef4444;
-      background: #fef2f2;
-    }
-
-    .option input {
-      margin-top: 3px;
-      transform: scale(1.15);
-    }
-
-    .feedback {
-      margin-top: 12px;
-      border-radius: 14px;
-      padding: 13px 14px;
-      font-size: 14px;
-      display: none;
-      line-height: 1.5;
-    }
-
-    .feedback.show {
-      display: block;
-    }
-
-    .feedback.good {
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-    }
-
-    .feedback.bad {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-
-    .muted {
-      color: #6b7280;
-    }
-
-    .summary-list {
-      margin: 10px 0 0;
-      padding-left: 20px;
-      line-height: 1.7;
-      color: #374151;
-    }
-
-    .summary-list li {
-      margin-bottom: 6px;
-    }
-
-    .footer-note {
-      font-size: 13px;
-      color: #6b7280;
-      margin-top: 12px;
-    }
-
-    @media (max-width: 1100px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .topic-result-grid { grid-template-columns: repeat(2, 1fr); }
-      .topic-choices { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 800px) {
-      h1 { font-size: 34px; }
-      .mode-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr; }
-      .topic-result-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prawo Medyczne – Interaktywny Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --card: #1a1e2a;
+    --border: #252a38;
+    --accent: #c8a96e;
+    --accent2: #4fc3a1;
+    --accent3: #e05c5c;
+    --text: #e8eaf0;
+    --muted: #6b7294;
+    --highlight: #2a3050;
+    --correct: #1e3d32;
+    --correct-border: #4fc3a1;
+    --wrong: #3d1e1e;
+    --wrong-border: #e05c5c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG PATTERN */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(200,169,110,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(79,195,161,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── INTRO SCREEN ─── */
+  #intro {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(200,169,110,0.12);
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+  h1.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    animation: fadeDown 0.7s 0.1s ease both;
+  }
+  h1.main-title span { color: var(--accent); }
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    animation: fadeDown 0.7s 0.2s ease both;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .stat-chip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 28px;
+    text-align: center;
+  }
+  .stat-chip .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-chip .lbl { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 540px;
+    width: 100%;
+    margin-bottom: 40px;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .mode-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .mode-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .mode-card.study::before { background: radial-gradient(circle at 0% 0%, rgba(200,169,110,0.15), transparent 70%); }
+  .mode-card.exam::before  { background: radial-gradient(circle at 100% 0%, rgba(79,195,161,0.12), transparent 70%); }
+  .mode-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .mode-card:hover::before { opacity: 1; }
+  .mode-card .mode-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+  .mode-card .mode-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .mode-card .mode-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  .topic-select-area {
+    max-width: 700px;
+    width: 100%;
+    animation: fadeUp 0.7s 0.5s ease both;
+  }
+  .topic-select-area h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--muted);
+    text-align: left;
+  }
+  .topic-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .topic-pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+  }
+  .topic-pill.active {
+    background: rgba(200,169,110,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .btn-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0d0f14;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-start:hover { background: #d9bc84; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,169,110,0.3); }
+
+  /* ─── QUIZ SCREEN ─── */
+  #quiz { display: none; position: relative; z-index: 1; min-height: 100vh; padding: 0 0 60px; }
+
+  .quiz-header {
+    background: rgba(13,15,20,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .quiz-header-left { display: flex; align-items: center; gap: 16px; }
+  .btn-back {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+  .mode-badge {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-weight: 600;
+  }
+  .mode-badge.study { background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+  .mode-badge.exam  { background: rgba(79,195,161,0.12); color: var(--accent2); border: 1px solid rgba(79,195,161,0.25); }
+
+  .progress-bar-wrap { flex: 1; max-width: 300px; }
+  .progress-bar-track { background: var(--border); border-radius: 4px; height: 6px; overflow: hidden; }
+  .progress-bar-fill { background: linear-gradient(90deg, var(--accent), var(--accent2)); height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+  .progress-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; font-family: 'DM Mono', monospace; }
+
+  .score-display { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--muted); }
+  .score-display span { color: var(--accent2); font-weight: 500; }
+
+  /* Topic nav */
+  .topic-nav {
+    padding: 24px 32px 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .topic-nav-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .topic-nav-btn.active { background: rgba(200,169,110,0.15); border-color: var(--accent); color: var(--accent); }
+  .topic-nav-btn .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .topic-nav-btn.done .dot { background: var(--accent2); }
+
+  /* Question area */
+  .question-area {
+    max-width: 820px;
+    margin: 32px auto;
+    padding: 0 24px;
+  }
+  .question-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .q-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+  .diff-badge {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .diff-easy   { background: rgba(79,195,161,0.12); color: var(--accent2); }
+  .diff-medium { background: rgba(200,169,110,0.12); color: var(--accent); }
+  .diff-hard   { background: rgba(224,92,92,0.12);  color: var(--accent3); }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .question-card.answered::before { opacity: 1; }
+
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    color: var(--text);
+  }
+
+  .options-list { display: flex; flex-direction: column; gap: 12px; }
+  .option-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text);
+    width: 100%;
+  }
+  .option-btn:not(:disabled):hover {
+    background: rgba(200,169,110,0.08);
+    border-color: rgba(200,169,110,0.4);
+    transform: translateX(3px);
+  }
+  .option-btn .opt-letter {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.2s;
+  }
+  .option-btn.correct {
+    background: var(--correct);
+    border-color: var(--correct-border);
+  }
+  .option-btn.correct .opt-letter { background: var(--correct-border); color: #0d0f14; }
+  .option-btn.wrong {
+    background: var(--wrong);
+    border-color: var(--wrong-border);
+  }
+  .option-btn.wrong .opt-letter { background: var(--wrong-border); color: #fff; }
+  .option-btn.reveal-correct {
+    background: rgba(79,195,161,0.06);
+    border-color: rgba(79,195,161,0.3);
+  }
+  .option-btn:disabled { cursor: default; }
+
+  /* Explanation */
+  .explanation-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-top: 20px;
+    display: none;
+    animation: slideIn 0.3s ease;
+  }
+  .explanation-box.show { display: block; }
+  .explanation-box .ex-header {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .explanation-box .ex-text { font-size: 0.9rem; line-height: 1.7; color: var(--muted); }
+  .explanation-box .ex-law {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: rgba(200,169,110,0.7);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Nav buttons */
+  .question-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  .btn-nav {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-nav:disabled { opacity: 0.3; cursor: default; }
+  .btn-nav.primary {
+    background: var(--accent);
+    color: #0d0f14;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn-nav.primary:hover { background: #d9bc84; }
+
+  /* Question grid (exam overview) */
+  .q-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .q-dot {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+  }
+  .q-dot:hover { border-color: var(--accent); color: var(--accent); }
+  .q-dot.answered-correct { background: var(--correct); border-color: var(--correct-border); color: var(--accent2); }
+  .q-dot.answered-wrong   { background: var(--wrong); border-color: var(--wrong-border); color: var(--accent3); }
+  .q-dot.current          { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+
+  /* ─── RESULTS SCREEN ─── */
+  #results { display: none; position: relative; z-index: 1; min-height: 100vh; padding: 60px 24px; }
+  .results-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .results-grade {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .results-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+  .results-subtitle { color: var(--muted); margin-bottom: 48px; font-size: 0.95rem; }
+  .results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .res-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .res-stat .val {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .res-stat .label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .topic-breakdown {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+  .topic-breakdown h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--muted);
+  }
+  .topic-row { margin-bottom: 16px; }
+  .topic-row-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.82rem; }
+  .topic-row-bar { background: var(--border); border-radius: 4px; height: 8px; overflow: hidden; }
+  .topic-row-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.8s ease; }
+
+  .results-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-result {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    border: none;
+  }
+  .btn-result.primary { background: var(--accent); color: #0d0f14; }
+  .btn-result.primary:hover { background: #d9bc84; }
+  .btn-result.secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+  .btn-result.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Timer */
+  .timer-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 6px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .timer-display.warning { color: var(--accent3); border-color: var(--accent3); }
+
+  /* Animations */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp   { from { opacity: 0; transform: translateY(16px); }  to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn  { from { opacity: 0; transform: translateY(8px); }   to { opacity: 1; transform: translateY(0); } }
+  @keyframes pop { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  .pop { animation: pop 0.3s ease; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .mode-grid { grid-template-columns: 1fr; }
+    .results-stats { grid-template-columns: 1fr 1fr; }
+    .quiz-header { padding: 12px 16px; flex-wrap: wrap; }
+    .question-area { padding: 0 16px; }
+    .question-card { padding: 24px 20px; }
+    .topic-nav { padding: 16px 16px 0; }
+    .progress-bar-wrap { max-width: 160px; }
+  }
+
+  .hidden { display: none !important; }
+
+  /* Sidebar grid in exam */
+  .sidebar-toggle {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--accent);
+    color: #0d0f14;
+    border: none;
+    border-radius: 50%;
+    width: 52px; height: 52px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(200,169,110,0.4);
+    z-index: 200;
+    transition: all 0.2s;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .sidebar-toggle.visible { display: flex; }
+  .sidebar-panel {
+    position: fixed;
+    bottom: 88px; right: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+    width: 280px;
+    z-index: 200;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    display: none;
+  }
+  .sidebar-panel.open { display: block; }
+  .sidebar-panel h4 { font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+
+  .confetti-line { height: 4px; width: 100%; background: linear-gradient(90deg,#c8a96e,#4fc3a1,#e05c5c,#c8a96e); border-radius: 2px; margin-bottom: 32px; }
+</style>
 </head>
 <body>
-  <div class="page">
-    <section class="card">
-      <h1>PRAWO W ZAWODACH MEDYCZNYCH</h1>
-      <div class="lead">
-        
-      </div>
 
-      <div class="badges">
-        <div class="badge blue">5 działów tematycznych</div>
-        <div class="badge green" id="questionCountBadge">75 pytań w puli</div>
-        <div class="badge orange">15 PYTAŃ W KAŻDYM DZIALE</div>
-      </div>
+<!-- ════════════ INTRO ════════════ -->
+<div id="intro">
+  <div class="logo-badge">⚖️ &nbsp; Prawo Medyczne &nbsp; ⚕️</div>
+  <h1 class="main-title">Interaktywny<br><span>Test Wiedzy</span></h1>
+  <p class="subtitle">75 pytań z zakresu prawa medycznego podzielonych na 5 grup tematycznych. Wybierz tryb nauki lub egzaminu i sprawdź swoją wiedzę.</p>
 
-      <div class="mode-grid">
-        <div class="mode-box active" id="studyModeBox" onclick="setMode('study')">
-          <div class="mode-title">Tryb nauki</div>
-          <div class="mode-desc">Po każdej odpowiedzi pokazuje poprawną opcję i krótkie wyjaśnienie.</div>
-        </div>
-        <div class="mode-box" id="examModeBox" onclick="setMode('exam')">
-          <div class="mode-title">Tryb egzaminu</div>
-          <div class="mode-desc">Bez podpowiedzi w trakcie. Podsumowanie i błędy pojawiają się dopiero na końcu.</div>
-        </div>
-      </div>
-
-      <div class="topic-selector">
-        <h3>Wybór działów tematycznych</h3>
-        <div class="topic-help">
-          Zaznacz, z których działów chcesz wygenerować test. Każdy dział zawiera dokładnie 15 pytań.
-        </div>
-
-        <div class="small-controls">
-          <button type="button" class="small-btn" onclick="selectAllTopics()">Zaznacz wszystkie działy</button>
-          <button type="button" class="small-btn" onclick="clearTopicSelection()">Wyczyść wybór</button>
-        </div>
-
-        <div class="topic-choices" id="topicChoices"></div>
-        <div class="selection-summary" id="selectionSummary">Wybrano 5 działów, 75 pytań.</div>
-      </div>
-
-      <div class="controls">
-        <button class="primary" onclick="startQuiz()">Rozpocznij test z wybranych działów</button>
-        <button onclick="shuffleQuestions()">Losuj pytania od nowa</button>
-        <button onclick="loadProgress()">Wznów zapisany test</button>
-        <button onclick="clearSaved()">Usuń zapis</button>
-      </div>
-
-      <div class="progress-row">
-        <div id="progressText">Postęp: 0 z 0</div>
-        <div id="pointsText">Punkty: 0</div>
-      </div>
-      <div class="progress-track">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-label">Tryb</div>
-          <div class="stat-value" id="modeStat">nauka</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Ukończone</div>
-          <div class="stat-value" id="doneStat">0</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Poprawne</div>
-          <div class="stat-value" id="correctStat">0</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Skuteczność</div>
-          <div class="stat-value" id="percentStat">0%</div>
-        </div>
-      </div>
-
-      <div class="footer-note">
-
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Status testu</h2>
-      <div class="lead" id="finalInfo">Test nie został jeszcze ukończony.</div>
-    </section>
-
-    <section class="card">
-      <h2>Podsumowanie wyniku</h2>
-      <div id="summaryBlock" class="muted">Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.</div>
-      <div id="topicResults" class="topic-result-grid"></div>
-    </section>
-
-    <section id="questionsContainer"></section>
+  <div class="stats-row">
+    <div class="stat-chip"><span class="num">5</span><span class="lbl">Grup tematycznych</span></div>
+    <div class="stat-chip"><span class="num">75</span><span class="lbl">Pytań</span></div>
+    <div class="stat-chip"><span class="num">3</span><span class="lbl">Poziomy trudności</span></div>
   </div>
 
-  <script>
-    const topicDescriptions = {
-      "Prawa pacjenta": "Podstawowe uprawnienia pacjenta związane z informacją, godnością i statusem podmiotowym.",
-      "Zgoda na świadczenia zdrowotne": "Świadoma zgoda, odmowa leczenia i relacja między informacją a autonomią.",
-      "Tajemnica i dokumentacja medyczna": "Poufność danych pacjenta oraz zasady dostępu do dokumentacji medycznej.",
-      "Małoletni pacjent": "Udział małoletniego w decyzjach medycznych i znaczenie jego rozwoju oraz wieku.",
-      "Organizacja świadczeń zdrowotnych": "Zasady udzielania świadczeń i komunikacji zgodnie z prawem oraz wiedzą medyczną."
-    };
+  <div class="mode-grid">
+    <div class="mode-card study" onclick="selectMode('study')">
+      <span class="mode-icon">📖</span>
+      <div class="mode-name">Samokształcenie</div>
+      <div class="mode-desc">Natychmiastowy feedback po każdej odpowiedzi z uzasadnieniem prawnym. Ucz się we własnym tempie.</div>
+    </div>
+    <div class="mode-card exam" onclick="selectMode('exam')">
+      <span class="mode-icon">🎓</span>
+      <div class="mode-name">Egzamin</div>
+      <div class="mode-desc">Symulacja egzaminu z limitem czasu 90 min. Wyniki i uzasadnienia dostępne po zakończeniu.</div>
+    </div>
+  </div>
 
-    function q(topic, question, options, correct, explanation) {
-      return {
-        topic,
-        topicDescription: topicDescriptions[topic],
-        question,
-        options,
-        correct,
-        explanation
-      };
-    }
+  <div class="topic-select-area">
+    <h3>Wybierz grupy tematyczne (min. 1):</h3>
+    <div class="topic-pills" id="topicPills"></div>
+    <button class="btn-start" id="startBtn" onclick="startQuiz()">
+      Rozpocznij Test &rarr;
+    </button>
+  </div>
+</div>
 
-    const questionBankByTopic = {
-      "Prawa pacjenta": [
-        q("Prawa pacjenta","Pacjent ma prawo do informacji o stanie zdrowia:",["udzielanej w sposób zrozumiały","udzielanej wyłącznie rodzinie","udzielanej tylko na piśmie"],0,"Informacja powinna być przekazana w sposób przystępny i zrozumiały."),
-        q("Prawa pacjenta","Prawo do poszanowania godności pacjenta oznacza między innymi:",["obowiązek ignorowania jego zdania","szacunek dla jego intymności i autonomii","zakaz zadawania pytań o leczenie"],1,"Poszanowanie godności obejmuje intymność i podmiotowe traktowanie pacjenta."),
-        q("Prawa pacjenta","Pacjent ma prawo do świadczeń zdrowotnych:",["zgodnych z aktualną wiedzą medyczną","dowolnie przez siebie wybranych bez ograniczeń","wyłącznie eksperymentalnych"],0,"Prawo pacjenta dotyczy świadczeń zgodnych z aktualną wiedzą medyczną."),
-        q("Prawa pacjenta","Prawo pacjenta do informacji obejmuje także:",["informację o proponowanych metodach leczenia i następstwach ich zastosowania lub zaniechania","wyłącznie nazwę choroby","tylko informacje po zakończeniu leczenia"],0,"Zakres informacji obejmuje również metody leczenia i ich skutki."),
-        q("Prawa pacjenta","Pacjent jako podmiot prawa medycznego powinien być traktowany:",["wyłącznie jako odbiorca poleceń","przedmiotowo, dla sprawności leczenia","podmiotowo, z poszanowaniem jego praw"],2,"Prawo medyczne opiera się na podmiotowym traktowaniu pacjenta."),
-        q("Prawa pacjenta","Prawo do intymności pacjenta oznacza, że:",["czynności medyczne mogą być wykonywane przy dowolnej liczbie osób","należy ograniczać obecność osób niekoniecznych przy udzielaniu świadczenia","pacjent nie może pytać o obecność osób trzecich"],1,"Poszanowanie intymności wymaga ograniczenia obecności osób zbędnych."),
-        q("Prawa pacjenta","Pacjent ma prawo do wyrażenia zgody lub sprzeciwu wobec:",["udzielania informacji wskazanym osobom","prowadzenia dokumentacji medycznej","istnienia personelu medycznego"],0,"Pacjent może decydować o kręgu osób uprawnionych do informacji."),
-        q("Prawa pacjenta","Prawo pacjenta do informacji dotyczy także:",["rokowania","wyłącznie kosztów leczenia","wyłącznie godzin pracy placówki"],0,"Informacja medyczna obejmuje również rokowanie."),
-        q("Prawa pacjenta","Pacjent ma prawo do dostępu do dokumentacji, ponieważ:",["jest ona wyłącznie własnością lekarza","dotyczy jego osoby i przebiegu leczenia","może służyć tylko celom administracyjnym placówki"],1,"Dokumentacja dotyczy przebiegu leczenia pacjenta."),
-        q("Prawa pacjenta","Prawo do poszanowania życia prywatnego pacjenta jest związane z:",["obowiązkiem ujawniania danych każdej osobie bliskiej","ochroną sfery osobistej i poufności","brakiem prawa do pytań o leczenie"],1,"Prywatność obejmuje ochronę danych i sfery osobistej pacjenta."),
-        q("Prawa pacjenta","Pacjent może oczekiwać od personelu medycznego:",["komunikacji zrozumiałej i rzetelnej","wyłącznie języka specjalistycznego","braku wyjaśnień przy prostych zabiegach"],0,"Rzetelna i zrozumiała komunikacja należy do standardów praw pacjenta."),
-        q("Prawa pacjenta","Prawo pacjenta do informacji nie oznacza:",["możliwości zadawania pytań","obowiązku zrozumiałego tłumaczenia sytuacji","uprawnienia do otrzymania wyłącznie jednej krótkiej odpowiedzi bez rozwinięcia"],2,"Prawo do informacji wymaga realnego i zrozumiałego przekazu."),
-        q("Prawa pacjenta","Pacjent ma prawo do poszanowania godności także podczas:",["czynności pielęgnacyjnych i diagnostycznych","wyłącznie zabiegów operacyjnych","wyłącznie wizyty lekarskiej"],0,"Godność i intymność powinny być szanowane przy wszelkich czynnościach."),
-        q("Prawa pacjenta","Prawo do informacji służy przede wszystkim:",["umożliwieniu świadomego udziału pacjenta w decyzjach","wyeliminowaniu kontaktu z personelem","ograniczeniu autonomii pacjenta"],0,"Informacja jest warunkiem świadomego udziału pacjenta w procesie leczenia."),
-        q("Prawa pacjenta","Pacjent ma prawo znać:",["rozpoznanie i proponowane metody postępowania","wyłącznie nazwisko lekarza","wyłącznie adres placówki"],0,"Informacja medyczna obejmuje rozpoznanie i proponowane działania.")
-      ],
+<!-- ════════════ QUIZ ════════════ -->
+<div id="quiz">
+  <div class="quiz-header">
+    <div class="quiz-header-left">
+      <button class="btn-back" onclick="goHome()">← Powrót</button>
+      <span class="mode-badge" id="modeBadge">Nauka</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 0</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="timer-display hidden" id="timerDisplay">90:00</div>
+      <div class="score-display">Wynik: <span id="scoreDisplay">0</span></div>
+    </div>
+  </div>
 
-      "Zgoda na świadczenia zdrowotne": [
-        q("Zgoda na świadczenia zdrowotne","Świadoma zgoda pacjenta oznacza:",["zgodę wyrażoną po uzyskaniu odpowiednich informacji","dowolny podpis pacjenta bez wyjaśnień","zgodę zawsze dorozumianą"],0,"Zgoda jest świadoma tylko wtedy, gdy poprzedza ją odpowiednia informacja."),
-        q("Zgoda na świadczenia zdrowotne","Co do zasady świadczenie zdrowotne wymaga:",["wyłącznie zgody kierownika placówki","zgody pacjenta","zgody każdej osoby bliskiej"],1,"Zasadą jest uzyskanie zgody pacjenta."),
-        q("Zgoda na świadczenia zdrowotne","Zgoda ważna z punktu widzenia prawa powinna być:",["świadoma i dobrowolna","udzielona pod naciskiem","przypadkowa i nieprzemyślana"],0,"Dobrowolność i świadomość to podstawowe cechy prawidłowej zgody."),
-        q("Zgoda na świadczenia zdrowotne","Pacjent może odmówić leczenia:",["co do zasady tak, w granicach prawa","nigdy","wyłącznie po zgodzie lekarza"],0,"Autonomia pacjenta obejmuje możliwość odmowy leczenia."),
-        q("Zgoda na świadczenia zdrowotne","Brak odpowiedniej informacji przed uzyskaniem zgody może oznaczać, że zgoda:",["ma charakter świadomy","może być wadliwa","automatycznie zastępuje dokumentację"],1,"Bez właściwej informacji trudno mówić o zgodzie świadomej."),
-        q("Zgoda na świadczenia zdrowotne","Warunkiem świadomej zgody jest:",["odpowiedni poziom informacji","wyłącznie obecność świadka","jedynie podpis na formularzu"],0,"Sama forma nie wystarcza bez przekazania informacji."),
-        q("Zgoda na świadczenia zdrowotne","Dobrowolność zgody oznacza brak:",["presji i przymusu","jakiejkolwiek rozmowy","dokumentacji"],0,"Zgoda udzielona pod naciskiem nie jest w pełni dobrowolna."),
-        q("Zgoda na świadczenia zdrowotne","Zgoda pacjenta służy ochronie:",["jego autonomii","wyłącznie interesu placówki","wyłącznie statystyki leczenia"],0,"Instytucja zgody chroni autonomię i samostanowienie pacjenta."),
-        q("Zgoda na świadczenia zdrowotne","Pacjent, który nie rozumie przekazanych informacji:",["zawsze skutecznie wyraża zgodę","może nie wyrażać zgody świadomej","automatycznie zgadza się dorozumianie"],1,"Zrozumienie informacji jest warunkiem świadomej zgody."),
-        q("Zgoda na świadczenia zdrowotne","Prawo do odmowy świadczenia zdrowotnego wiąże się z:",["autonomią pacjenta","brakiem znaczenia zgody","wyłącznie decyzją administracyjną"],0,"Możliwość odmowy jest konsekwencją autonomii pacjenta."),
-        q("Zgoda na świadczenia zdrowotne","Zgoda pacjenta nie powinna być:",["udzielona po informacji","udzielona w sposób dobrowolny","udzielona pod wpływem nacisku"],2,"Presja osłabia dobrowolność zgody."),
-        q("Zgoda na świadczenia zdrowotne","W procesie uzyskiwania zgody istotne jest:",["wyjaśnienie celu świadczenia","pominięcie ryzyka","ograniczenie informacji do minimum bez znaczenia"],0,"Pacjent powinien znać cel i charakter świadczenia."),
-        q("Zgoda na świadczenia zdrowotne","Zgoda pacjenta ma znaczenie przed:",["udzieleniem świadczenia","zawsze dopiero po świadczeniu","wyłącznie wypisem"],0,"Zgoda co do zasady poprzedza udzielenie świadczenia."),
-        q("Zgoda na świadczenia zdrowotne","Pacjent podejmuje decyzję o zgodzie po uzyskaniu:",["informacji o rozpoznaniu i metodach leczenia","wyłącznie informacji o godzinie wizyty","jedynie danych o parkingu"],0,"Zakres informacji medycznej musi umożliwić decyzję."),
-        q("Zgoda na świadczenia zdrowotne","Świadoma zgoda nie polega na:",["aktywnym zrozumieniu przekazu","mechanicznym podpisaniu formularza bez rozmowy","dobrowolnym podjęciu decyzji"],1,"Podpis bez rzeczywistej informacji nie daje pełnej zgody świadomej.")
-      ],
+  <div class="topic-nav" id="topicNav"></div>
 
-      "Tajemnica i dokumentacja medyczna": [
-        q("Tajemnica i dokumentacja medyczna","Tajemnica lekarska:",["nie obowiązuje","obowiązuje z wyjątkami przewidzianymi prawem","obowiązuje tylko w szpitalu"],1,"Tajemnica lekarska jest zasadą, ale istnieją wyjątki ustawowe."),
-        q("Tajemnica i dokumentacja medyczna","Pacjent ma prawo dostępu do swojej dokumentacji medycznej:",["tak, na zasadach określonych w przepisach","nie, nigdy","wyłącznie po zgodzie sądu"],0,"Pacjent ma ustawowe prawo dostępu do dokumentacji."),
-        q("Tajemnica i dokumentacja medyczna","Udostępnienie informacji o stanie zdrowia osobie bliskiej:",["może zależeć od zgody pacjenta lub podstawy prawnej","jest zawsze obowiązkowe","jest zawsze zakazane"],0,"Zakres ujawnienia informacji zależy od woli pacjenta i prawa."),
-        q("Tajemnica i dokumentacja medyczna","Dokumentacja medyczna:",["może być dowolnie rozpowszechniana","podlega ochronie prawnej","nie ma znaczenia dowodowego"],1,"Dokumentacja ma znaczenie prawne i jest chroniona."),
-        q("Tajemnica i dokumentacja medyczna","Prawo do tajemnicy informacji związanych z pacjentem:",["przysługuje pacjentowi","nie istnieje w polskim prawie","dotyczy tylko danych administracyjnych"],0,"Pacjent ma prawo do ochrony informacji o sobie i swoim zdrowiu."),
-        q("Tajemnica i dokumentacja medyczna","Tajemnica zawodowa chroni przede wszystkim:",["informacje o stanie zdrowia i leczeniu","wyłącznie nazwę placówki","jedynie grafik pracy"],0,"Zakres tajemnicy obejmuje informacje związane z pacjentem."),
-        q("Tajemnica i dokumentacja medyczna","Dokumentacja medyczna może być ważna jako:",["środek dowodowy","wyłącznie materiał marketingowy","zbędny załącznik"],0,"Dokumentacja ma znaczenie także dowodowe."),
-        q("Tajemnica i dokumentacja medyczna","Pacjent może żądać dostępu do dokumentacji, ponieważ:",["dotyczy ona jego osoby","dokumentacja należy wyłącznie do administracji","nie ma związku z jego prawami"],0,"Dokumentacja dotyczy przebiegu leczenia pacjenta."),
-        q("Tajemnica i dokumentacja medyczna","Ujawnienie informacji objętych tajemnicą:",["może wymagać podstawy prawnej","jest zawsze dopuszczalne","nie ma znaczenia"],0,"Dla ujawnienia informacji potrzebna jest odpowiednia podstawa."),
-        q("Tajemnica i dokumentacja medyczna","Ochrona dokumentacji medycznej służy:",["ochronie prywatności pacjenta","wyłącznie wygodzie personelu","unikaniu kontaktu z pacjentem"],0,"Dokumentacja zawiera dane wrażliwe i wymaga ochrony."),
-        q("Tajemnica i dokumentacja medyczna","Pacjent ma prawo do poufności informacji dotyczących:",["jego zdrowia i leczenia","wyłącznie adresu placówki","wyłącznie numeru sali"],0,"Poufność obejmuje informacje medyczne dotyczące pacjenta."),
-        q("Tajemnica i dokumentacja medyczna","Tajemnica medyczna obowiązuje także po:",["zakończeniu leczenia","każdej zmianie grafiku","wyłącznie wypisie"],0,"Obowiązek zachowania tajemnicy nie kończy się automatycznie wraz z leczeniem."),
-        q("Tajemnica i dokumentacja medyczna","Prawo dostępu do dokumentacji nie oznacza:",["dowolnego publicznego rozpowszechniania przez placówkę","możliwości zapoznania się z informacjami o leczeniu","znaczenia prawnego dokumentacji"],0,"Dostęp pacjenta nie daje placówce prawa do swobodnego rozpowszechniania danych."),
-        q("Tajemnica i dokumentacja medyczna","Dane o stanie zdrowia pacjenta są:",["szczególnie chronione","zawsze publiczne","bez znaczenia prawnego"],0,"Informacje o zdrowiu należą do danych szczególnie chronionych."),
-        q("Tajemnica i dokumentacja medyczna","Dokumentacja medyczna powinna być prowadzona:",["rzetelnie i z poszanowaniem przepisów","dowolnie i niesystematycznie","wyłącznie ustnie"],0,"Prowadzenie dokumentacji podlega wymogom prawnym i organizacyjnym.")
-      ],
+  <div class="question-area">
+    <div class="question-meta">
+      <div class="q-number" id="qNumber">Pytanie 1/15</div>
+      <div class="diff-badge" id="diffBadge">Łatwe</div>
+    </div>
+    <div class="question-card" id="questionCard">
+      <div class="question-text" id="questionText"></div>
+      <div class="options-list" id="optionsList"></div>
+    </div>
+    <div class="explanation-box" id="explanationBox">
+      <div class="ex-header">💡 Uzasadnienie</div>
+      <div class="ex-text" id="explanationText"></div>
+      <div class="ex-law" id="explanationLaw"></div>
+    </div>
+    <div class="question-nav">
+      <button class="btn-nav" id="prevBtn" onclick="navigate(-1)">← Poprzednie</button>
+      <div id="qGridMini" style="display:flex;gap:6px;flex-wrap:wrap;max-width:400px;"></div>
+      <button class="btn-nav primary" id="nextBtn" onclick="navigate(1)">Następne →</button>
+    </div>
+  </div>
+</div>
 
-      "Małoletni pacjent": [
-        q("Małoletni pacjent","Małoletni pacjent:",["nigdy nie ma znaczenia przy podejmowaniu decyzji","zawsze sam decyduje o wszystkim","w określonych sytuacjach współuczestniczy w decyzjach"],2,"Udział małoletniego zależy od jego wieku i sytuacji."),
-        q("Małoletni pacjent","W sprawach medycznych dotyczących małoletniego znaczenie może mieć:",["wyłącznie zdanie lekarza","wiek i rozwój małoletniego","jedynie interes placówki"],1,"Wiek i rozwój wpływają na zakres udziału dziecka."),
-        q("Małoletni pacjent","Udział małoletniego w decyzjach medycznych należy rozumieć jako:",["całkowite pominięcie jego stanowiska","uwzględnienie go zawsze w identycznym zakresie","udział zależny od sytuacji prawnej i faktycznej"],2,"Zakres udziału nie jest jednakowy w każdym przypadku."),
-        q("Małoletni pacjent","W odniesieniu do małoletniego pacjenta prawo medyczne:",["całkowicie ignoruje jego dobro","równoważy ochronę dziecka i jego udział w decyzjach","zakłada wyłącznie decyzję administracyjną"],1,"Prawo stara się równoważyć ochronę i rozwijającą się autonomię."),
-        q("Małoletni pacjent","Stanowisko małoletniego pacjenta:",["zawsze jest prawnie obojętne","może mieć znaczenie przy udzielaniu świadczeń zdrowotnych","dotyczy wyłącznie spraw szkolnych"],1,"Stanowisko małoletniego może mieć znaczenie zależnie od sprawy."),
-        q("Małoletni pacjent","Dobro małoletniego pacjenta:",["jest istotnym kryterium decyzji","nie ma znaczenia","zawsze ustępuje wygodzie placówki"],0,"Dobro małoletniego jest podstawowym kryterium w sprawach medycznych."),
-        q("Małoletni pacjent","Wiek małoletniego pacjenta wpływa na:",["zakres jego udziału w decyzjach","brak jakiegokolwiek prawa do informacji","obowiązek całkowitego milczenia personelu"],0,"Wiek i dojrzałość mają znaczenie dla jego udziału."),
-        q("Małoletni pacjent","Małoletni pacjent nie powinien być:",["automatycznie pomijany w rozmowie o leczeniu","traktowany adekwatnie do swojej dojrzałości","informowany w sposób dostosowany"],0,"Pomijanie małoletniego może być niezgodne z jego dobrem i podmiotowością."),
-        q("Małoletni pacjent","Prawo medyczne w odniesieniu do małoletniego pacjenta uwzględnia:",["jego rozwijającą się autonomię","wyłącznie interes formalny dokumentów","brak potrzeby jakiejkolwiek komunikacji"],0,"Autonomia małoletniego rozwija się stopniowo i jest prawnie relewantna."),
-        q("Małoletni pacjent","Małoletni pacjent może potrzebować informacji:",["dostosowanej do wieku i możliwości rozumienia","wyłącznie w języku skrajnie specjalistycznym","wyłącznie po zakończeniu leczenia"],0,"Informacja powinna być dostosowana do odbiorcy."),
-        q("Małoletni pacjent","Ochrona małoletniego pacjenta oznacza także:",["szacunek dla jego sytuacji i potrzeb","całkowity brak rozmowy z nim","obowiązkowe pomijanie go przy badaniu"],0,"Ochrona dziecka nie wyklucza komunikacji i poszanowania jego potrzeb."),
-        q("Małoletni pacjent","Zakres udziału małoletniego pacjenta zależy między innymi od:",["rodzaju decyzji medycznej","koloru dokumentacji","ilości personelu na dyżurze"],0,"Istotny jest charakter i ciężar decyzji medycznej."),
-        q("Małoletni pacjent","Stanowisko małoletniego w sprawach zdrowotnych:",["może być elementem procesu decyzyjnego","jest zawsze pozbawione znaczenia","nie może być wysłuchane"],0,"Prawo nie zakłada automatycznego ignorowania dziecka."),
-        q("Małoletni pacjent","Małoletni pacjent powinien być traktowany:",["z uwzględnieniem wieku i dojrzałości","identycznie jak każdy dorosły bez wyjątków","wyłącznie jako przedmiot opieki"],0,"Podejście do dziecka wymaga uwzględnienia jego etapu rozwoju."),
-        q("Małoletni pacjent","Relacja z małoletnim pacjentem powinna opierać się na:",["ochronie i komunikacji dostosowanej do wieku","wyłącznie formalnych poleceniach","pomijaniu jego reakcji"],0,"Dziecko wymaga zarówno ochrony, jak i adekwatnej komunikacji.")
-      ],
+<!-- ════════════ RESULTS ════════════ -->
+<div id="results">
+  <div class="results-inner">
+    <div class="confetti-line"></div>
+    <div class="results-grade" id="resultsGrade">—</div>
+    <div class="results-title" id="resultsTitle">Wynik Egzaminu</div>
+    <div class="results-subtitle" id="resultsSubtitle"></div>
+    <div class="results-stats">
+      <div class="res-stat"><span class="val" id="resCorrect" style="color:var(--accent2)">0</span><span class="label">Poprawnych</span></div>
+      <div class="res-stat"><span class="val" id="resWrong" style="color:var(--accent3)">0</span><span class="label">Błędnych</span></div>
+      <div class="res-stat"><span class="val" id="resSkipped" style="color:var(--accent)">0</span><span class="label">Pominiętych</span></div>
+    </div>
+    <div class="topic-breakdown" id="topicBreakdown"></div>
+    <div class="results-buttons">
+      <button class="btn-result primary" onclick="reviewAnswers()">Przejrzyj Odpowiedzi</button>
+      <button class="btn-result secondary" onclick="goHome()">Nowy Test</button>
+    </div>
+  </div>
+</div>
 
-      "Organizacja świadczeń zdrowotnych": [
-        q("Organizacja świadczeń zdrowotnych","Lekarz powinien komunikować się z pacjentem:",["w sposób zrozumiały","wyłącznie hermetycznym językiem specjalistycznym","bez obowiązku wyjaśniania"],0,"Komunikacja medyczna powinna być zrozumiała."),
-        q("Organizacja świadczeń zdrowotnych","Udzielanie świadczeń zdrowotnych powinno być zgodne:",["wyłącznie z przyzwyczajeniem personelu","z aktualną wiedzą medyczną i prawem","z oczekiwaniami dowolnych osób trzecich"],1,"Świadczenia powinny być zgodne z prawem i aktualną wiedzą medyczną."),
-        q("Organizacja świadczeń zdrowotnych","Prawidłowa organizacja świadczeń zdrowotnych powinna uwzględniać:",["prawa pacjenta","wyłącznie wygodę placówki","wyłącznie interes ekonomiczny"],0,"Organizacja świadczeń nie może abstrahować od praw pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Autonomia pacjenta w praktyce oznacza:",["uwzględnianie jego decyzji w granicach prawa","całkowite podporządkowanie personelu każdemu żądaniu","brak obowiązku informacyjnego"],0,"Autonomia nie jest absolutna, ale wymaga poszanowania decyzji pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Relacja personelu medycznego z pacjentem powinna opierać się na:",["wyłącznie hierarchii i dystansie","szacunku, informacji i legalności działania","domniemaniu, że pacjent nie ma praw"],1,"Relacja medyczna powinna opierać się na szacunku i legalności."),
-        q("Organizacja świadczeń zdrowotnych","Świadczenia zdrowotne powinny być organizowane tak, aby:",["umożliwiać poszanowanie praw pacjenta","ograniczać informacje do minimum","pomijać znaczenie zgody"],0,"Organizacja powinna wspierać realizację praw pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Właściwa organizacja pracy w ochronie zdrowia powinna sprzyjać:",["bezpieczeństwu i komunikacji","chaotycznemu przekazywaniu danych","dowolności działań bez podstawy prawnej"],0,"Bezpieczeństwo i dobra organizacja są podstawowymi wartościami."),
-        q("Organizacja świadczeń zdrowotnych","Legalność działania personelu medycznego oznacza zgodność:",["z przepisami prawa i standardami medycznymi","wyłącznie z życzeniem pacjenta","wyłącznie z praktyką przyjętą lokalnie"],0,"Legalność wymaga podstawy prawnej i zgodności z wiedzą medyczną."),
-        q("Organizacja świadczeń zdrowotnych","W praktyce medycznej komunikacja z pacjentem jest ważna, ponieważ:",["wpływa na zrozumienie leczenia i podejmowanie decyzji","nie ma wpływu na prawa pacjenta","służy wyłącznie formalnościom"],0,"Dobra komunikacja wspiera świadome decyzje pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Prawidłowe udzielanie świadczeń zakłada:",["respektowanie praw pacjenta","brak potrzeby dokumentowania działań","dowolność niezależnie od standardów"],0,"Prawidłowe udzielanie świadczeń wymaga respektowania praw pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Organizacja świadczeń zdrowotnych nie powinna prowadzić do:",["naruszania intymności pacjenta","zrozumiałej komunikacji","rzetelnego działania"],0,"Organizacja nie może usprawiedliwiać naruszeń praw pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Pacjent w systemie ochrony zdrowia powinien być postrzegany jako:",["podmiot praw","przeszkoda organizacyjna","wyłącznie odbiorca poleceń"],0,"Pacjent jest podmiotem praw, a nie wyłącznie adresatem poleceń."),
-        q("Organizacja świadczeń zdrowotnych","Świadczenia zgodne z aktualną wiedzą medyczną to świadczenia:",["oparte na aktualnych standardach i wiedzy","dowolnie ustalane bez podstawy merytorycznej","wyłącznie eksperymentalne"],0,"Aktualna wiedza medyczna wyznacza standard należytego postępowania."),
-        q("Organizacja świadczeń zdrowotnych","Dobra organizacja świadczeń zdrowotnych powinna ułatwiać:",["dostęp do informacji i realizację praw pacjenta","ukrywanie decyzji przed pacjentem","rezygnację z komunikacji"],0,"Organizacja powinna wspierać prawa pacjenta."),
-        q("Organizacja świadczeń zdrowotnych","Respektowanie autonomii pacjenta w organizacji leczenia oznacza:",["umożliwienie mu realnego udziału w decyzjach","zastąpienie go całkowicie przez personel","brak rozmowy o leczeniu"],0,"Pacjent powinien realnie uczestniczyć w decyzjach dotyczących leczenia.")
-      ]
-    };
+<!-- Sidebar exam panel -->
+<button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">📋</button>
+<div class="sidebar-panel" id="sidebarPanel">
+  <h4>Mapa pytań</h4>
+  <div class="q-grid" id="sidebarGrid"></div>
+</div>
 
-    const allTopics = Object.keys(questionBankByTopic);
-
-    let selectedTopics = [...allTopics];
-    let questions = [];
-    let mode = "study";
-    let answers = {};
-    let submitted = {};
-    let correctCount = 0;
-
-    function buildTopicSelector() {
-      const wrap = document.getElementById("topicChoices");
-      wrap.innerHTML = "";
-
-      allTopics.forEach(topic => {
-        const label = document.createElement("label");
-        label.className = "topic-choice" + (selectedTopics.includes(topic) ? " active" : "");
-
-        label.innerHTML = `
-          <input type="checkbox" ${selectedTopics.includes(topic) ? "checked" : ""}>
-          <div>
-            <div class="topic-choice-title">${topic}</div>
-            <div class="topic-choice-desc">${topicDescriptions[topic]}</div>
-          </div>
-        `;
-
-        const checkbox = label.querySelector("input");
-        checkbox.addEventListener("change", () => {
-          if (checkbox.checked) {
-            if (!selectedTopics.includes(topic)) selectedTopics.push(topic);
-          } else {
-            selectedTopics = selectedTopics.filter(t => t !== topic);
-          }
-          updateTopicSelectorState();
-          saveProgress();
-        });
-
-        wrap.appendChild(label);
-      });
-
-      updateTopicSelectorState();
-    }
-
-    function updateTopicSelectorState() {
-      const labels = document.querySelectorAll(".topic-choice");
-      labels.forEach((label, index) => {
-        const topic = allTopics[index];
-        label.classList.toggle("active", selectedTopics.includes(topic));
-      });
-
-      const count = selectedTopics.reduce((sum, topic) => sum + questionBankByTopic[topic].length, 0);
-      document.getElementById("selectionSummary").textContent =
-        selectedTopics.length
-          ? `Wybrano ${selectedTopics.length} działów, ${count} pytań.`
-          : "Nie wybrano żadnego działu.";
-      document.getElementById("questionCountBadge").textContent = `${count} pytań w wybranej puli`;
-    }
-
-    function selectAllTopics() {
-      selectedTopics = [...allTopics];
-      buildTopicSelector();
-      saveProgress();
-    }
-
-    function clearTopicSelection() {
-      selectedTopics = [];
-      buildTopicSelector();
-      saveProgress();
-    }
-
-    function setMode(newMode) {
-      mode = newMode;
-      document.getElementById("studyModeBox").classList.toggle("active", newMode === "study");
-      document.getElementById("examModeBox").classList.toggle("active", newMode === "exam");
-      document.getElementById("modeStat").textContent = newMode === "study" ? "nauka" : "egzamin";
-      saveProgress();
-      renderQuestions();
-    }
-
-    function prepareQuestionsFromSelection() {
-      return selectedTopics.flatMap(topic => questionBankByTopic[topic]);
-    }
-
-    function groupByTopic(items) {
-      const map = {};
-      items.forEach((q, i) => {
-        if (!map[q.topic]) {
-          map[q.topic] = {
-            description: q.topicDescription,
-            items: []
-          };
-        }
-        map[q.topic].items.push({ ...q, originalIndex: i });
-      });
-      return map;
-    }
-
-    function renderQuestions() {
-      const container = document.getElementById("questionsContainer");
-      container.innerHTML = "";
-
-      if (!questions.length) {
-        container.innerHTML = `
-          <section class="card">
-            <h2>Brak aktywnego testu</h2>
-            <div class="lead">Wybierz co najmniej jeden dział i kliknij „Rozpocznij test z wybranych działów”.</div>
-          </section>
-        `;
-        updateStats();
-        return;
+<script>
+// ════════════════════════════════════════════════════════
+//  DATA – 75 PYTAŃ, 5 GRUP × 15
+// ════════════════════════════════════════════════════════
+const TOPICS = [
+  {
+    id: 0,
+    name: "Prawa Pacjenta",
+    icon: "🏥",
+    questions: [
+      // ŁATWE
+      {
+        q: "Który akt prawny reguluje prawa pacjenta w Polsce jako odrębna ustawa?",
+        opts: ["Ustawa o zawodach lekarza i lekarza dentysty","Ustawa o prawach pacjenta i Rzeczniku Praw Pacjenta","Kodeks postępowania cywilnego","Ustawa o działalności leczniczej"],
+        ans: 1, diff: "easy",
+        exp: "Ustawa z dnia 6 listopada 2008 r. o prawach pacjenta i Rzeczniku Praw Pacjenta (Dz.U. 2009 nr 52 poz. 417) jest głównym aktem regulującym prawa pacjenta w Polsce jako odrębna, całościowa regulacja.",
+        law: "Ustawa z 6.11.2008 r. o prawach pacjenta i RPP (Dz.U. 2009 nr 52 poz. 417)"
+      },
+      {
+        q: "Prawo pacjenta do informacji o stanie zdrowia może być ograniczone, gdy:",
+        opts: ["Lekarz uzna, że informacja zaszkodziłaby leczeniu","Pacjent wyraźnie zażądał nieujawniania mu informacji o rozpoznaniu","Informacja jest zbyt trudna do zrozumienia","Rodzina pacjenta wnosi o utajnienie danych"],
+        ans: 1, diff: "easy",
+        exp: "Pacjent ma prawo żądać, aby lekarz nie udzielał mu informacji o stanie zdrowia (prawo do niewiedzenia). W takim przypadku lekarz jest związany wolą pacjenta. Decyzja lekarza jednostronna nie stanowi podstawy do ograniczenia prawa do informacji.",
+        law: "Art. 9 ust. 5 u.p.p."
+      },
+      {
+        q: "Pacjent ma prawo do:",
+        opts: ["Wyboru lekarza jedynie w ramach jednej placówki","Świadczeń zdrowotnych odpowiadających wymaganiom aktualnej wiedzy medycznej","Nieograniczonego pobytu odwiedzających o każdej porze","Samodzielnego modyfikowania planu leczenia bez zgody lekarza"],
+        ans: 1, diff: "easy",
+        exp: "Art. 8 ustawy o prawach pacjenta gwarantuje prawo do świadczeń zdrowotnych zgodnych z aktualną wiedzą medyczną. Oznacza to obowiązek stosowania przez podmioty lecznicze metod diagnostyki i terapii opartych na dowodach naukowych (evidence-based medicine).",
+        law: "Art. 8 u.p.p."
+      },
+      {
+        q: "Kto sprawuje nadzór nad przestrzeganiem praw pacjenta na poziomie ogólnopolskim?",
+        opts: ["Minister Zdrowia","Naczelna Izba Lekarska","Rzecznik Praw Pacjenta","Prezes NFZ"],
+        ans: 2, diff: "easy",
+        exp: "Rzecznik Praw Pacjenta jest centralnym organem administracji rządowej właściwym w sprawach ochrony praw pacjentów. Powołuje go i odwołuje Sejm za zgodą Senatu.",
+        law: "Art. 42 u.p.p."
+      },
+      {
+        q: "Dokumentacja medyczna powinna być co do zasady udostępniana pacjentowi:",
+        opts: ["Wyłącznie na piśmie","Na wniosek ustny lub pisemny, nieodpłatnie przynajmniej raz w odniesieniu do tego samego dokumentu","Tylko za pośrednictwem prawnika","Po upływie 30 dni od zakończenia leczenia"],
+        ans: 1, diff: "easy",
+        exp: "Pacjent ma prawo do bezpłatnego dostępu do dokumentacji medycznej. Prawo do nieodpłatnej kopii przysługuje przynajmniej raz w odniesieniu do każdego dokumentu. Za kolejne kopie podmiot może pobierać opłatę określoną w przepisach.",
+        law: "Art. 28 ust. 2a u.p.p."
+      },
+      // ŚREDNIE
+      {
+        q: "Zbiorowe naruszenie praw pacjenta różni się od naruszenia indywidualnego tym, że:",
+        opts: ["Dotyczy jednocześnie co najmniej 10 pacjentów","Dotyka grupę pacjentów wskutek praktyki stosowanej przez podmiot leczniczy, a nie jednej decyzji wobec konkretnej osoby","Jest zawsze wynikiem umyślnego działania personelu","Wymaga decyzji sądu do stwierdzenia naruszenia"],
+        ans: 1, diff: "medium",
+        exp: "Zbiorowe naruszenie praw pacjenta polega na bezprawnym, zorganizowanym działaniu lub zaniechaniu podmiotu udzielającego świadczeń, godzącym w prawa grupy pacjentów. Rzecznik Praw Pacjenta może wszcząć postępowanie w razie powzięcia wiadomości o zbiorowym naruszeniu.",
+        law: "Art. 59 u.p.p."
+      },
+      {
+        q: "Prawo do tajemnicy informacji z nią związanych przysługuje pacjentowi w zakresie informacji:",
+        opts: ["Wyłącznie udzielanych przez lekarza","Związanych z pacjentem, a uzyskanych przez podmiot udzielający świadczeń przy wykonywaniu obowiązków","Tylko zawartych w dokumentacji medycznej","Które pacjent sam wskaże jako poufne"],
+        ans: 1, diff: "medium",
+        exp: "Tajemnicą objęte są wszelkie informacje o pacjencie i jego stanie zdrowia, niezależnie od źródła ich uzyskania przez personel medyczny, w tym dane z wywiadu, badań, konsultacji, a nie tylko z dokumentacji.",
+        law: "Art. 13 u.p.p."
+      },
+      {
+        q: "W razie pogwałcenia praw pacjenta, pacjent lub jego przedstawiciel może dochodzić zadośćuczynienia na podstawie:",
+        opts: ["Wyłącznie Kodeksu karnego","Art. 448 k.c. w związku z art. 4 u.p.p. – ochrona dóbr osobistych","Ustawy o ubezpieczeniach obowiązkowych","Jedynie trybu administracyjnego przed RPP"],
+        ans: 1, diff: "medium",
+        exp: "Ustawa o prawach pacjenta (art. 4 ust. 1) stanowi, że w razie zawinionego naruszenia praw pacjenta sąd może przyznać poszkodowanemu odpowiednią sumę tytułem zadośćuczynienia pieniężnego. Stosuje się tu odpowiednio art. 448 Kodeksu cywilnego dotyczący naruszenia dóbr osobistych.",
+        law: "Art. 4 ust. 1 u.p.p. w zw. z art. 448 k.c."
+      },
+      {
+        q: "Prawo do opieki duszpasterskiej w podmiocie leczniczym stacjonarnym oznacza, że:",
+        opts: ["Pacjent może wyłącznie uczestniczyć w nabożeństwach organizowanych przez szpital","Kontakt z duchownym może być ograniczony w każdym czasie ze względów organizacyjnych","Pacjent ma prawo do kontaktu z duchownym w każdym czasie, a koszty jego pobytu obciążają podmiot","Koszty pobytu duchownego mogą być pobierane od pacjenta"],
+        ans: 2, diff: "medium",
+        exp: "Prawo do opieki duszpasterskiej jest prawem bezwzględnym w podmiotach leczniczych stacjonarnych. Koszty związane z pobytem duchownego obciążają podmiot leczniczy. Pacjent nie może ponosić tych kosztów.",
+        law: "Art. 37 u.p.p."
+      },
+      {
+        q: "Informacja o stanie zdrowia może zostać przekazana osobie bliskiej bez zgody pacjenta, jeżeli:",
+        opts: ["Lekarz uzna to za celowe ze względów terapeutycznych","Pacjent jest nieprzytomny, a osoba bliska jest wymieniona w dokumentacji jako upoważniona","Osoba bliska okazała notarialnie poświadnione pokrewieństwo","Pacjent nie ma pełnej zdolności do czynności prawnych"],
+        ans: 1, diff: "medium",
+        exp: "Uprzednie upoważnienie złożone w dokumentacji medycznej lub wskazanie osoby bliskiej przez pacjenta pozwala na przekazywanie informacji tej osobie. Sam fakt nieprzytomności bez wcześniejszego upoważnienia nie jest wystarczający – konieczne jest wcześniejsze oświadczenie woli.",
+        law: "Art. 9 ust. 3 u.p.p."
+      },
+      // TRUDNE
+      {
+        q: "W świetle orzecznictwa SN, naruszenie prawa pacjenta do informacji (tzw. 'zgoda wadliwa') skutkuje przede wszystkim:",
+        opts: ["Automatyczną nieważnością umowy o udzielenie świadczenia zdrowotnego","Odpowiedzialnością cywilną na zasadzie ryzyka bez potrzeby wykazania szkody","Odpowiedzialnością deliktową za naruszenie dobra osobistego, nawet jeśli zabieg był wykonany lege artis","Wyłącznie odpowiedzialnością dyscyplinarną lekarza"],
+        ans: 2, diff: "hard",
+        exp: "Sąd Najwyższy (m.in. II CSK 512/10) przyjął, że przeprowadzenie zabiegu bez należytej zgody (zgody poinformowanej) narusza dobra osobiste pacjenta w postaci prawa do samostanowienia i integralności cielesnej. Roszczenie o zadośćuczynienie nie wymaga wykazania, że zabieg był wykonany błędnie – samo naruszenie autonomii rodzi odpowiedzialność.",
+        law: "Art. 4 u.p.p., art. 23-24 k.c., wyrok SN II CSK 512/10"
+      },
+      {
+        q: "Rzecznik Praw Pacjenta wydając decyzję o zbiorowym naruszeniu praw pacjenta może nałożyć karę pieniężną w maksymalnej wysokości:",
+        opts: ["50 000 zł","250 000 zł","500 000 zł","1 000 000 zł"],
+        ans: 2, diff: "hard",
+        exp: "Zgodnie z art. 68 ustawy o prawach pacjenta, Rzecznik może nałożyć na podmiot karę pieniężną do wysokości 500 000 zł w przypadku stwierdzenia zbiorowego naruszenia praw pacjenta. Kara ta ma charakter administracyjny.",
+        law: "Art. 68 u.p.p."
+      },
+      {
+        q: "Pacjent dorosły, świadomy, lecz objęty przymusowym leczeniem psychiatrycznym odmawia transfuzji krwi. Lekarz powinien:",
+        opts: ["Wykonać transfuzję bez względu na sprzeciw jako konieczną dla zachowania życia","Uzyskać zgodę sądu rejonowego na przymusowe leczenie w każdym przypadku","Odnotować sprzeciw, dołożyć starań alternatywnego leczenia, a w nagłym zagrożeniu życia może działać bez zgody na podstawie art. 33 u.z.l.","Przerwać leczenie i wypisać pacjenta ze szpitala"],
+        ans: 2, diff: "hard",
+        exp: "Art. 32 i 33 u.z.l. odróżniają sytuację planową (sprzeciw bezwzględny) od nagłego zagrożenia życia. W stanie nagłym lekarz może udzielić niezbędnej pomocy bez zgody, jednak nawet wtedy poszanowanie autonomii pacjenta świadomego jest istotne; w orzecznictwie SN podkreśla się konieczność odnotowania sprzeciwu i poszukiwania alternatyw. Przymusowe leczenie psychiatryczne nie znosi prawa do odmowy innych świadczeń.",
+        law: "Art. 32, 33 u.z.l., art. 16-18 u.p.p."
+      },
+      {
+        q: "Naruszenie prawa do dokumentacji medycznej – odmowa jej wydania – może skutkować dla lekarza/podmiotu:",
+        opts: ["Wyłącznie upomnieniem ze strony NFZ","Odpowiedzialnością cywilną (roszczenie pacjenta), dyscyplinarną i administracyjną łącznie","Tylko karą administracyjną RPP","Wyłącznie odpowiedzialnością karną z art. 266 k.k."],
+        ans: 1, diff: "hard",
+        exp: "Bezprawna odmowa udostępnienia dokumentacji rodzi kumulatywną odpowiedzialność: cywilną (naruszenie dóbr osobistych, art. 4 u.p.p., art. 23-24 k.c.), dyscyplinarną przed izbą lekarską/pielęgniarską oraz administracyjną przed RPP. W skrajnych wypadkach – naruszenie tajemnicy lub celowe zniszczenie – mogą wchodzić w grę przepisy karne.",
+        law: "Art. 26-29 u.p.p., art. 23-24 k.c., KEL"
+      },
+      {
+        q: "W doktrynie prawa medycznego 'therapeutic privilege' (przywilej terapeutyczny) oznacza:",
+        opts: ["Prawo lekarza do odmowy leczenia z powodów sumienia","Uprawnienie do ograniczenia informacji, gdy ujawnienie całości mogłoby bezpośrednio pogorszyć stan zdrowia pacjenta","Zwolnienie lekarza z odpowiedzialności przy operacjach wysokiego ryzyka","Pierwszeństwo decyzji lekarza przed decyzją sądu w sprawach nagłych"],
+        ans: 1, diff: "hard",
+        exp: "Przywilej terapeutyczny (art. 31 ust. 4 u.z.l.) pozwala lekarzowi ograniczyć informację, jeśli pełne jej ujawnienie mogłoby wywołać poważne szkody zdrowotne. Przywilej ma wąski zakres – nie może naruszać prawa do informacji, a informacja powinna być udzielona osobie upoważnionej przez pacjenta.",
+        law: "Art. 31 ust. 4 u.z.l."
       }
-
-      const grouped = groupByTopic(questions);
-      let globalCounter = 1;
-
-      Object.keys(grouped).forEach(topicName => {
-        const topicData = grouped[topicName];
-        const topicSection = document.createElement("section");
-        topicSection.className = "topic-card";
-
-        const topicHeader = document.createElement("div");
-        topicHeader.className = "topic-header";
-        topicHeader.innerHTML = `
-          <div class="topic-kicker">Wybrany dział</div>
-          <h2>${topicName}</h2>
-          <div class="topic-description">${topicData.description}</div>
-        `;
-        topicSection.appendChild(topicHeader);
-
-        topicData.items.forEach(q => {
-          const qIndex = q.originalIndex;
-          const card = document.createElement("div");
-          card.className = "question-card";
-
-          const title = document.createElement("div");
-          title.className = "question-title";
-          title.textContent = `${globalCounter}. ${q.question}`;
-          card.appendChild(title);
-
-          const optionsWrap = document.createElement("div");
-          optionsWrap.className = "options";
-
-          q.options.forEach((opt, optIndex) => {
-            const label = document.createElement("label");
-            label.className = "option";
-
-            if (submitted[qIndex]) {
-              if (optIndex === q.correct) label.classList.add("correct");
-              if (answers[qIndex] === optIndex && optIndex !== q.correct) label.classList.add("incorrect");
-            }
-
-            label.innerHTML = `
-              <input type="radio" name="q${qIndex}" ${answers[qIndex] === optIndex ? "checked" : ""} ${submitted[qIndex] ? "disabled" : ""}>
-              <span>${opt}</span>
-            `;
-
-            label.querySelector("input").addEventListener("change", () => {
-              answers[qIndex] = optIndex;
-              if (mode === "study") {
-                submitSingle(qIndex);
-              } else {
-                saveProgress();
-                updateStats();
-              }
-            });
-
-            optionsWrap.appendChild(label);
-          });
-
-          card.appendChild(optionsWrap);
-
-          const feedback = document.createElement("div");
-          feedback.className = "feedback";
-
-          if (submitted[qIndex] && mode === "study") {
-            const ok = answers[qIndex] === q.correct;
-            feedback.classList.add("show", ok ? "good" : "bad");
-            feedback.innerHTML = ok
-              ? `Poprawna odpowiedź. ${q.explanation}`
-              : `Niepoprawna odpowiedź. Poprawna: <strong>${q.options[q.correct]}</strong>. ${q.explanation}`;
-          }
-
-          card.appendChild(feedback);
-          topicSection.appendChild(card);
-          globalCounter++;
-        });
-
-        container.appendChild(topicSection);
-      });
-
-      if (mode === "exam") {
-        const finishCard = document.createElement("section");
-        finishCard.className = "card";
-        finishCard.innerHTML = `<button class="primary" onclick="finishExam()">Zakończ egzamin i pokaż wynik</button>`;
-        container.appendChild(finishCard);
+    ]
+  },
+  {
+    id: 1,
+    name: "Zgoda na Leczenie",
+    icon: "✍️",
+    questions: [
+      // ŁATWE
+      {
+        q: "Którą cechę musi posiadać zgoda pacjenta na zabieg medyczny, aby była prawnie skuteczna?",
+        opts: ["Musi być zawsze notarialna","Musi być wyrażona w formie pisemnej dla każdego zabiegu","Musi być świadoma, dobrowolna i uprzednia","Wystarczy zgoda domniemana"],
+        ans: 2, diff: "easy",
+        exp: "Prawnie skuteczna zgoda jest trójdzielna: pacjent musi być odpowiednio poinformowany (zgoda świadoma/informed consent), wolny od przymusu (dobrowolna) oraz zgoda musi poprzedzać czynność medyczną (uprzednia). Forma pisemna wymagana jest jedynie dla zabiegów operacyjnych i metod podwyższonego ryzyka.",
+        law: "Art. 32 ust. 7 u.z.l., art. 18 u.p.p."
+      },
+      {
+        q: "Od którego roku życia małoletni może samodzielnie (bez zgody rodziców) wyrazić zgodę na świadczenie zdrowotne?",
+        opts: ["13 lat","16 lat","18 lat","21 lat"],
+        ans: 1, diff: "easy",
+        exp: "Małoletni, który ukończył 16 lat, ma prawo do wyrażania zgody równoległej z rodzicami (lub opiekunami) na udzielanie świadczeń zdrowotnych. Jednak w pewnych przypadkach konieczna jest zgoda obu: małoletniego i przedstawiciela ustawowego.",
+        law: "Art. 32 ust. 5, art. 34 ust. 3 u.z.l."
+      },
+      {
+        q: "Pacjent może cofnąć zgodę na zabieg:",
+        opts: ["Wyłącznie przed podpisaniem formularza","W każdym czasie, nawet po rozpoczęciu zabiegu, o ile jest to technicznie możliwe bez ryzyka dla życia","Tylko za zgodą lekarza prowadzącego","Do 24 godzin przed planowanym zabiegiem"],
+        ans: 1, diff: "easy",
+        exp: "Zgoda jest odwołalna w każdym momencie – jest wyrazem autonomii pacjenta. Jedyne ograniczenie dotyczy sytuacji, gdy przerwanie zabiegu w toku stwarzałoby większe ryzyko niż kontynuacja – wówczas lekarz może kontynuować czynność do bezpiecznego momentu zatrzymania.",
+        law: "Art. 16 u.p.p., art. 32 ust. 1 u.z.l."
+      },
+      {
+        q: "Który organ orzeka o przymusowym leczeniu osoby uzależnionej od alkoholu?",
+        opts: ["Rzecznik Praw Pacjenta","Komisja lekarska przy NFZ","Sąd rejonowy (sąd opiekuńczy)","Ordynator oddziału psychiatrycznego"],
+        ans: 2, diff: "easy",
+        exp: "Zgodnie z ustawą o wychowaniu w trzeźwości i przeciwdziałaniu alkoholizmowi, o przymusowym leczeniu odwykowym orzeka sąd rejonowy (wydział rodzinny i nieletnich). Wniosek składa gminna komisja rozwiązywania problemów alkoholowych.",
+        law: "Art. 26 ustawy o wychowaniu w trzeźwości (Dz.U.1982.35.230 ze zm.)"
+      },
+      {
+        q: "Zgoda zastępcza przy pacjencie ubezwłasnowolnionym całkowicie wymaga:",
+        opts: ["Zgody lekarza prowadzącego","Zgody opiekuna prawnego, a przy braku – sądu opiekuńczego","Zgody rodziny pierwszego stopnia","Decyzji administracyjnej dyrektora szpitala"],
+        ans: 1, diff: "easy",
+        exp: "Przy osobie ubezwłasnowolnionej całkowicie zastępczą zgodę wyraża opiekun prawny ustanowiony przez sąd. Gdy opiekuna nie ma lub nie można uzyskać jego zgody, decyzję podejmuje sąd opiekuńczy. Jeśli zagrożone jest życie – lekarz może działać bez zgody na podstawie art. 33 u.z.l.",
+        law: "Art. 32 ust. 2, art. 34 ust. 4 u.z.l."
+      },
+      // ŚREDNIE
+      {
+        q: "Sprzeciw pacjenta wobec hospitalizacji psychiatrycznej przy braku przesłanek przymusowego leczenia oznacza, że:",
+        opts: ["Psychiatra może mimo to zatrzymać pacjenta do 72 godzin bez żadnej kontroli","Pacjent musi zostać wypisany, lecz lekarz może powiadomić sąd, jeśli zachodzi zagrożenie","Dyrektor szpitala decyduje o hospitalizacji","Hospitalizacja możliwa jest za zgodą rodziny bez sądu"],
+        ans: 1, diff: "medium",
+        exp: "Bez spełnienia ustawowych przesłanek (bezpośrednie zagrożenie życia wskutek choroby psychicznej lub niedołęstwo uniemożliwiające zaspokojenie podstawowych potrzeb) hospitalizacja bez zgody jest niedopuszczalna. Lekarz może zatrzymać pacjenta maksymalnie 72h i niezwłocznie skierować wniosek do sądu.",
+        law: "Art. 22-24 u.o.z.p."
+      },
+      {
+        q: "Klauzula sumienia uprawnia lekarza do odmowy wykonania świadczenia, jednak lekarz:",
+        opts: ["Nie ma żadnych obowiązków wobec pacjenta po odmowie","Jest zwolniony z obowiązku informowania pacjenta","Zobowiązany jest do uzasadnienia, wskazania realnej możliwości uzyskania świadczenia oraz udzielenia pomocy w nagłym przypadku","Może odmówić wyłącznie wobec pacjentów prywatnych"],
+        ans: 2, diff: "medium",
+        exp: "Art. 39 u.z.l. – klauzula sumienia daje prawo odmowy pod warunkiem: uzasadnienia, odnotowania w dokumentacji i wskazania realnej możliwości uzyskania świadczenia. Bezwzględna zasada: w sytuacji zagrożenia życia lekarz musi udzielić pomocy.",
+        law: "Art. 39 u.z.l., wyrok TK K 12/14"
+      },
+      {
+        q: "Zgoda na pobranie narządów do przeszczepienia od żywego dawcy niebędącego dawcą szpiku wymaga:",
+        opts: ["Wyłącznie pisemnej zgody dawcy","Zgody pisemnej dawcy + orzeczenia komisji lekarskiej + postanowienia sądu rejonowego","Zgody rodziny biorcy","Decyzji dyrektora centrum transplantacji"],
+        ans: 1, diff: "medium",
+        exp: "Ustawa transplantacyjna wymaga złożonego mechanizmu autoryzacji: pisemna, swobodna i nieodpłatna zgoda dawcy, orzeczenie komisji lekarskiej o braku przeciwwskazań i dobrowolności oraz postanowienie sądu rejonowego. Biorca musi być osobą bliską lub wyjątkowo obcą po uzyskaniu zgody KE ds. transplantacji.",
+        law: "Art. 12-14 ustawy transplantacyjnej (Dz.U.2017.1000)"
+      },
+      {
+        q: "Zgoda na eksperyment medyczny z udziałem osoby małoletniej powyżej 16. roku życia wymaga:",
+        opts: ["Wyłącznie zgody małoletniego","Wyłącznie zgody rodziców lub opiekunów","Zgody zarówno małoletniego, jak i jego przedstawiciel ustawowego, a gdy sprzeciw małoletniego – zakaz uczestnictwa","Zgody komisji bioetycznej, która zastępuje zgodę rodziny"],
+        ans: 2, diff: "medium",
+        exp: "Art. 25 u.z.l. – dla eksperymentów medycznych wymagana jest zgoda podwójna: małoletniego (przy ukończeniu 16 lat) oraz przedstawiciela ustawowego. Sprzeciw samego małoletniego, nawet bez zgody rodziców, wyklucza uczestnictwo w eksperymencie.",
+        law: "Art. 25 u.z.l."
+      },
+      {
+        q: "W przypadku zabiegu operacyjnego przeprowadzonego bez ważnej zgody pacjenta lekarz może ponosić odpowiedzialność karną z tytułu:",
+        opts: ["Art. 155 k.k. (nieumyślne spowodowanie śmierci)","Art. 192 k.k. (wykonanie zabiegu leczniczego bez zgody)","Art. 160 k.k. (narażenie na niebezpieczeństwo)","Art. 270 k.k. (fałszowanie dokumentów)"],
+        ans: 1, diff: "medium",
+        exp: "Art. 192 §1 k.k. penalizuje wykonanie zabiegu leczniczego bez zgody pacjenta. Jest to przestępstwo ścigane z oskarżenia prywatnego, zagrożone grzywną, ograniczeniem wolności albo pozbawieniem wolności do 2 lat. Odpowiedzialność zachodzi niezależnie od tego, czy zabieg był wykonany prawidłowo.",
+        law: "Art. 192 §1 k.k."
+      },
+      // TRUDNE
+      {
+        q: "Doktryna res ipsa loquitur ma zastosowanie w sprawach o błąd medyczny, gdy:",
+        opts: ["Pacjent nie może udowodnić żadnej winy lekarza","Fakt zaistnienia szkody jest tak oczywistym dowodem zaniedbania, że wina domniemana jest bez dalszego dowodzenia","Szpital kwestionuje autentyczność dokumentacji","Pacjent jest reprezentowany przez pełnomocnika z urzędu"],
+        ans: 1, diff: "hard",
+        exp: "Zasada res ipsa loquitur ('rzecz mówi sama za siebie') stosowana jest przez sądy (m.in. SN III CKN 899/98) w sytuacjach, gdy mechanizm szkody jest tak typowo związany z zaniedbaniem, że wina wynika prima facie z samego zdarzenia. Przenosi ciężar dowodu na podmiot leczniczy.",
+        law: "Orzecznictwo SN, m.in. III CKN 899/98; art. 231 k.p.c."
+      },
+      {
+        q: "Zgoda konkludentna (milcząca) jest prawnie dopuszczalna wyłącznie w odniesieniu do:",
+        opts: ["Każdego zabiegu, jeśli pacjent nie protestuje","Rutynowych badań diagnostycznych niewymagających formy pisemnej","Operacji ratujących życie","Eksperymentów medycznych"],
+        ans: 1, diff: "hard",
+        exp: "Zgoda konkludentna (wyrażona przez zachowanie się, np. wyciągnięcie ręki przy pobraniu krwi) jest dopuszczalna jedynie przy świadczeniach nieinwazyjnych lub mało inwazyjnych, gdzie nie ma wymogu formy pisemnej. Dla operacji i zabiegów podwyższonego ryzyka wymagana jest zgoda pisemna.",
+        law: "Art. 32 ust. 7 u.z.l."
+      },
+      {
+        q: "Sąd Najwyższy w wyroku I CSK 219/09 rozstrzygnął, że w przypadku poszerzenia zakresu zabiegu poza granice zgody podczas operacji:",
+        opts: ["Lekarz nie ponosi odpowiedzialności, jeśli działał w interesie pacjenta","Poszerzenie zakresu możliwe jest wyłącznie za każdorazową nową zgodą, chyba że natychmiastowe działanie było konieczne dla ratowania życia","Rodzina w sali oczekiwania zastępuje zgodę pacjenta","Ordynator może zezwolić na rozszerzenie zabiegu telefonicznie"],
+        ans: 1, diff: "hard",
+        exp: "SN potwierdził, że zgoda na konkretny zabieg nie uprawnia do jego rozszerzenia bez nowej zgody pacjenta. Wyjątek stanowi sytuacja nagłego zagrożenia życia ujawniona podczas operacji, gdy przerwanie i uzyskanie zgody jest niemożliwe. Działanie ponad zgodę rodzi odpowiedzialność z art. 192 k.k. i cywilną.",
+        law: "Wyrok SN I CSK 219/09; art. 35 u.z.l."
+      },
+      {
+        q: "Przymusowe karmienie dorosłego pacjenta odbywającego głodówkę protestacyjną, który jest w pełni władz umysłowych, jest:",
+        opts: ["Dopuszczalne zawsze, jeśli życie jest zagrożone","Niedopuszczalne, gdyż narusza prawo do odmowy leczenia osoby zdolnej do świadomego decydowania","Dopuszczalne po uzyskaniu zgody sądu opiekuńczego","Dopuszczalne wyłącznie w placówkach penitencjarnych"],
+        ans: 1, diff: "hard",
+        exp: "Osoba dorosła, świadoma i nieubezwłasnowolniona ma prawo odmówić leczenia, w tym odżywiania – nawet jeśli skutkuje to śmiercią. Przymusowe karmienie osoby zdolnej do podejmowania decyzji narusza jej autonomię i godność. Jest to szeroko akceptowana zasada prawa medycznego i bioetyki.",
+        law: "Art. 16-19 u.p.p., art. 32 u.z.l., Rekomendacja CM/Rec(2009)11 RE"
+      },
+      {
+        q: "Konstrukcja 'winy anonimowej' w kontekście odpowiedzialności szpitala oznacza:",
+        opts: ["Że szpital odpowiada tylko wtedy, gdy ustalono konkretnego winnego pracownika","Że wystarczy wykazanie winy funkcjonalnej placówki, bez konieczności identyfikacji konkretnego sprawcy","Że każdy pracownik odpowiada solidarnie ze szpitalem","Że szpital zawsze odpowiada na zasadzie ryzyka"],
+        ans: 1, diff: "hard",
+        exp: "W orzecznictwie SN (m.in. IV CR 219/69) ukształtowała się koncepcja winy anonimowej (bezimiennej): gdy z całości okoliczności wynika wina organizacyjna lub funkcjonalna placówki, nie ma potrzeby wskazania konkretnej osoby odpowiedzialnej. Szpital odpowiada jako całość.",
+        law: "Art. 430 k.c.; orzecznictwo SN m.in. IV CR 219/69"
       }
-
-      updateStats();
-    }
-
-    function submitSingle(qIndex) {
-      submitted[qIndex] = true;
-      saveProgress();
-      renderQuestions();
-    }
-
-    function finishExam() {
-      for (let i = 0; i < questions.length; i++) {
-        if (answers.hasOwnProperty(i)) {
-          submitted[i] = true;
-        }
+    ]
+  },
+  {
+    id: 2,
+    name: "Odpowiedzialność Lekarza",
+    icon: "⚖️",
+    questions: [
+      {
+        q: "Odpowiedzialność lekarza za błąd medyczny może być realizowana na drodze:",
+        opts: ["Wyłącznie karnej","Wyłącznie cywilnej","Wyłącznie dyscyplinarnej","Karnej, cywilnej i dyscyplinarnej łącznie"],
+        ans: 3, diff: "easy",
+        exp: "Błąd medyczny może rodzić kumulatywną odpowiedzialność: karną (np. art. 155, 160 k.k.), cywilną (odszkodowanie i zadośćuczynienie na podstawie k.c.) oraz dyscyplinarną przed izbą lekarską na podstawie KEL i ustawy o izbach lekarskich.",
+        law: "Art. 53 ustawy o izbach lekarskich; k.k.; k.c."
+      },
+      {
+        q: "Błąd diagnostyczny (rozpoznania) polega na:",
+        opts: ["Nieprawidłowym przeprowadzeniu zabiegu operacyjnego","Niezgodnym ze sztuką ustaleniu rozpoznania lub jego braku","Nieprawidłowej pielęgnacji pooperacyjnej","Złym wyborze leku przez farmaceutę"],
+        ans: 1, diff: "easy",
+        exp: "Błąd diagnostyczny dotyczy sfery rozpoznania: błędne rozpoznanie, przeoczenie diagnozy lub jej nieterminowe postawienie. Stanowi odrębną kategorię od błędu terapeutycznego (w leczeniu) i technicznego (w wykonaniu).",
+        law: "Orzecznictwo; doktryna prawa medycznego"
+      },
+      {
+        q: "Przedawnienie roszczeń z tytułu szkody na osobie wyrządzonej czynem niedozwolonym wynosi co do zasady:",
+        opts: ["1 rok","3 lata","20 lat od zdarzenia","10 lat, nie krócej niż 3 lata od dowiedzenia się o szkodzie i osobie zobowiązanej do naprawy"],
+        ans: 3, diff: "easy",
+        exp: "Art. 4421 §1 k.c. – roszczenie o naprawienie szkody wyrządzonej czynem niedozwolonym ulega przedawnieniu z upływem 3 lat od dnia, w którym poszkodowany dowiedział się o szkodzie i o osobie zobowiązanej do jej naprawienia, lecz nie później niż 10 lat od dnia, w którym nastąpiło zdarzenie wywołujące szkodę. Przy uszkodzeniu ciała lub rozstroju zdrowia – 3 lata od dowiedzenia się.",
+        law: "Art. 4421 k.c."
+      },
+      {
+        q: "Każdy lekarz wykonujący zawód jest zobowiązany do posiadania ubezpieczenia OC:",
+        opts: ["Wyłącznie lekarze pracujący w szpitalach publicznych","Wyłącznie lekarze prowadzący prywatną praktykę","Lekarze, pielęgniarki i podmioty lecznicze prowadzące działalność leczniczą","Wyłącznie specjaliści o specjalnościach zabiegowych"],
+        ans: 2, diff: "easy",
+        exp: "Ustawa o działalności leczniczej i rozporządzenie Ministra Finansów nakładają obowiązek ubezpieczenia OC na: lekarzy wykonujących indywidualną praktykę, podmioty lecznicze oraz pielęgniarki prowadzące własną praktykę. Jest to ubezpieczenie obowiązkowe.",
+        law: "Art. 25 u.d.l.; Rozp. MF w sprawie OC lekarzy"
+      },
+      {
+        q: "Kto jest uprawniony do orzekania kar dyscyplinarnych wobec lekarza?",
+        opts: ["Sąd powszechny","Okręgowy lub Naczelny Sąd Lekarski","Rzecznik Praw Pacjenta","Dyrekcja podmiotu leczniczego"],
+        ans: 1, diff: "easy",
+        exp: "Sądownictwo dyscyplinarne nad lekarzami sprawują sądy lekarskie: okręgowe sądy lekarskie (pierwsza instancja) i Naczelny Sąd Lekarski (odwołania). Postępowanie prowadzone jest na podstawie ustawy o izbach lekarskich.",
+        law: "Art. 53-112 ustawy o izbach lekarskich (Dz.U.2009.176.1348)"
+      },
+      // ŚREDNIE
+      {
+        q: "Zasada 'primum non nocere' w kontekście prawnym oznacza przede wszystkim:",
+        opts: ["Obowiązek stosowania najnowszych technologii medycznych","Standard należytej staranności – unikanie szkód możliwych do przewidzenia i zapobieżenia","Bezwzględny zakaz przepisywania leków eksperymentalnych","Obowiązek leczenia bezpłatnego"],
+        ans: 1, diff: "medium",
+        exp: "'Przede wszystkim nie szkodzić' – w prawie medycznym odpowiada to standardowi należytej staranności (art. 355 k.c.) i obowiązkowi działania zgodnie z aktualną wiedzą medyczną. Lekarz odpowiada za szkody wyrządzone przez zaniedbanie, gdy mógł je przewidzieć i im zapobiec.",
+        law: "Art. 355 k.c.; art. 4 u.z.l."
+      },
+      {
+        q: "Odpowiedzialność karna lekarza za 'narażenie pacjenta na bezpośrednie niebezpieczeństwo utraty życia lub ciężkiego uszczerbku na zdrowiu' objęta jest:",
+        opts: ["Art. 155 k.k.","Art. 160 k.k.","Art. 156 k.k.","Art. 192 k.k."],
+        ans: 1, diff: "medium",
+        exp: "Art. 160 k.k. penalizuje narażenie człowieka na bezpośrednie niebezpieczeństwo utraty życia albo ciężkiego uszczerbku na zdrowiu. W kontekście medycznym odpowiada za nie lekarz mający gwarancyjny obowiązek dbania o bezpieczeństwo pacjenta.",
+        law: "Art. 160 §2, 3 k.k."
+      },
+      {
+        q: "Związek przyczynowy między błędem medycznym a szkodą w sprawach cywilnych udowadniany jest:",
+        opts: ["Zawsze ze stuprocentową pewnością","W stopniu 'wysokiego prawdopodobieństwa' – nie wymaga pewności, lecz wykluczenia innych przyczyn","Wyłącznie dowodem z opinii biegłego sądowego lekarza","Zeznaniami świadków obecnych przy zabiegu"],
+        ans: 1, diff: "medium",
+        exp: "SN wielokrotnie (m.in. II CKN 245/99) orzekał, że w sprawach medycznych wykazanie przyczynowości metodą 'wysokiego prawdopodobieństwa' jest wystarczające – ze względu na specyfikę medyczną pełna pewność bywa nieosiągalna. Opinia biegłego jest zwykle dowodem kluczowym, lecz nie jedynym.",
+        law: "Art. 361 k.c.; wyrok SN II CKN 245/99"
+      },
+      {
+        q: "Norma art. 4 ustawy o zawodach lekarza i lekarza dentysty nakazuje wykonywanie zawodu:",
+        opts: ["Zgodnie z wyłącznie pisemnymi procedurami szpitalnymi","Zgodnie z aktualną wiedzą medyczną, z należytą starannością i poszanowaniem praw pacjenta","W oparciu o decyzje Ministra Zdrowia","Zgodnie z indywidualnym sumieniem lekarza bez żadnych ograniczeń"],
+        ans: 1, diff: "medium",
+        exp: "Art. 4 u.z.l. ustanawia fundamentalny standard wykonywania zawodu lekarza: zgodnie z wskazaniami aktualnej wiedzy medycznej, dostępnymi metodami i środkami, z należytą starannością i poszanowaniem praw pacjenta. Jest to punkt wyjścia oceny błędu medycznego.",
+        law: "Art. 4 u.z.l."
+      },
+      {
+        q: "Szkoda 'wrongful birth' (niezgodne z prawem urodzenie) dotyczy roszczeń:",
+        opts: ["Rodziców wobec lekarza, który przez błąd nie ostrzegł o wadzie genetycznej dziecka przed urodzeniem","Dziecka urodzonego z niepełnosprawnością wobec lekarza","Szpitala wobec rodziców za ukrycie wady","Ubezpieczyciela wobec lekarza"],
+        ans: 0, diff: "medium",
+        exp: "Wrongful birth – roszczenie rodziców, którzy twierdzą, że błąd diagnostyczny lub informacyjny lekarza (np. nierozpoznanie wady genetycznej) pozbawił ich możliwości podjęcia decyzji o terminacji ciąży. Polskie sądy (np. SN IV CSK 483/10) przyznają odszkodowanie za dodatkowe koszty utrzymania dziecka niepełnosprawnego.",
+        law: "Wyrok SN IV CSK 483/10; art. 444-448 k.c."
+      },
+      // TRUDNE
+      {
+        q: "W sprawach o błąd medyczny polskie sądy stosują teorię 'evidence of causation' opartą na:",
+        opts: ["Zasadzie absolutnego związku przyczynowego","Teorii 'lost chance' (utracona szansa), przyznając odszkodowanie proporcjonalne do utraconego prawdopodobieństwa lepszego wyniku leczenia","Wyłącznie teorii ekwiwalencji przyczyn","Zasadzie współwiny pracownika i pracodawcy"],
+        ans: 1, diff: "hard",
+        exp: "Teoria 'utraconej szansy' pozwala na zasądzenie odszkodowania proporcjonalnego do stopnia utraty szansy na wyzdrowienie lub lepszy przebieg leczenia, gdy zarzucane zaniedbanie zmniejszyło prawdopodobieństwo korzystnego wyniku. SN dopuścił jej stosowanie (m.in. V CKN 1493/00).",
+        law: "Wyrok SN V CKN 1493/00; art. 361 k.c."
+      },
+      {
+        q: "Niezgłoszenie przez lekarza do właściwego rejestru zdarzenia niepożądanego skutkującego śmiercią lub ciężkim uszczerbkiem może rodzić odpowiedzialność wynikającą z:",
+        opts: ["Art. 231 k.k. (niedopełnienie obowiązku)","Systemu no-fault – wyłącznie odszkodowania bez odpowiedzialności osobistej","Przepisów ustawy o jakości w opiece zdrowotnej i bezpieczeństwie pacjenta","Wyłącznie przepisów wewnętrznych szpitala"],
+        ans: 2, diff: "hard",
+        exp: "Ustawa z 16.06.2023 r. o jakości w opiece zdrowotnej i bezpieczeństwie pacjenta (Dz.U.2023.1692) wprowadza system rejestrowania zdarzeń niepożądanych oraz system no-fault ograniczający osobistą odpowiedzialność przy dobrowolnym zgłoszeniu. Brak zgłoszenia może być podstawą postępowania regulacyjnego.",
+        law: "Ustawa z 16.06.2023 r. o jakości w opiece zdrowotnej (Dz.U.2023.1692)"
+      },
+      {
+        q: "Immunitet 'samarytański' (Good Samaritan) w polskim prawie medycznym oznacza, że lekarz udzielający pomocy poza zakładem pracy:",
+        opts: ["Jest bezwzględnie zwolniony z odpowiedzialności karnej i cywilnej","Odpowiada wyłącznie za umyślne zaniedbanie, a standard staranności jest znacząco obniżony wobec sytuacji nagłej","Nie odpowiada za żadną szkodę wyrządzoną przy udzielaniu pierwszej pomocy","Odpowiada tak samo jak w warunkach szpitalnych"],
+        ans: 1, diff: "hard",
+        exp: "Polskie prawo nie zna formalnej klauzuli 'Good Samaritan'. Doktryna i orzecznictwo uwzględniają jednak warunki działania w nagłej sytuacji: obniżony standard staranności (niemożność dostępu do narzędzi, stresu), co wpływa na ocenę winy. Art. 162 k.k. penalizuje nieudzielenie pomocy, lecz umyślne zaniedbanie przy udzielaniu to kwestia art. 160 k.k.",
+        law: "Art. 162 k.k., art. 355 k.c., doktryna prawa medycznego"
+      },
+      {
+        q: "Odpowiedzialność podmiotów leczniczych za szkody wyrządzone pacjentom przez personel oparta jest na art. 430 k.c., który wprowadza:",
+        opts: ["Odpowiedzialność na zasadzie winy własnej pracodawcy","Odpowiedzialność na zasadzie ryzyka za powierzone czynności podwładnemu","Solidarną odpowiedzialność pracownika i pracodawcy","Wyłącznie odpowiedzialność bezpośredniego sprawcy"],
+        ans: 1, diff: "hard",
+        exp: "Art. 430 k.c. – przełożony odpowiada za szkodę wyrządzoną przy wykonywaniu powierzonej czynności przez podwładnego. Jest to odpowiedzialność na zasadzie ryzyka (nie wymaga winy pracodawcy), wystarczy wina sprawcy (lekarza). Podmiot leczniczy nie może się uwolnić wykazując brak własnej winy organizacyjnej.",
+        law: "Art. 430 k.c."
+      },
+      {
+        q: "Obowiązek zachowania tajemnicy lekarskiej ustaje m.in. gdy:",
+        opts: ["Pacjent jest martwy","Rodzina zażąda ujawnienia informacji","Pacjent udzielił zgody na ujawnienie lub wymaga tego inne wyraźne przepisy ustawy","Lekarz oceni, że ujawnienie jest konieczne dla dobra publicznego"],
+        ans: 2, diff: "hard",
+        exp: "Art. 40 u.z.l. – tajemnica lekarska trwa co do zasady nieograniczenie, również po śmierci pacjenta. Wyjątki: zgoda pacjenta lub jego reprezentanta, orzeczenia sądowe, zagrożenie epidemiczne, obowiązek ustawowy (np. zgłaszanie chorób zakaźnych). Subiektywna ocena 'dobra publicznego' przez lekarza nie stanowi podstawy.",
+        law: "Art. 40 u.z.l.; art. 23 u.p.p."
       }
-      saveProgress();
-      renderQuestions();
-      showSummary();
-    }
-
-    function calculateTopicResults() {
-      const topicStats = {};
-      questions.forEach((q, i) => {
-        if (!topicStats[q.topic]) {
-          topicStats[q.topic] = { total: 0, done: 0, correct: 0 };
-        }
-        topicStats[q.topic].total++;
-        if (submitted[i]) {
-          topicStats[q.topic].done++;
-          if (answers[i] === q.correct) {
-            topicStats[q.topic].correct++;
-          }
-        }
-      });
-      return topicStats;
-    }
-
-    function renderTopicResults() {
-      const wrap = document.getElementById("topicResults");
-      wrap.innerHTML = "";
-      const topicStats = calculateTopicResults();
-
-      Object.entries(topicStats).forEach(([topic, stats]) => {
-        const box = document.createElement("div");
-        box.className = "topic-box";
-        const percent = stats.done ? Math.round((stats.correct / stats.done) * 100) : 0;
-        box.innerHTML = `
-          <div class="topic-box-title">${topic}</div>
-          <div class="topic-box-score">${stats.correct}/${stats.total}</div>
-          <div class="topic-box-small">ukończone: ${stats.done}/${stats.total} · skuteczność: ${percent}%</div>
-        `;
-        wrap.appendChild(box);
-      });
-    }
-
-    function updateStats() {
-      const total = questions.length;
-      const done = Object.keys(submitted).length;
-      correctCount = 0;
-
-      Object.keys(submitted).forEach(key => {
-        const idx = Number(key);
-        if (questions[idx] && answers[idx] === questions[idx].correct) correctCount++;
-      });
-
-      document.getElementById("doneStat").textContent = done;
-      document.getElementById("correctStat").textContent = correctCount;
-      document.getElementById("percentStat").textContent = done ? Math.round((correctCount / done) * 100) + "%" : "0%";
-      document.getElementById("progressText").textContent = `Postęp: ${done} z ${total}`;
-      document.getElementById("pointsText").textContent = `Punkty: ${correctCount}`;
-      document.getElementById("progressBar").style.width = total ? `${(done / total) * 100}%` : "0%";
-
-      renderTopicResults();
-
-      if (total && done === total) {
-        showSummary();
+    ]
+  },
+  {
+    id: 3,
+    name: "Prawo Farmaceutyczne",
+    icon: "💊",
+    questions: [
+      {
+        q: "Rejestracja produktu leczniczego w Polsce należy do kompetencji:",
+        opts: ["Ministra Zdrowia bezpośrednio","Prezesa Urzędu Rejestracji Produktów Leczniczych, Wyrobów Medycznych i Produktów Biobójczych","Prezesa NFZ","Naczelnej Rady Lekarskiej"],
+        ans: 1, diff: "easy",
+        exp: "Prezes URPL jest centralnym organem administracji rządowej właściwym w sprawach rejestracji i nadzoru nad bezpieczeństwem produktów leczniczych, wyrobów medycznych i produktów biobójczych.",
+        law: "Art. 113 ustawy Prawo farmaceutyczne (Dz.U.2001.126.1381 ze zm.)"
+      },
+      {
+        q: "Recepta farmaceutyczna uprawnia do wydania leku bez ordynacji lekarskiej w przypadku:",
+        opts: ["Każdego leku dostępnego w aptece","Wyłącznie leków OTC (bez recepty)","Leków określonych przez Ministra Zdrowia w rozporządzeniu, np. antykoncepcji awaryjnej","Antybiotyków w nagłych przypadkach"],
+        ans: 2, diff: "easy",
+        exp: "Farmaceuta może wystawiać recepty farmaceutyczne na produkty lecznicze wymienione w rozporządzeniu MZ, w przypadkach nagłego zagrożenia zdrowotnego. Dotyczy to m.in. antykoncepcji awaryjnej i leków stosowanych przez pacjentów z chorobami przewlekłymi w kontynuacji terapii.",
+        law: "Art. 96a u.p.f. (Prawo farmaceutyczne)"
+      },
+      {
+        q: "Apteka ogólnodostępna może być prowadzona wyłącznie przez:",
+        opts: ["Każdy podmiot po uzyskaniu zezwolenia","Farmaceutę lub spółkę, w której farmaceuta posiada co najmniej 51% udziałów","Szpital lub klinikę","Hurtownię farmaceutyczną"],
+        ans: 1, diff: "easy",
+        exp: "Ustawa Prawo farmaceutyczne (zasada 'apteka dla aptekarza', art. 99 ust. 4) stanowi, że zezwolenie na prowadzenie apteki może być udzielone wyłącznie farmaceucie posiadającemu prawo wykonywania zawodu lub spółce jawnej lub partnerskiej, w której wspólnicy lub partnerzy są farmaceutami.",
+        law: "Art. 99 ust. 4 u.p.f."
+      },
+      {
+        q: "Substancja z Wykazu I-N (narkotyki) może być przepisana przez lekarza na recepcie:",
+        opts: ["Zwykłej białej","Na formularzu Rpw (recepta na środki odurzające)","Recepcie elektronicznej standardowej","Zleceniu pielęgniarskim"],
+        ans: 1, diff: "easy",
+        exp: "Środki odurzające, substancje psychotropowe i prekursory wymienione w stosownych wykazach przepisywane są na drukach Rpw (narkotyczna). Obowiązują szczególne wymogi dotyczące wystawiania, realizacji i kontroli tych recept.",
+        law: "Art. 45 ustawy o przeciwdziałaniu narkomanii; Rozp. MZ o receptach"
+      },
+      {
+        q: "Wyrób medyczny różni się od produktu leczniczego tym, że:",
+        opts: ["Wyrób medyczny ma wyłącznie działanie farmakologiczne","Wyrób medyczny osiąga swoje główne zamierzone działanie innymi środkami niż farmakologiczne, metaboliczne lub immunologiczne","Produkt leczniczy nie wymaga rejestracji","Wyroby medyczne nie wymagają certyfikacji"],
+        ans: 1, diff: "easy",
+        exp: "Kluczowa różnica: produkt leczniczy działa farmakologicznie, metabolicznie lub immunologicznie. Wyrób medyczny (np. implant, cewnik, aparat słuchowy) osiąga swój cel głównie przez działanie fizyczne, mechaniczne lub fizykochemiczne. Klasyfikacja ma ogromne znaczenie prawne dla trybu rejestracji i nadzoru.",
+        law: "Art. 2 pkt 32 u.p.f.; Rozp. UE 2017/745 (MDR)"
+      },
+      // ŚREDNIE
+      {
+        q: "Zakaz reklamy produktów leczniczych skierowanej do osób nieuprawnionych do wystawiania recept dotyczy:",
+        opts: ["Wszystkich produktów leczniczych bez wyjątku","Produktów leczniczych wydawanych wyłącznie na receptę (Rx)","Wyłącznie suplementów diety","Wyrobów medycznych klasy III"],
+        ans: 1, diff: "medium",
+        exp: "Art. 57 u.p.f. zabrania reklamy publicznej produktów leczniczych wydawanych wyłącznie na receptę (Rx) kierowanej do ogółu społeczeństwa. Reklama produktów OTC (bez recepty) jest dopuszczalna z pewnymi ograniczeniami.",
+        law: "Art. 57 ust. 1 pkt 1 u.p.f."
+      },
+      {
+        q: "Odpowiedzialność za szkodę wyrządzoną przez produkt leczniczy (product liability) w polskim prawie oparta jest na:",
+        opts: ["Wyłącznie winie producenta","Odpowiedzialności na zasadzie ryzyka za produkt niebezpieczny (art. 449¹ k.c.)","Odpowiedzialności ubezpieczyciela NFZ","Wyłącznie Prawach farmaceutycznym"],
+        ans: 1, diff: "medium",
+        exp: "Art. 449¹ k.c. implementuje dyrektywę 85/374/EWG – producent odpowiada za szkodę wyrządzoną przez produkt niebezpieczny na zasadzie ryzyka, bez konieczności wykazania winy. Poszkodowany musi wykazać: szkodę, niebezpieczność produktu i związek przyczynowy.",
+        law: "Art. 449¹-449¹⁰ k.c.; Dyrektywa 85/374/EWG"
+      },
+      {
+        q: "Procedura wycofania leku z rynku ('recall') przez Prezesa URPL może być wszczęta gdy:",
+        opts: ["Wyłącznie na wniosek podmiotu odpowiedzialnego","Wyłącznie po uchwale NFZ","Gdy pojawią się sygnały bezpieczeństwa lub lek nie spełnia wymagań jakości, skuteczności lub bezpieczeństwa","Wyłącznie po skardze pacjenta"],
+        ans: 2, diff: "medium",
+        exp: "Prezes URPL może nakazać wycofanie produktu leczniczego, wstrzymanie stosowania lub importu w każdym czasie, jeśli stwierdzi zagrożenie dla zdrowia lub bezpieczeństwa pacjentów albo niespełnianie wymagań jakości lub skuteczności. Działa z urzędu lub na wniosek.",
+        law: "Art. 121 u.p.f."
+      },
+      {
+        q: "Farmaceuta jest uprawniony do odmowy wydania leku, jeśli:",
+        opts: ["Pacjent nie okazał dokumentu tożsamości","Powziął wątpliwości co do autentyczności recepty lub bezpieczeństwa terapii","Lek pochodzi od zagranicznego producenta","Pacjent jest osobą nieletnią bez rodzica"],
+        ans: 1, diff: "medium",
+        exp: "Farmaceuta ma prawo i obowiązek odmówić wydania leku, jeśli poweźmie uzasadnione wątpliwości co do: autentyczności recepty, tożsamości osoby realizującej receptę, niebezpiecznych interakcji leków lub przekroczenia dawek. Wynika to z art. 96 ust. 5 u.p.f.",
+        law: "Art. 96 ust. 5 u.p.f."
+      },
+      {
+        q: "Lek 'off-label' oznacza stosowanie produktu leczniczego:",
+        opts: ["Z przekroczonym terminem ważności","Poza zakresem zatwierdzonego Charakterystyki Produktu Leczniczego (ChPL)","Bez etykiety","Wyłącznie w badaniach klinicznych"],
+        ans: 1, diff: "medium",
+        exp: "Stosowanie 'off-label' to podanie leku w innym wskazaniu, innej dawce, drogą podania lub grupie pacjentów (np. pediatrycznej) niż określone w ChPL. Jest to prawnie dopuszczalne, lecz odpowiedzialność za tę decyzję spoczywa na lekarzu, który musi uzasadnić wybór medyczny i uzyskać świadomą zgodę pacjenta.",
+        law: "Art. 4 u.z.l.; Komunikat MZ w sprawie stosowania off-label"
+      },
+      // TRUDNE
+      {
+        q: "Centralized Procedure (procedura scentralizowana) EMA oznacza, że:",
+        opts: ["Rejestracja leku odbywa się oddzielnie w każdym kraju UE","Jedna decyzja Komisji Europejskiej na podstawie opinii EMA uprawnia do obrotu we wszystkich krajach EOG","Prezes URPL może zablokować lek zarejestrowany przez EMA","Lek może być stosowany tylko w krajach strefy Schengen"],
+        ans: 1, diff: "hard",
+        exp: "Procedura scentralizowana (centralized procedure) jest obowiązkowa dla leków biotechnologicznych, onkologicznych, chorób rzadkich i niektórych innych. EMA (Europejska Agencja Leków) wydaje opinię, a Komisja Europejska decyzję obowiązującą jednocześnie we wszystkich krajach EOG.",
+        law: "Rozp. WE 726/2004 (rozp. o EMA)"
+      },
+      {
+        q: "Import równoległy produktu leczniczego jest dopuszczalny, gdy:",
+        opts: ["Lek pochodzi z dowolnego kraju i ma niższą cenę","Lek pochodzi z innego państwa EOG, posiada takie samo pozwolenie lub równoważną rejestrację i uzyskał pozwolenie na import równoległy URPL","Importer jest polskim podmiotem farmaceutycznym","Hurtownia posiada licencję GMP"],
+        ans: 1, diff: "hard",
+        exp: "Import równoległy – szczególna forma obrotu w ramach jednolitego rynku UE. Dozwolony gdy: lek pochodzi z kraju EOG, posiada równoważną rejestrację z produktem oryginalnym, a importer uzyska pozwolenie URPL. Jest wyjątkiem od wyłączności terytorialnej i wynika z zasady swobody przepływu towarów.",
+        law: "Art. 21a u.p.f.; orzecznictwo TSUE (m.in. C-104/75)"
+      },
+      {
+        q: "REMS (Risk Evaluation and Mitigation Strategy) – odpowiednik europejski w prawie UE to:",
+        opts: ["Europejska procedura zarządzania ryzykiem (RMP – Risk Management Plan) obowiązkowa dla leków nowych","Plan B badania klinicznego","Protokół badania bioekwiwalencji","System farmakoekonomiki"],
+        ans: 0, diff: "hard",
+        exp: "W europejskim systemie prawnym odpowiednikiem REMS jest Risk Management Plan (RMP), który podmiot odpowiedzialny obowiązany jest przedłożyć przy rejestracji nowych leków. RMP definiuje znane ryzyko, potencjalne ryzyko, brak informacji oraz środki minimalizacji ryzyka.",
+        law: "Art. 104a Dyrektywy 2001/83/WE; Rozp. EMA/838713/2011"
+      },
+      {
+        q: "Stosowanie produktu leczniczego niedopuszczonego do obrotu w Polsce (compassionate use) możliwe jest na podstawie:",
+        opts: ["Decyzji Ministra Zdrowia dla każdego przypadku z osobna","Programu terapeutycznego EMA – indywidualny dostęp lub grupowy","Jedynie w ramach badania klinicznego","Wyłącznie dla leków sierocych"],
+        ans: 1, diff: "hard",
+        exp: "Rozporządzenie UE 726/2004 art. 83 umożliwia compassionate use (stosowanie leku niedopuszczonego do obrotu): indywidualny dostęp na wniosek lekarza lub grupowy dla określonej populacji – dla leków w toku badań lub oczekujących na rejestrację, w chorobach przewlekłych lub poważnych zagrożeniach życia.",
+        law: "Art. 83 Rozp. WE 726/2004; art. 3 ust. 4 u.p.f."
+      },
+      {
+        q: "Zapis w dokumentacji medycznej 'recepta pro auctore' uprawnia lekarza do:",
+        opts: ["Przepisywania leków recepturowych dla siebie bez żadnych ograniczeń","Wystawiania recept dla siebie i małżonka/wstępnych/zstępnych, ale z wyłączeniem leków Rpw","Wystawiania recept dla dowolnej osoby","Wystawiania wyłącznie recept refundowanych"],
+        ans: 1, diff: "hard",
+        exp: "Przepisy o receptach (art. 95b u.p.f. + rozporządzenie) zezwalają lekarzowi na wystawianie recept dla siebie (pro auctore), małżonka, zstępnych i wstępnych. Wyjątek: środki odurzające z grupy I-N i substancje psychotropowe z grupy II-P – dla tych substancji 'recepta własna' jest wyraźnie zakazana.",
+        law: "Art. 95b u.p.f.; §11 Rozp. MZ w sprawie recept"
       }
-    }
-
-    function showSummary() {
-      const errors = [];
-      const topicStats = calculateTopicResults();
-
-      questions.forEach((q, i) => {
-        if (answers[i] !== q.correct) {
-          errors.push(`<li><strong>${q.topic} – pytanie ${i + 1}:</strong> poprawna odpowiedź: ${q.options[q.correct]}.</li>`);
-        }
-      });
-
-      document.getElementById("finalInfo").innerHTML =
-        `Ukończono test z wybranych działów. Wynik ogólny: <strong>${correctCount}/${questions.length}</strong>.`;
-
-      let topicSummaryHtml = `<h3>Wyniki według wybranych działów</h3><ul class="summary-list">`;
-      Object.entries(topicStats).forEach(([topic, stats]) => {
-        topicSummaryHtml += `<li><strong>${topic}:</strong> ${stats.correct}/${stats.total}</li>`;
-      });
-      topicSummaryHtml += `</ul>`;
-
-      document.getElementById("summaryBlock").innerHTML = `
-        <p><strong>Wynik końcowy:</strong> ${correctCount}/${questions.length}</p>
-        ${topicSummaryHtml}
-        ${errors.length
-          ? `<p><strong>Liczba błędów:</strong> ${errors.length}</p><ul class="summary-list">${errors.join("")}</ul>`
-          : `<p><strong>Wynik idealny.</strong> Wszystkie odpowiedzi są poprawne.</p>`
-        }
-      `;
-    }
-
-    function shuffleArray(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
+    ]
+  },
+  {
+    id: 4,
+    name: "Bioetyka i Eksperymenty Medyczne",
+    icon: "🔬",
+    questions: [
+      {
+        q: "Deklaracja Helsińska reguluje przede wszystkim:",
+        opts: ["Prawa pacjenta w europejskich szpitalach","Etyczne zasady badań medycznych z udziałem ludzi","Standardy kształcenia lekarzy","Wymogi rejestracji leków w UE"],
+        ans: 1, diff: "easy",
+        exp: "Deklaracja Helsińska Światowego Stowarzyszenia Lekarzy (WMA, 1964, wielokrotnie nowelizowana) jest fundamentalnym dokumentem etycznym regulującym prowadzenie badań medycznych z udziałem ludzi, w tym kwestie świadomej zgody, oceny ryzyk i korzyści oraz nadzoru.",
+        law: "Deklaracja Helsińska WMA (wersja 2013)"
+      },
+      {
+        q: "Komisja bioetyczna pełni wobec eksperymentów medycznych funkcję:",
+        opts: ["Organu administracji wydającego decyzje administracyjne","Sądu dyscyplinarnego","Niezależnego ciała opiniodawczego i kontrolnego, wyrażającego zgodę na przeprowadzenie badania","Organu finansującego badania naukowe"],
+        ans: 2, diff: "easy",
+        exp: "Komisja bioetyczna (art. 29 u.z.l.) wyraża opinie i zezwolenia na prowadzenie eksperymentów medycznych. Jej zgoda jest warunkiem koniecznym rozpoczęcia badania. Komisja nadzoruje przestrzeganie zasad etyki, ochrony uczestników i wymogów prawnych.",
+        law: "Art. 29 u.z.l.; ustawa o zawodach lekarza"
+      },
+      {
+        q: "Badanie kliniczne produktu leczniczego w Polsce wymaga:",
+        opts: ["Wyłącznie zgody komisji bioetycznej","Wyłącznie pozwolenia Prezesa URPL","Zgody komisji bioetycznej i pozwolenia Prezesa URPL (lub braku sprzeciwu)","Wyłącznie zgody sponsora badania"],
+        ans: 2, diff: "easy",
+        exp: "Zgodnie z ustawą Prawo farmaceutyczne i rozporządzeniem UE 536/2014, badanie kliniczne wymaga: (1) zezwolenia Prezesa URPL lub braku sprzeciwu w określonym terminie oraz (2) pozytywnej opinii komisji bioetycznej. Oba warunki muszą być spełnione łącznie.",
+        law: "Art. 37b u.p.f.; Rozp. UE 536/2014"
+      },
+      {
+        q: "Zasada sprawiedliwości (justice) w bioetyce Beauchamp & Childress oznacza:",
+        opts: ["Zakaz szkodzenia pacjentowi","Obowiązek działania w interesie pacjenta","Sprawiedliwy podział korzyści i obciążeń badań medycznych oraz dostęp do opieki","Szanowanie autonomii pacjenta"],
+        ans: 2, diff: "easy",
+        exp: "Cztery zasady bioetyczne Beauchamp & Childress (principlism): autonomy (autonomia), beneficence (dobroczynność), nonmaleficence (nieszkodzenie), justice (sprawiedliwość). Zasada sprawiedliwości nakazuje równy i niedyskryminujący dostęp do opieki zdrowotnej oraz sprawiedliwy podział obciążeń badań.",
+        law: "Beauchamp T., Childress J., Principles of Biomedical Ethics (2019)"
+      },
+      {
+        q: "Eksperyment terapeutyczny różni się od eksperymentu badawczego tym, że:",
+        opts: ["Eksperyment terapeutyczny jest zakazany w Polsce","W eksperymencie terapeutycznym głównym celem jest poprawa stanu zdrowia konkretnego pacjenta, a nie tylko uzyskanie wiedzy naukowej","Eksperyment badawczy nie wymaga zgody uczestnika","Eksperyment terapeutyczny nie musi być zatwierdzony przez komisję bioetyczną"],
+        ans: 1, diff: "easy",
+        exp: "Art. 21-29 u.z.l. rozróżniają eksperyment leczniczy (terapeutyczny) – podejmowany dla dobra konkretnego pacjenta, gdy inne metody zawiodły – oraz eksperyment badawczy – służący pomnażaniu wiedzy, bez bezpośredniej korzyści dla uczestnika. Każdy wymaga spełnienia innych i zaostrzonych przesłanek.",
+        law: "Art. 21, 22 u.z.l."
+      },
+      // ŚREDNIE
+      {
+        q: "Klonowanie reprodukcyjne człowieka jest w Polsce:",
+        opts: ["Dozwolone przy spełnieniu warunków komisji bioetycznej","Zakazane wyłącznie dla finansowanych publicznie badań","Zakazane bezwzględnie – penalizowane w Kodeksie karnym","Regulowane wyłącznie przez rekomendacje WHO bez skutków prawnych"],
+        ans: 2, diff: "medium",
+        exp: "Art. 191a k.k. – klonowanie człowieka (tworzenie genetycznie identycznego człowieka przez klonowanie) zagrożone jest karą pozbawienia wolności od 3 miesięcy do lat 5. Polska ratyfikowała Konwencję o ochronie praw człowieka i godności istoty ludzkiej z 1997 r. (Konwencja z Oviedo) i jej Protokół dodatkowy.",
+        law: "Art. 191a k.k.; Konwencja z Oviedo (Dz.U.2012.1580)"
+      },
+      {
+        q: "Protokół Dodatkowy do Konwencji z Oviedo z 1998 r. dotyczący zakazu klonowania:",
+        opts: ["Zezwala na klonowanie terapeutyczne pod warunkami","Zakazuje wszelkiego tworzenia istot ludzkich metodą klonowania","Reguluje wyłącznie klonowanie zwierząt","Zakazuje klonowania wyłącznie dla celów komercyjnych"],
+        ans: 1, diff: "medium",
+        exp: "Protokół Dodatkowy z 1998 r. do Konwencji z Oviedo (ETS 168) zakazuje wszelkich interwencji mających na celu stworzenie istoty ludzkiej genetycznie identycznej z inną – zarówno klonowania reprodukcyjnego, jak i w celach reprodukcji. Nie jest jednoznaczne, czy obejmuje klonowanie terapeutyczne.",
+        law: "Protokół Dodatkowy ETS 168 (1998)"
+      },
+      {
+        q: "Zasada 'double effect' (podwójnego efektu) w bioetyce usprawiedliwia działanie, które:",
+        opts: ["Powoduje wyłącznie pozytywne skutki","Może powodować zły skutek uboczny, gdy: działanie jest dobre samo w sobie, intencja jest dobra, zły skutek nie jest środkiem do celu i korzyść proporcjonalnie przewyższa szkodę","Jest podjęte przez komisję bioetyczną","Zapewnione jest ubezpieczeniem OC"],
+        ans: 1, diff: "medium",
+        exp: "Zasada podwójnego efektu (wywodząca się od św. Tomasza) stosowana jest w bioetyce m.in. przy decyzjach o podaniu silnych analgetyków skracających życie (paliatywna sedacja), czy przy operacjach zagrażających płodowi. Cztery warunki muszą być spełnione łącznie.",
+        law: "Doktryna bioetyczna; Kenny A., Aquinas on the Fourfold Root"
+      },
+      {
+        q: "Regulacja dotycząca świadomej zgody w badaniach klinicznych wymagana przez GCP (Good Clinical Practice) obejmuje m.in.:",
+        opts: ["Wyłącznie podpis uczestnika na formularzu","Pisemną zgodę poprzedzoną pełną informacją, z prawem do rezygnacji bez konsekwencji i dokumentacją procesu zgody w aktach badania","Zgodę rodziny bez konieczności zgody uczestnika","Wyłącznie zgodę sponsora badania"],
+        ans: 1, diff: "medium",
+        exp: "ICH E6 (R2) GCP wymaga: pełnej, zrozumiałej informacji (Informed Consent Form – ICF), podpisu uczestnika lub prawnego reprezentanta, dokumentacji procesu w CRF, prawa do rezygnacji w każdej chwili bez konieczności uzasadnienia i bez konsekwencji dla dalszej opieki.",
+        law: "ICH E6 (R2) GCP; art. 37d u.p.f."
+      },
+      {
+        q: "Biobank genetyczny służący do przechowywania próbek biologicznych do celów naukowych podlega ochronie danych na podstawie:",
+        opts: ["Wyłącznie ustawy o ochronie zdrowia","RODO (Rozp. UE 2016/679) i ustawy o ochronie danych osobowych w kontekście danych dotyczących zdrowia jako danych szczególnej kategorii","Wyłącznie prawa autorskiego","Kodeksu handlowego"],
+        ans: 1, diff: "medium",
+        exp: "Dane genetyczne i zdrowotne są danymi szczególnej kategorii (art. 9 RODO), objętymi wzmocnioną ochroną. Przetwarzanie w celach badań naukowych możliwe jest na podstawie art. 9 ust. 2 lit. j RODO przy zapewnieniu odpowiednich zabezpieczeń technicznych i organizacyjnych.",
+        law: "Art. 9 RODO (Rozp. 2016/679); art. 105 u.o.d.o."
+      },
+      // TRUDNE
+      {
+        q: "Eugenika pozytywna oznacza w kontekście bioetyczno-prawnym:",
+        opts: ["Zakaz małżeństw między krewnymi","Selektywne promowanie reprodukcji osobników o 'pożądanych' cechach; jest zakazana jako sprzeczna z godnością ludzką","Badania przesiewowe noworodków pod kątem chorób genetycznych bez selekcji","Terapię genową chorób dziedzicznych"],
+        ans: 1, diff: "hard",
+        exp: "Eugenika pozytywna to promowanie cech 'pożądanych' w populacji przez selekcję reprodukcyjną – historycznie powiązana z naruszeniami praw człowieka. Konwencja z Oviedo, Deklaracja UNESCO o genomie i doktryna prawa zakazują działań eugenicznych jako naruszających godność i równość ludzką.",
+        law: "Art. 13 Konwencji z Oviedo; Deklaracja UNESCO o genomie (1997)"
+      },
+      {
+        q: "Rozporządzenie UE 536/2014 o badaniach klinicznych produktów leczniczych zmieniło system autoryzacji poprzez:",
+        opts: ["Wprowadzenie jednolitej autoryzacji w całej UE przez jedno państwo członkowskie z korzyścią dla wszystkich","Scentralizowanie autoryzacji wyłącznie przy EMA","Zniesienie obowiązku komisji bioetycznej","Ograniczenie badań klinicznych do fazy III"],
+        ans: 0, diff: "hard",
+        exp: "Rozp. 536/2014 (stosowane od 2022 r.) ustanowiło unijny portal CTIS (Clinical Trials Information System) i system jednego zgłoszenia, w którym jedno państwo członkowskie pełni rolę państwa raportującego. Decyzja jednego kraju może być rozszerzona na pozostałe bez ponownego składania dokumentacji.",
+        law: "Rozp. UE 536/2014; CTIS"
+      },
+      {
+        q: "Zasada 'non-abandonment' (nieodstąpienia) w relacji lekarz–pacjent u kresu życia nakazuje:",
+        opts: ["Bezwzględną kontynuację aktywnego leczenia do momentu śmierci","Zapewnienie ciągłości opieki paliatywnej i towarzyszenia, nawet gdy aktywne leczenie zostaje odstawione","Przekazanie opieki do hospicjum bez dalszego zaangażowania","Obowiązkowe skierowanie do specjalisty w każdym przypadku"],
+        ans: 1, diff: "hard",
+        exp: "Zasada non-abandonment (nieodstąpienia od pacjenta) zobowiązuje lekarza do zapewnienia ciągłości opieki – nawet gdy pacjent odmawia leczenia lub jest ono nieskuteczne – poprzez zapewnienie opieki paliatywnej, zarządzanie bólem i towarzyszenie. Wywodzi się z Deklaracji Helsińskiej i Konwencji z Oviedo.",
+        law: "Deklaracja Helsińska (2013); art. 20 u.p.p.; KEL art. 32"
+      },
+      {
+        q: "Terapia genowa linii zarodkowej (germline gene therapy) jest aktualnie:",
+        opts: ["Dozwolona w Polsce po uzyskaniu zgody URPL","Dopuszczona tylko dla płci żeńskiej","Zakazana w zdecydowanej większości państw, w tym UE, ze względu na dziedziczność zmian i ryzyko eugeniczne","Regulowana wyłącznie przez protokoły szpitalne"],
+        ans: 2, diff: "hard",
+        exp: "Terapia genowa linii zarodkowej (modyfikacje dziedziczne) jest zakazana w Konwencji z Oviedo (art. 13), przepisach większości państw UE i Polsce. Różni się od terapii somatycznej (dopuszczalnej) tym, że modyfikacja jest przekazywana potomstwu. Debata o CRISPR/Cas9 (cas He Jiankui) zaostrzył wymogi globalne.",
+        law: "Art. 13 Konwencji z Oviedo; ustawa o GMO; KEL"
+      },
+      {
+        q: "Zasada 'equipoise' (równowagi) w randomizowanych badaniach klinicznych oznacza, że:",
+        opts: ["Obie grupy badania (kontrolna i eksperymentalna) muszą mieć równą liczbę uczestników","Randomizacja jest etycznie dopuszczalna tylko gdy istnieje stan szczerych wątpliwości w środowisku medycznym co do wyższości jednej metody nad drugą","Badanie musi trwać równo dla obu grup","Sponsor i badacz muszą podzielić koszty równo"],
+        ans: 1, diff: "hard",
+        exp: "Clinical equipoise (Freedman 1987) – fundamentalne kryterium etyczne RCT: randomizacja jest dopuszczalna tylko gdy społeczność naukowa nie jest przekonana co do wyższości żadnej z badanych opcji. Gdy equipoise zostaje zachwiana na korzyść jednej grupy, badanie powinno zostać przerwane. Wynika to z obowiązku działania w interesie uczestnika.",
+        law: "Freedman B., NEJM 1987; ICH E10; Deklaracja Helsińska §33"
       }
-      return copy;
-    }
+    ]
+  }
+];
 
-    function startQuiz() {
-      const selectedPool = prepareQuestionsFromSelection();
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+let state = {
+  mode: 'study',
+  selectedTopics: [0,1,2,3,4],
+  questions: [],        // flattened array {topicId, topicName, ...q}
+  answers: {},          // index -> {chosen, correct}
+  currentQ: 0,
+  currentTopic: 0,
+  timerInterval: null,
+  timeLeft: 90*60,
+  reviewMode: false
+};
 
-      if (!selectedPool.length) {
-        alert("Wybierz co najmniej jeden dział tematyczny.");
-        return;
+// ════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════
+function init() {
+  // Build topic pills
+  const pillsEl = document.getElementById('topicPills');
+  pillsEl.innerHTML = '';
+  TOPICS.forEach(t => {
+    const p = document.createElement('div');
+    p.className = 'topic-pill active';
+    p.dataset.id = t.id;
+    p.innerHTML = `${t.icon} ${t.name}`;
+    p.onclick = () => toggleTopic(t.id, p);
+    pillsEl.appendChild(p);
+  });
+}
+
+function toggleTopic(id, el) {
+  const idx = state.selectedTopics.indexOf(id);
+  if (idx === -1) {
+    state.selectedTopics.push(id);
+    el.classList.add('active');
+  } else {
+    if (state.selectedTopics.length === 1) return; // at least 1
+    state.selectedTopics.splice(idx, 1);
+    el.classList.remove('active');
+  }
+}
+
+function selectMode(m) {
+  state.mode = m;
+  document.querySelectorAll('.mode-card').forEach(c => c.style.borderColor = '');
+  document.querySelector('.mode-card.' + m).style.borderColor = 'var(--accent)';
+}
+
+function startQuiz() {
+  // Build questions list
+  state.questions = [];
+  TOPICS.filter(t => state.selectedTopics.includes(t.id)).forEach(t => {
+    t.questions.forEach(q => {
+      state.questions.push({ ...q, topicId: t.id, topicName: t.name, topicIcon: t.icon });
+    });
+  });
+  state.answers = {};
+  state.currentQ = 0;
+  state.currentTopic = state.selectedTopics[0];
+  state.reviewMode = false;
+
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+
+  // Mode badge
+  const badge = document.getElementById('modeBadge');
+  if (state.mode === 'study') {
+    badge.textContent = '📖 Samokształcenie';
+    badge.className = 'mode-badge study';
+  } else {
+    badge.textContent = '🎓 Egzamin';
+    badge.className = 'mode-badge exam';
+    // Start timer
+    state.timeLeft = 90 * 60;
+    document.getElementById('timerDisplay').classList.remove('hidden');
+    updateTimer();
+    state.timerInterval = setInterval(() => {
+      state.timeLeft--;
+      updateTimer();
+      if (state.timeLeft <= 0) {
+        clearInterval(state.timerInterval);
+        showResults();
       }
+    }, 1000);
+    // Show sidebar toggle
+    document.getElementById('sidebarToggle').classList.add('visible');
+  }
 
-      questions = [...selectedPool];
-      answers = {};
-      submitted = {};
-      document.getElementById("finalInfo").textContent = "Rozpoczęto test z wybranych działów.";
-      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
-      saveProgress();
-      renderQuestions();
-    }
+  buildTopicNav();
+  renderQuestion();
+}
 
-    function shuffleQuestions() {
-      const selectedPool = prepareQuestionsFromSelection();
+function buildTopicNav() {
+  const nav = document.getElementById('topicNav');
+  nav.innerHTML = '';
+  const topicIds = [...new Set(state.questions.map(q => q.topicId))];
+  topicIds.forEach(tid => {
+    const t = TOPICS.find(x => x.id === tid);
+    const btn = document.createElement('button');
+    btn.className = 'topic-nav-btn' + (tid === state.currentTopic ? ' active' : '');
+    btn.dataset.topicId = tid;
+    btn.innerHTML = `<span class="dot"></span>${t.icon} ${t.name}`;
+    btn.onclick = () => jumpToTopic(tid);
+    nav.appendChild(btn);
+  });
+}
 
-      if (!selectedPool.length) {
-        alert("Wybierz co najmniej jeden dział tematyczny.");
-        return;
+function jumpToTopic(tid) {
+  const idx = state.questions.findIndex(q => q.topicId === tid);
+  if (idx !== -1) { state.currentQ = idx; renderQuestion(); }
+}
+
+function renderQuestion() {
+  const q = state.questions[state.currentQ];
+  if (!q) return;
+  state.currentTopic = q.topicId;
+
+  // Update nav active
+  document.querySelectorAll('.topic-nav-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.topicId) === q.topicId);
+    // mark done
+    const tId = parseInt(b.dataset.topicId);
+    const tQs = state.questions.filter((x,i) => x.topicId === tId);
+    const allAnswered = tQs.every((x,i) => {
+      const globalIdx = state.questions.indexOf(x);
+      return state.answers[globalIdx] !== undefined;
+    });
+    b.querySelector('.dot').style.background = allAnswered ? 'var(--accent2)' : '';
+  });
+
+  // Progress
+  const total = state.questions.length;
+  const answered = Object.keys(state.answers).length;
+  document.getElementById('progressFill').style.width = (answered/total*100) + '%';
+  document.getElementById('progressLabel').textContent = `${answered} / ${total}`;
+
+  // Score
+  const correct = Object.values(state.answers).filter(a => a.correct).length;
+  document.getElementById('scoreDisplay').textContent = correct;
+
+  // Q number
+  document.getElementById('qNumber').textContent = `Pytanie ${state.currentQ+1}/${total}`;
+
+  // Diff badge
+  const diffEl = document.getElementById('diffBadge');
+  const diffMap = { easy: ['Łatwe','diff-easy'], medium: ['Średnie','diff-medium'], hard: ['Trudne','diff-hard'] };
+  diffEl.textContent = diffMap[q.diff][0];
+  diffEl.className = 'diff-badge ' + diffMap[q.diff][1];
+
+  // Question text
+  document.getElementById('questionText').textContent = q.q;
+
+  // Options
+  const optsList = document.getElementById('optionsList');
+  optsList.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt}</span>`;
+
+    const ans = state.answers[state.currentQ];
+    if (ans !== undefined) {
+      btn.disabled = true;
+      if (i === q.ans) {
+        btn.classList.add(state.reviewMode ? 'reveal-correct' : 'correct');
+      } else if (i === ans.chosen && !ans.correct) {
+        btn.classList.add('wrong');
+      } else if (state.mode === 'study' && i === q.ans) {
+        btn.classList.add('reveal-correct');
       }
-
-      questions = shuffleArray(selectedPool);
-      answers = {};
-      submitted = {};
-      document.getElementById("finalInfo").textContent = "Rozpoczęto nową próbę z losową kolejnością pytań w wybranych działach.";
-      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
-      saveProgress();
-      renderQuestions();
+    } else {
+      btn.onclick = () => selectAnswer(i);
     }
+    optsList.appendChild(btn);
+  });
 
-    function saveProgress() {
-      localStorage.setItem("medlaw_quiz_state_topics_select_v75", JSON.stringify({
-        selectedTopics,
-        questions,
-        mode,
-        answers,
-        submitted
-      }));
-    }
+  // Explanation
+  const expBox = document.getElementById('explanationBox');
+  const expText = document.getElementById('explanationText');
+  const expLaw = document.getElementById('explanationLaw');
+  const ans = state.answers[state.currentQ];
+  if (ans !== undefined && (state.mode === 'study' || state.reviewMode)) {
+    expText.textContent = q.exp;
+    expLaw.textContent = '📋 Podstawa prawna: ' + q.law;
+    expBox.classList.add('show');
+  } else {
+    expBox.classList.remove('show');
+  }
 
-    function loadProgress() {
-      const raw = localStorage.getItem("medlaw_quiz_state_topics_select_v75");
-      if (!raw) {
-        alert("Brak zapisanego testu.");
-        return;
-      }
+  // Card answered
+  document.getElementById('questionCard').classList.toggle('answered', ans !== undefined);
 
-      const data = JSON.parse(raw);
-      selectedTopics = Array.isArray(data.selectedTopics) ? data.selectedTopics : [...allTopics];
-      questions = Array.isArray(data.questions) ? data.questions : [];
-      mode = data.mode || "study";
-      answers = data.answers || {};
-      submitted = data.submitted || {};
+  // Prev/next buttons
+  document.getElementById('prevBtn').disabled = state.currentQ === 0;
+  const nextBtn = document.getElementById('nextBtn');
+  if (state.currentQ === total-1) {
+    nextBtn.textContent = state.mode === 'exam' && !state.reviewMode ? 'Zakończ Egzamin →' : 'Zakończ →';
+    nextBtn.onclick = () => showResults();
+  } else {
+    nextBtn.textContent = 'Następne →';
+    nextBtn.onclick = () => navigate(1);
+  }
 
-      buildTopicSelector();
-      document.getElementById("finalInfo").textContent = "Wczytano zapisany test z wyborem działów.";
-      document.getElementById("summaryBlock").textContent = "Wczytano zapisany test. Po zakończeniu pojawi się tu pełne podsumowanie.";
-      document.getElementById("modeStat").textContent = mode === "study" ? "nauka" : "egzamin";
-      document.getElementById("studyModeBox").classList.toggle("active", mode === "study");
-      document.getElementById("examModeBox").classList.toggle("active", mode === "exam");
-      renderQuestions();
+  // Mini grid
+  updateMiniGrid();
+  updateSidebarGrid();
+}
 
-      if (questions.length && Object.keys(submitted).length === questions.length) {
-        showSummary();
-      }
-    }
+function selectAnswer(chosen) {
+  const q = state.questions[state.currentQ];
+  const correct = chosen === q.ans;
+  state.answers[state.currentQ] = { chosen, correct };
+  renderQuestion();
+  // pop animation
+  document.getElementById('questionCard').classList.add('pop');
+  setTimeout(() => document.getElementById('questionCard').classList.remove('pop'), 300);
+}
 
-    function clearSaved() {
-      localStorage.removeItem("medlaw_quiz_state_topics_select_v75");
-      answers = {};
-      submitted = {};
-      questions = [];
-      document.getElementById("finalInfo").textContent = "Usunięto zapis testu.";
-      document.getElementById("summaryBlock").textContent = "Po zakończeniu testu pojawi się tutaj wynik ogólny, błędy i rezultaty w podziale na wybrane działy.";
-      renderQuestions();
-    }
+function navigate(dir) {
+  state.currentQ = Math.max(0, Math.min(state.questions.length-1, state.currentQ+dir));
+  renderQuestion();
+}
 
-    buildTopicSelector();
-    setMode("study");
-    questions = [];
-    renderQuestions();
-  </script>
+function updateMiniGrid() {
+  const grid = document.getElementById('qGridMini');
+  grid.innerHTML = '';
+  // show current topic's questions
+  const tQs = state.questions.map((q,i) => ({q,i})).filter(({q}) => q.topicId === state.currentTopic);
+  tQs.forEach(({q,i}) => {
+    const d = document.createElement('div');
+    d.className = 'q-dot' + (i === state.currentQ ? ' current' : '');
+    const a = state.answers[i];
+    if (a) d.classList.add(a.correct ? 'answered-correct' : 'answered-wrong');
+    d.textContent = i+1;
+    d.onclick = () => { state.currentQ = i; renderQuestion(); };
+    grid.appendChild(d);
+  });
+}
+
+function updateSidebarGrid() {
+  const grid = document.getElementById('sidebarGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  state.questions.forEach((q,i) => {
+    const d = document.createElement('div');
+    d.className = 'q-dot' + (i === state.currentQ ? ' current' : '');
+    const a = state.answers[i];
+    if (a) d.classList.add(a.correct ? 'answered-correct' : 'answered-wrong');
+    d.textContent = i+1;
+    d.title = q.topicName;
+    d.onclick = () => { state.currentQ = i; renderQuestion(); toggleSidebar(); };
+    grid.appendChild(d);
+  });
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebarPanel').classList.toggle('open');
+  updateSidebarGrid();
+}
+
+function updateTimer() {
+  const m = Math.floor(state.timeLeft/60);
+  const s = state.timeLeft%60;
+  const el = document.getElementById('timerDisplay');
+  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.classList.toggle('warning', state.timeLeft < 300);
+}
+
+// ════════════════════════════════════════════════════════
+//  RESULTS
+// ════════════════════════════════════════════════════════
+function showResults() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('sidebarToggle').classList.remove('visible');
+
+  const total = state.questions.length;
+  const correct = Object.values(state.answers).filter(a => a.correct).length;
+  const wrong = Object.values(state.answers).filter(a => !a.correct).length;
+  const skipped = total - Object.keys(state.answers).length;
+  const pct = Math.round(correct/total*100);
+
+  // Grade
+  let grade, color;
+  if (pct >= 90) { grade = 'A'; color = 'var(--accent2)'; }
+  else if (pct >= 75) { grade = 'B'; color = 'var(--accent)'; }
+  else if (pct >= 60) { grade = 'C'; color = '#a0b0ff'; }
+  else { grade = 'F'; color = 'var(--accent3)'; }
+
+  document.getElementById('resultsGrade').textContent = `${pct}%`;
+  document.getElementById('resultsGrade').style.color = color;
+  document.getElementById('resultsTitle').textContent = pct>=60 ? '🎉 Gratulacje!' : '📚 Warto powtórzyć';
+  document.getElementById('resultsSubtitle').textContent = `Wynik: ${correct} z ${total} pytań poprawnie (${pct}%)`;
+  document.getElementById('resCorrect').textContent = correct;
+  document.getElementById('resWrong').textContent = wrong;
+  document.getElementById('resSkipped').textContent = skipped;
+
+  // Topic breakdown
+  const bd = document.getElementById('topicBreakdown');
+  bd.innerHTML = '<h3>Wyniki według grup tematycznych</h3>';
+  const topicIds = [...new Set(state.questions.map(q => q.topicId))];
+  topicIds.forEach(tid => {
+    const t = TOPICS.find(x => x.id === tid);
+    const tQs = state.questions.map((q,i) => ({q,i})).filter(({q}) => q.topicId === tid);
+    const tCorrect = tQs.filter(({i}) => state.answers[i]?.correct).length;
+    const tTotal = tQs.length;
+    const tPct = tTotal > 0 ? Math.round(tCorrect/tTotal*100) : 0;
+    bd.innerHTML += `
+      <div class="topic-row">
+        <div class="topic-row-header">
+          <span>${t.icon} ${t.name}</span>
+          <span style="font-family:'DM Mono',monospace;color:var(--accent)">${tCorrect}/${tTotal}</span>
+        </div>
+        <div class="topic-row-bar">
+          <div class="topic-row-fill" style="width:${tPct}%"></div>
+        </div>
+      </div>`;
+  });
+}
+
+function reviewAnswers() {
+  state.reviewMode = true;
+  state.currentQ = 0;
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  // Change badge
+  const badge = document.getElementById('modeBadge');
+  badge.textContent = '🔍 Przegląd Odpowiedzi';
+  badge.className = 'mode-badge study';
+  renderQuestion();
+}
+
+function goHome() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('intro').style.display = 'flex';
+  document.getElementById('timerDisplay').classList.add('hidden');
+  document.getElementById('sidebarToggle').classList.remove('visible');
+  document.getElementById('sidebarPanel').classList.remove('open');
+  // Reset
+  state = { mode: state.mode, selectedTopics: [0,1,2,3,4], questions: [], answers: {}, currentQ: 0, currentTopic: 0, timerInterval: null, timeLeft: 90*60, reviewMode: false };
+}
+
+// Boot
+init();
+selectMode('study');
+</script>
 </body>
 </html>
